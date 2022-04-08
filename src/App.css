@@ -13,6 +13,8 @@
   }
 }
 
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -23,10 +25,22 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.showSnackbarBttn {
+  width: 200px;
+  height: 50px;
+  background-color: cornflowerblue;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  font-size: 20px;
+}
 
 .App-link {
   color: #61dafb;
 }
+
+
 
 @keyframes App-logo-spin {
   from {

@@ -1,13 +1,123 @@
-body {
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+body{
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  background: #fff;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #F7F6FB;
+  border-radius: 20px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+.btn-primary{
+  background-color: #000731;
+  border: none;
+  border-radius: 10px;
 }
+.btn-primary:hover{
+  background-color: #000f61;
+  transition: 0.5s;
+}
+
+.btn-primary:focus{
+  background-color: #FFB600;
+  transition: 0.5s;
+}
+
+
+.btn-warning{
+  background-color: #FFB600;
+  border: none;
+  border-radius: 10px;
+  color: white;
+}
+.btn-warning:hover{
+  color: white;
+  background-color: #ff9100;
+  transition: 0.5s;
+}
+
+.table{
+  font-size: 14px;
+}
+
+.containerbox {
+  background-color: #ffffff;
+  border-radius: 25px;
+  box-shadow: 2px 4px 10px 1px #c0c0c02f;
+  padding: 30px;
+  height: auto;
+}
+
+.containerbox-title h5 {
+  font-weight: 500;
+  color: #3b3f55;
+  margin-bottom: 30px;
+}
+
+
+
+.cardContainer {
+  margin: 5px;
+  padding: 20px 10px;
+  background-color: rgb(243, 243, 243);
+  height: 100px;
+  border-radius: 10px;
+  transition: .3s linear all;
+}
+
+.cardContainer i {
+  font-size: 4em;
+  opacity: 0.5;
+}
+
+.cardContainer .cardNumber {
+  display: block;
+  position: absolute;
+  right: 35px;
+  top: 15px;
+  font-size: 45px;
+  font-weight: 600;
+}
+
+.cardContainer .cardTitle {
+  position: absolute;
+  right: 35px;
+  top: 68px;
+  font-style: italic;
+  text-transform: capitalize;
+  opacity: 0.7;
+  display: block;
+  font-size: 15px;
+}
+
+.deleteImage{
+  background: #ff9100 !important;
+}
+
+.submissionrow{
+  margin-right: 0px !important;
+  margin-left: 0px !important;
+}
+
+.rotateSpinner{
+  margin-left: 20px;
+}
+
+
+
+

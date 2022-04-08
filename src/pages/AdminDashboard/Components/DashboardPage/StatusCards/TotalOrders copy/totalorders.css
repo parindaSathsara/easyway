@@ -1,0 +1,54 @@
+.cardContainer{
+    margin: 5px;
+    padding: 20px 10px;
+    background-color: #fff;
+    height: 100px;
+    border-radius: 10px;
+    transition: .3s linear all;
+  }
+
+.bg-blue-card {
+    background: linear-gradient(45deg,#4099ff,#73b4ff);
+    color: white;
+}
+
+.bg-green-card {
+    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+    color: white;
+}
+
+.bg-yellow-card {
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+    color: white;
+}
+
+
+.bg-red-card {
+    background: linear-gradient(45deg,#ff4d7a,#ff8080);
+    color: white;
+}
+
+  .cardContainer i{
+    font-size: 4em;
+    opacity: 0.5;
+  }
+
+  .cardContainer .cardNumber{
+    display: block;
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 45px;
+    font-weight: 600;
+  }
+
+  .cardContainer .cardTitle{
+    position: absolute;
+    right: 35px;
+    top: 68px;
+    font-style: italic;
+    text-transform: capitalize;
+    opacity: 0.7;
+    display: block;
+    font-size: 16px;
+  }
