@@ -1,39 +1,67 @@
 import React, { useEffect, useState, useRef, Component } from 'react';
 import { useHistory } from 'react-router-dom';
+import './AllListings.css'
 import axios from 'axios';
 import MaterialTable from "material-table";
 import { alpha } from '@material-ui/core/styles';
+import { render } from '@testing-library/react';
 
 
 function AllListings() {
 
 
+    const [listings, setListings] = useState([]); //Services List State
+
     const data = {
         columns: [
             {
-                title: "Service Name",
-                field: "servicename",
+                title: "",
+                field: "listingimage",
+                render: listingdata => <div class="btn-group">
+                    <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Edit</a>
+                        <a class="dropdown-item" href="#">Delete</a>
+                        <a class="dropdown-item" href="#">View</a>
+                    </div>
+                </div>
+            },
+            {
+                title: "Listing Image",
+                field: "listingimage",
+                render: listingdata => <img src={listingdata.listingimage} alt="" border="3" height="100" width="100" />
             },
 
             {
-                title: "Service Type",
-                field: "servicetype",
-                lookup: { MainService: "Main Service", OtherService: "Other Service" }
+                title: "Title",
+                field: "listingtitle",
+            },
+
+            {
+                title: "Publish Date",
+                field: "listingpublishdate",
             },
             {
-                title: "Service Description",
-                field: "servicedescription",
-
+                title: "Ending Date",
+                field: "listingendingdate",
             },
+            {
+                title: "Listing Type",
+                field: "listingtype",
+            },
+
+
         ],
 
-        rows: serviceslist.map(servicesdata => {
+        rows: listings.map(listingdata => {
             return {
-                serviceid: servicesdata.serviceid,
-                servicename: servicesdata.servicename,
-                servicetype: servicesdata.servicetype,
-                servicedescription: servicesdata.servicedescription,
-
+                listingimage: listingdata.listingimageurl,
+                listingtitle: listingdata.listingtitle,
+                listingpublishdate: listingdata.listingpublishdate,
+                listingendingdate: listingdata.listingendingdate,
+                listingtype: listingdata.listingtype,
             }
         }),
     };
@@ -41,17 +69,16 @@ function AllListings() {
 
 
     useEffect(() => {
-        getServicesList();
+        getListings();
     }, []);
 
-    const getServicesList = () => {
-        axios.get('/api/getservices').then(res => {
+    const getListings = () => {
+        axios.get('/api/partners/getListings').then(res => {
 
             if (res.data.status === 200) {
-                setServicesList(res.data.services);
+                setListings(res.data.listings);
+                console.log(res.data.listings);
             }
-            console.log("first");
-
         })
     }
 
@@ -60,7 +87,7 @@ function AllListings() {
         <div className="col-md-12 containerbox">
             <div className="containerbox-title">
                 <h5>
-                    List of Services
+                    Listings
                 </h5>
             </div>
             {/* <MDBDataTableV5 hover scrollX maxHeight='400px' data={data} getValueCheckBox={(val) => console.log(val)} searchTop searchBottom={false} /> */}
@@ -68,13 +95,12 @@ function AllListings() {
                 title={""}
                 data={data.rows}
                 columns={data.columns}
-                onSelectionChange={(selectedRows) => console.log(selectedRows)}
                 options={{
                     sorting: true, search: true,
                     searchFieldAlignment: "left", searchAutoFocus: true, searchFieldVariant: "standard",
-                    filtering: true, paging: true, pageSizeOptions: [2, 5, 10, 20, 25, 50, 100], pageSize: 5,
+                    filtering: false, paging: true, pageSizeOptions: [5, 10, 20, 25, 50, 100], pageSize: 5,
                     paginationType: "stepped", showFirstLastPageButtons: false, paginationPosition: "both", exportButton: true,
-                    exportAllData: true, exportFileName: "Services Data", addRowPosition: "first", actionsColumnIndex: -1, selection: true,
+                    exportAllData: true, exportFileName: "Services Data", addRowPosition: "first", actionsColumnIndex: -1, selection: false,
                     showSelectAllCheckbox: false, showTextRowsSelected: false, selectionProps: rowData => ({
                         disabled: rowData.serviceid == null,
                         // color:"primary"
@@ -87,4 +113,4 @@ function AllListings() {
 
 }
 
-export default ServiceMaster;
+export default AllListings;

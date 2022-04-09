@@ -3,6 +3,7 @@ import DPMasterPartner from "../pages/PartnerDashboard/Components/DashboardPage/
 import PartnerPGMaster from "../pages/AdminDashboard/Components/PartnersPage/MasterPage/partnermaster";
 import ServiceMaster from "../pages/AdminDashboard/Components/ServicesPage/MasterPage/servicepartner";
 import CreateListingMaster from "../pages/PartnerDashboard/Components/CreateListing/MasterPage/createlisting";
+import ServicesListingsMaster from "../pages/PartnerDashboard/Components/ServicesListings/MasterPage/ServicesListings";
 const routes = [
     
     {path: '/adminportal/dashboard', exact:true, name:'Dashboard', component: DPMaster},
@@ -12,7 +13,7 @@ const routes = [
 
     {path: '/partnerportal/dashboard', exact:true, name:'Dashboard', component: DPMasterPartner},
     {path: '/partnerportal/newlisting', exact:true, name:'Dashboard', component: CreateListingMaster},
-    {path: '/partnerportal/listings', exact:true, name:'Dashboard', component: CreateListingMaster},
+    {path: '/partnerportal/listings', exact:true, name:'Dashboard', component: ServicesListingsMaster},
 ]
 
 export default routes;

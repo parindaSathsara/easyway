@@ -13,6 +13,12 @@ import axios from 'axios';
 import Snackbar from '../../../../../SnackBar/Snackbar';
 import { RotateSpinner } from "react-spinners-kit";
 import { useHistory } from 'react-router-dom';
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { EditorState, convertFromRaw, convertToRaw } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
+import { Markup } from 'interweave';
+
 
 const SnackbarType = {
   success: "success",
@@ -24,6 +30,7 @@ function NewListing() {
 
   const history = useHistory();
   const snackbarRef = useRef(null);
+  const snackbarRefErr = useRef(null);
 
   const [tableData, setTableData] = useState([])
 
@@ -31,6 +38,18 @@ function NewListing() {
   const [uploadPicture, setUploadPictures] = useState([])
   const [loadingDt, setLoading] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [htmlContent, setHTMLContent] = useState();
+
+
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty()
+  );
+
+  const updateTextDescription = async (state) => {
+    await setEditorState(state);
+    const data = convertToRaw(editorState.getCurrentContent());
+  };
+
 
   const [addListing, setAddListing] = useState({
     listingtitle: '',
@@ -58,6 +77,25 @@ function NewListing() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    var editorContent = convertToRaw(editorState.getCurrentContent())
+
+    const dataDescription = draftToHtml(editorContent)
+
+    // console.log(dataDescription)
+
+
+    const arr = []
+
+    tableData.forEach(element => {
+      arr.push(element['variationPrice'])
+    });
+
+    var minPrice = Math.min(...arr)
+    var maxPrice = Math.max(...arr)
+
+    var priceRange = minPrice + "-" + maxPrice
+
     const promises = [];
     pictures.map((image) => {
       setLoading(true)
@@ -84,6 +122,7 @@ function NewListing() {
             .then((urls) => {
 
               uploadPicture.push(urls)
+              setProgress(75)
               // setUploadPictures(uploadPicture=>[...uploadPicture, urls]);
             });
         }
@@ -93,62 +132,31 @@ function NewListing() {
     Promise.all(promises)
       .then(() => {
 
-        const serviceListing = {
+
+        const passingData = {
           listingtitle: addListing.listingtitle,
           listingpublishdate: addListing.listingpublishdate,
           listingendingdate: addListing.listingendingdate,
-          listingprice: addListing.listingprice,
+          listingprice: listingType == "Fixed" ? addListing.listingprice : priceRange,
           listingtype: listingType,
+          variationtitle: addListing.variationtitle,
+          listingvariations: tableData,
+          listingimages: uploadPicture,
+          listingdescription: dataDescription,
         }
 
-
         axios.get('/sanctum/csrf-cookie').then(response => {
-          axios.post('api/addListing', serviceListing).then(res => {
+          axios.post('api/addListing', passingData).then(res => {
             if (res.data.status === 200) {
-              setProgress(65);
-
-              //------------------------Variation Adding Part------------------------------------
-              const listingVariations = {
-                listingid: res.data.listingid,
-                variationtitle: addListing.variationtitle,
-                listingvariations: tableData,
-              }
-
-              console.log(listingVariations)
-
-              axios.get('/sanctum/csrf-cookie').then(response => {
-                axios.post('api/addVariationListing', listingVariations).then(res => {
-                  if (res.data.status === 200) {
-                    console.log(res.data.message)
-                    setProgress(85);
-                  }
-                });
-              })
-
-
-              
-              //------------------------Images Adding Part------------------------------------
-              const listingImages = {
-                listingid: res.data.listingid,
-                listingimages: uploadPicture,
-              }
-
-              console.log(listingImages)
-              axios.get('/sanctum/csrf-cookie').then(response => {
-                axios.post('api/addImagesListing', listingImages).then(result => {
-                  if (result.data.status === 200) {
-                    console.log(result.data.message)
-                    setProgress(100);
-                    snackbarRef.current.show();
-                    setLoading(false)
-                  }
-                });
-              })
-
+              console.log(res.data.messageDescription)
+              setHTMLContent(res.data.messageDescription)
+              setProgress(100);
+              snackbarRef.current.show();
+              setLoading(false)
             }
 
             else {
-
+              snackbarRefErr.current.show();
             }
 
           });
@@ -214,6 +222,12 @@ function NewListing() {
         type={SnackbarType.success}
       />
 
+      <Snackbar
+        ref={snackbarRefErr}
+        message="Listing Created Unsuccessful !"
+        type={SnackbarType.fail}
+      />
+
 
       <div>
         <LoadingBar
@@ -238,6 +252,32 @@ function NewListing() {
               <label>Listing Title</label>
               <input type="text" className="form-control dashboardInputField" id="listingtitle" name="listingtitle" onChange={handleInput}></input>
               <span className="error" id="listingtitle"></span>
+            </div>
+
+
+            <div className="form-group">
+              <label>Listing Description</label>
+              <Editor
+                onEditorStateChange={updateTextDescription}
+                editorState={editorState}
+                wrapperClassName="wrapperListingDescription"
+                toolbarClassName="toolbarListingDescription"
+                editorClassName="editorListingDescription"
+                toolbar={{
+                  options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'remove', 'history'],
+                  inline: {
+                    options: ['italic', 'bold'],
+                    bold: { className: 'demo-option-custom' },
+                    italic: { className: 'demo-option-custom' },
+                    underline: { className: 'demo-option-custom' },
+                    strikethrough: { className: 'demo-option-custom' },
+                    monospace: { className: 'demo-option-custom' },
+                    superscript: { className: 'demo-option-custom' },
+                    subscript: { className: 'demo-option-custom' }
+                  },
+
+                }}
+              />
             </div>
 
             <div className="imageUploadContainer">
@@ -372,7 +412,7 @@ function NewListing() {
 
 
             </div>
-
+            
           </form>
         </div>
       </div>

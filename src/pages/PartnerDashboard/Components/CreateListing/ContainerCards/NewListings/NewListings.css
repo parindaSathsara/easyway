@@ -11,3 +11,22 @@
 .SizedBoxClear{
     height: 30px;
 }
+
+.wrapperListingDescription{
+    background-color: #f8f8f8;
+    border-radius: 20px;
+    padding-bottom: 10px;
+}
+
+.toolbarListingDescription{
+    font-size: 12px !important;
+}
+
+.editorListingDescription{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.toolbarListingDescription img{
+    width: 13px;
+}
