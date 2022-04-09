@@ -19,7 +19,7 @@ function AllListings() {
                 field: "listingimage",
                 render: listingdata => <div class="btn-group">
                     <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    
+
                     </button>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#">Edit</a>
@@ -84,31 +84,34 @@ function AllListings() {
 
 
     return (
-        <div className="col-md-12 containerbox">
-            <div className="containerbox-title">
-                <h5>
-                    Listings
-                </h5>
+        <div className="col-xl-12 mx-auto mt-5">
+            <div className="col-md-12 containerbox">
+                <div className="containerbox-title">
+                    <h5>
+                        Listings
+                    </h5>
+                </div>
+                {/* <MDBDataTableV5 hover scrollX maxHeight='400px' data={data} getValueCheckBox={(val) => console.log(val)} searchTop searchBottom={false} /> */}
+                <MaterialTable
+                    title={""}
+                    data={data.rows}
+                    columns={data.columns}
+                    options={{
+                        sorting: true, search: true,
+                        searchFieldAlignment: "left", searchAutoFocus: true, searchFieldVariant: "standard",
+                        filtering: false, paging: true, pageSizeOptions: [5, 10, 20, 25, 50, 100], pageSize: 5,
+                        paginationType: "stepped", showFirstLastPageButtons: false, paginationPosition: "both", exportButton: true,
+                        exportAllData: true, exportFileName: "Services Data", addRowPosition: "first", actionsColumnIndex: -1, selection: false,
+                        showSelectAllCheckbox: false, showTextRowsSelected: false, selectionProps: rowData => ({
+                            disabled: rowData.serviceid == null,
+                            // color:"primary"
+                        }),
+                        columnsButton: true,
+                    }}
+                />
             </div>
-            {/* <MDBDataTableV5 hover scrollX maxHeight='400px' data={data} getValueCheckBox={(val) => console.log(val)} searchTop searchBottom={false} /> */}
-            <MaterialTable
-                title={""}
-                data={data.rows}
-                columns={data.columns}
-                options={{
-                    sorting: true, search: true,
-                    searchFieldAlignment: "left", searchAutoFocus: true, searchFieldVariant: "standard",
-                    filtering: false, paging: true, pageSizeOptions: [5, 10, 20, 25, 50, 100], pageSize: 5,
-                    paginationType: "stepped", showFirstLastPageButtons: false, paginationPosition: "both", exportButton: true,
-                    exportAllData: true, exportFileName: "Services Data", addRowPosition: "first", actionsColumnIndex: -1, selection: false,
-                    showSelectAllCheckbox: false, showTextRowsSelected: false, selectionProps: rowData => ({
-                        disabled: rowData.serviceid == null,
-                        // color:"primary"
-                    }),
-                    columnsButton: true,
-                }}
-            />
         </div>
+
     );
 
 }
