@@ -12,6 +12,7 @@ const routes = [
 
     {path: '/partnerportal/dashboard', exact:true, name:'Dashboard', component: DPMasterPartner},
     {path: '/partnerportal/newlisting', exact:true, name:'Dashboard', component: CreateListingMaster},
+    {path: '/partnerportal/listings', exact:true, name:'Dashboard', component: CreateListingMaster},
 ]
 
 export default routes;
