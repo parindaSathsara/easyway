@@ -1,0 +1,25 @@
+.gallery-wrap .img-big-wrap {
+    height: 100% !important;
+}
+
+.sliderimg {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover
+}
+
+
+.listingDetails {
+    height: 500px !important;
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+}
+
+.listingContent {
+    padding: 50px;
+
+}
+
+.btn{
+    margin-right: 10px;
+}

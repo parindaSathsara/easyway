@@ -11,6 +11,6 @@
     display: inline-block !important;
 }
 
-.show {
+/* .show {
     width: calc(var(--nav-width) + px) !important;
-}
+} */

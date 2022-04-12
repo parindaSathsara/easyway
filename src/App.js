@@ -6,6 +6,11 @@ import Signup from './pages/SignUp/signup'
 import Dashboard from './pages/AdminDashboard/Dashboard/dashboard';
 import PartnerDashboard from './pages/PartnerDashboard/Dashboard/Dashboard';
 import axios from 'axios';
+import CustomerNavBar from './pages/CustomerPortal/Components/NavBar/NavBar';
+import CustomerNavBarSecondary from './pages/CustomerPortal/Components/NavBarSecondary/NavBarSecondary';
+import NavigatorCus from './pages/CustomerPortal/Components/Navigator/Navigator';
+import ListingView from './pages/CustomerPortal/Components/ListingViewPage/ListingView';
+import PartnerSignup from './pages/PartnerSignUp/PartnerSignup'
 
 axios.defaults.baseURL="http://127.0.0.1:8000/";
 axios.defaults.headers.post['Content-Type']='application/json';
@@ -20,9 +25,14 @@ function App() {
             <Route exact path="/" component={LandingPage}></Route>
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/signup" component={Signup}></Route>
+            <Route exact path="/ewpartner" component={PartnerSignup}></Route>
 
             <Route path="/adminportal" name="AdminPortal" render={(props) => <Dashboard {...props}/>}></Route>
             <Route path="/partnerportal" name="PartnerPortal" render={(props) => <PartnerDashboard {...props}/>}></Route>
+
+
+            <Route exact path="/customerportal/:id" component={ListingView}></Route>
+
 
         </Switch>
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, Component } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import './AllListings.css'
 import axios from 'axios';
 import MaterialTable from "material-table";
@@ -16,15 +16,15 @@ function AllListings() {
         columns: [
             {
                 title: "",
-                field: "listingimage",
+                field: "listingid",
                 render: listingdata => <div class="btn-group">
                     <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                     </button>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="#">Edit</a>
-                        <a class="dropdown-item" href="#">Delete</a>
-                        <a class="dropdown-item" href="#">View</a>
+                        <Link class="dropdown-item" to="#">Edit</Link>
+                        <Link class="dropdown-item" to="#">Delete</Link>
+                        <Link class="dropdown-item" to={`/customerportal/${listingdata.listingid}`}>View</Link>
                     </div>
                 </div>
             },
@@ -57,6 +57,7 @@ function AllListings() {
 
         rows: listings.map(listingdata => {
             return {
+                listingid:listingdata.listingid,
                 listingimage: listingdata.listingimageurl,
                 listingtitle: listingdata.listingtitle,
                 listingpublishdate: listingdata.listingpublishdate,
