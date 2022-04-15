@@ -23,13 +23,12 @@ function PartnerSignUp() {
 
   useEffect(() => {
 
-    axios.get(`/api/partners/getListingsImages/`).then(res => {
+    axios.get(`/api/getservices`).then(res => {
 
       if (res.data.status === 200) {
-        setListingImages(res.data.listings);
-
-        console.log(res.data.listings[0]['listingimageurl']);
+        setServices(res.data.services);
       }
+
     })
 
   }, []);
@@ -39,7 +38,9 @@ function PartnerSignUp() {
   const [registerUser, setRegister] = useState({
     email: '',
     password: '',
-
+    username: '',
+    district: '',
+    serviceid: '',
     error_list: [],
   })
 
@@ -48,17 +49,20 @@ function PartnerSignUp() {
   }
 
 
-  const saveEmployee = async (e) => {
+  const savePartner = async (e) => {
     e.preventDefault();
 
     const dataset = {
       username: registerUser.username,
       password: registerUser.password,
+      email: registerUser.email,
+      district: registerUser.district,
+      serviceid: registerUser.serviceid
     };
 
 
     axios.get('/sanctum/csrf-cookie').then(response => {
-      axios.post('api/registerEmployee', dataset).then(res => {
+      axios.post('api/partnerRegister', dataset).then(res => {
 
         if (res.data.status === 200) {
           history.push('/login');
@@ -71,12 +75,10 @@ function PartnerSignUp() {
       });
     });
 
+    // var contact = registerUser.contact;
+    // var username = registerUser.username;
 
-
-    var contact = registerUser.contact;
-    var username = registerUser.username;
-
-    var message = "Hello Dear " + username + ". Thank you for register to the Easy Way Admin Portal."
+    // var message = "Hello Dear " + username + ". Thank you for register to the Easy Way Admin Portal."
     //axios.post('https://app.notify.lk/api/v1/send?user_id=15060&api_key=wwVghBwtFySHwhyuVdLk&sender_id=NotifyDEMO&to=94' + contact + '&message=' + message);
   }
 
@@ -103,7 +105,7 @@ function PartnerSignUp() {
             <h4 className="title text-center mt-4">
               Welcome To Easy Way
             </h4>
-            <form className="form-box px-3" id="signupform" onSubmit={saveEmployee}>
+            <form className="form-box px-3" id="signupform" onSubmit={savePartner}>
 
               <div className="form-input partnerInput">
                 <span className='faicon partnerfaicon'><i className="fa fa-envelope"></i></span>
@@ -111,36 +113,41 @@ function PartnerSignUp() {
                 <span className='spanerror'>{registerUser.error_list.email}</span>
               </div>
 
-              <div className="form-input">
+              <div className="form-input partnerInput">
+                <span className='faicon partnerfaicon'><i className="fa fa-user"></i></span>
+                <input type="text" name="username" id="username" placeholder="Employee Username" tabindex="10" onChange={handleInput} value={registerUser.username}></input>
+                <span className='spanerror'>{registerUser.error_list.username}</span>
+              </div>
+
+              <div className="form-input partnerInput">
                 <span className='faicon partnerfaicon'><i className="fa fa-key"></i></span>
                 <input type="password" name="password" id="password" placeholder="Password" onChange={handleInput} value={registerUser.password}></input>
                 <span className='spanerror'>{registerUser.error_list.password}</span>
               </div>
 
               <div>
-                <div className="form-input">
+                <div className="form-input partnerInput">
                   <span className='partnerfaicon'><i className="fa fa-map-marker"></i></span>
-                  <select className="form-control selectOpt" id="district" name='district' onChange={handleInput} value={registerUser.district}>
+                  <select className="form-control selectOpt partnerSelect" id="district" name='district' onChange={handleInput} value={registerUser.district}>
                     <option disabled selected>Your District</option>
                     <option value="Galle" >Galle</option>
                     <option value="Matara">Matara</option>
                     <option value="Hambanthota">Hambanthota</option>
                   </select>
+                  <span className='spanerror'>{registerUser.error_list.district}</span>
                 </div>
-                <span className='spanerror'>{registerUser.error_list.district}</span>
-
               </div>
 
               <div>
                 <div className="form-input">
                   <span className='partnerfaicon'><i className="fa fa-bullhorn"></i></span>
-                  <select className="form-control selectOpt partnerSelect" id="district" name='district' onChange={handleInput} value={registerUser.district}>
+                  <select className="form-control selectOpt partnerSelect" id="serviceid" name='serviceid' onChange={handleInput}>
                     <option selected disabled>Your Service</option>
-                    {listingVariations.map((variations, index) => (
-                      <option value={index}>{variations['variationname']}</option>
+                    {services.map((service) => (
+                      <option value={service['serviceid']}>{service['servicename']}</option>
                     ))}
                   </select>
-
+                  <span className='spanerror'>{registerUser.error_list.serviceid}</span>
                 </div>
               </div>
 
@@ -154,7 +161,7 @@ function PartnerSignUp() {
 
               <div className="text-center mb-2" style={{ fontColor: 'black' }}>
                 Already have an account?{' '}
-                <Link to='/login' className="register-link partnerfaicon">
+                <Link to='/ewpartnerlogin' className="register-link partnerfaicon">
                   Login
                 </Link>
               </div>

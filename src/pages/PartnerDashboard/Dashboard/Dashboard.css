@@ -70,7 +70,7 @@
 
 
 .partnernav{
-    background-image: linear-gradient(#ffc03f, rgb(255, 197, 82));
+    background-image: linear-gradient(#ffc03f, #ffc552);
 }
 
 
@@ -138,7 +138,7 @@
     
 }
 
-.activepartner {
+.activepartner.sidenavpartner {
     color: #1d1c1b;
 }
 
