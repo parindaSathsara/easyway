@@ -9,6 +9,7 @@ import axios from 'axios';
 import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/alice-carousel.css";
 import { Markup } from 'interweave';
+import FSPreLoader from "../../../FSPreLoader/FSPreLoader";
 
 
 function ListingView() {
@@ -21,7 +22,8 @@ function ListingView() {
 
     const [listingVariations, setListingVariations] = useState([])
     const [variationTitle, setVariationTitle] = useState([])
-    const [listingPrice,setListingPrice]=useState()
+    const [listingPrice, setListingPrice] = useState()
+    const [preloader, setPreLoader] = useState(true)
 
 
     const [listingType, setListingType] = useState()
@@ -30,8 +32,8 @@ function ListingView() {
 
     const variationTypeOnChange = (e) => {
         console.log(e.target.value)
-        
-        var index=e.target.value
+
+        var index = e.target.value
         setListingPrice(listingVariations[index]['variationprice'])
     }
 
@@ -41,6 +43,12 @@ function ListingView() {
         import(`../../MasterPage/css/boostrap.css`)
         import(`../../MasterPage/css/ui.css`)
         import(`../../MasterPage/css/responsive.css`)
+
+        setTimeout(
+            () => setPreLoader(false),
+            3000
+        );
+
 
         const getListings = () => {
             axios.get(`/api/partners/getListingsImages/${id}`).then(res => {
@@ -90,6 +98,12 @@ function ListingView() {
 
     return (
         <div>
+            <div style={preloader == true ? { display: 'block' } : { display: 'none' }}>
+
+                <FSPreLoader></FSPreLoader>
+
+            </div>
+
             <CustomerNavBar></CustomerNavBar>
             <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
 
@@ -108,7 +122,7 @@ function ListingView() {
                         <main className="col-lg-7 listingDetails">
                             <article className="ps-lg-3">
                                 <h4 className="text-dark">{listing['listingtitle']}</h4>
-                                <h6 className="text-warning" style={{ fontWeight: 500 }}>Test Service</h6>
+                                <h6 className="text-warning" style={{ fontWeight: 500 }}>{listing['servicename']}</h6>
 
                                 {/* <div className="rating-wrap my-3">
                                     <ul className="rating-stars">
@@ -153,7 +167,7 @@ function ListingView() {
                                 </div>
 
 
-                                <label className="form-label">Price</label>
+                                <label className="form-label h5">Price</label>
                                 <div className="mb-3">
                                     <span className="text-warning h3">LKR  </span>
                                     <var className="price h3">{listingPrice + "/="}</var>
@@ -172,7 +186,34 @@ function ListingView() {
 
 
             <section className="padding-y border-top">
+
                 <div className="container">
+                    <article className="card mb-4">
+                        <div className="card-body">
+                            <h5 className="card-title">About Service Provider</h5>
+                            <figure className="itemside mb-4">
+                                <div className="asideFrame">
+                                    <img src={listing['profilepic']} className="img-sm img-thumbnail" />
+                                </div>
+                                <figcaption className="info">
+                                    <h6 className="title mt-1" style={{ color: '#000f61' }}>{listing['partnername']}</h6>
+                                    <p style={{ color: '#ff5e00' }}>{listing['district'] + " District"}</p>
+                                    <p>{listing['servicename']}</p>
+                                </figcaption>
+                            </figure>
+
+                            <p>
+                                {listing['description']}
+                            </p>
+                            <div className="d-flex mb-2 col-12" style={{ paddingLeft: 0 }}>
+                                <button className="btn w-20 btn-primary" type="button"> <i className="me-2 fa fa-phone" /> Contact</button>
+                                <button className="btn w-20 btn-dark" type="button"> <i className="me-2 fa fa-comment-dots" /> Visit Store</button>
+                            </div>
+                        </div>
+                    </article>
+
+
+
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="card">
@@ -192,6 +233,14 @@ function ListingView() {
                     <br /><br />
                 </div>
             </section>
+
+
+            <div className='contenteliments'>
+                <div className='container-fluid footer'>
+                    <img src={require('../../../../assets/images/logo.png')} className='footerLogo'></img>
+                    <img src={require('../../../../assets/images/fbinsta.png')} className='footersocial'></img>
+                </div>
+            </div>
 
 
 

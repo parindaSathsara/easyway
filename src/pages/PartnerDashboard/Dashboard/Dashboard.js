@@ -16,7 +16,7 @@ function PartnerDashboard() {
                 <nav className="nav mainsidebarnav sidenavpartner">
                     <div> <div id='sidebar_logo' className="nav_logo sidenavlogo sidebarnav sidenavpartner"></div>
                         <div className="nav_list sidenavlist">
-                            <NavLink to='/partnerportal/accountprogress' className="nav_link sidenavpartner sidebarnav" activeClassName="activepartner"> <i className='bx bxs-user-account nav_icon'></i> <span className="nav_name">Account Progress</span></NavLink>
+                            <NavLink to='/partnerportal/accountprogress' className="nav_link sidenavpartner sidebarnav" activeClassName="activepartner"> <i className='bx bxs-user-detail nav_icon'></i> <span className="nav_name">Account Progress</span></NavLink>
                             <NavLink to='/partnerportal/myaccount' className="nav_link sidenavpartner sidebarnav" activeClassName="activepartner"> <i className='bx bxs-user-account nav_icon'></i> <span className="nav_name">My Account</span></NavLink>
                             <NavLink to='/adminportal/dashboard' className="nav_link sidenavpartner sidebarnav" activeClassName="activepartner"> <i className='bx bx-grid-alt nav_icon'></i> <span className="nav_name">Dashboard</span> </NavLink>
                             <NavLink to='/adminportal/partners' className="nav_link sidebarnav sidenavpartner" activeClassName="activepartner"> <i className='bx bx-building-house nav_icon'></i> <span className="nav_name">Partners</span> </NavLink>

@@ -8,7 +8,6 @@
     object-fit: cover
 }
 
-
 .listingDetails {
     height: 500px !important;
     margin-top: auto !important;
@@ -20,6 +19,27 @@
 
 }
 
-.btn{
+.btn {
     margin-right: 10px;
+}
+
+.asideFrame {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    border: ​none;
+    background: rgb(255, 255, 255);
+    margin: auto;
+}
+
+.asideFrame img {
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    /* image fills the grid item */
+    position: absolute;
+    /* position absolutely */
+    top: 0;
+    left: 0;
 }

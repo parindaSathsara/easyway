@@ -1,0 +1,12 @@
+.fullScreenPreLoader {
+    z-index: 4998;
+    position: fixed;
+    background-color: #000519;
+}
+
+.preLoaderElements {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

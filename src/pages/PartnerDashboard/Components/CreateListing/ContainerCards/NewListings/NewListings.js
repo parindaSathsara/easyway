@@ -52,6 +52,7 @@ function NewListing() {
 
 
   const [addListing, setAddListing] = useState({
+    partnerid:localStorage.getItem("PartnerID"),
     listingtitle: '',
     listingpublishdate: '',
     listingendingdate: '',
@@ -134,6 +135,7 @@ function NewListing() {
 
 
         const passingData = {
+          partnerid:addListing.partnerid,
           listingtitle: addListing.listingtitle,
           listingpublishdate: addListing.listingpublishdate,
           listingendingdate: addListing.listingendingdate,
@@ -154,7 +156,6 @@ function NewListing() {
               snackbarRef.current.show();
               setLoading(false)
             }
-
             else {
               snackbarRefErr.current.show();
             }

@@ -43,8 +43,9 @@ function PartnerAccount() {
         'email': '',
         'nic': '',
         'brcopy': '',
-        'servicestatus':'',
+        'servicestatus': '',
         'accountstatus': '',
+        'description':''
     })
 
     const handleClick = (e) => {
@@ -180,6 +181,9 @@ function PartnerAccount() {
         Promise.all(promises)
             .then(() => {
 
+                if (userData.accountstatus == "AccountCreated" && userData.nic != null && userData.brcopy != null) {
+                    userData.accountstatus = "DocumentsSubmitted"
+                }
                 axios.post('api/partners/updateProfile', userData).then(res => {
                     if (res.data.status === 200) {
                         console.log("Done Updated")
@@ -229,13 +233,13 @@ function PartnerAccount() {
 
             <Snackbar
                 ref={snackbarRef}
-                message="Listing Created Successfully !"
+                message="Account Updated Successfully !"
                 type={SnackbarType.success}
             />
 
             <Snackbar
                 ref={snackbarRefErr}
-                message="Listing Created Unsuccessful !"
+                message="Account Updated Unsuccessfully !"
                 type={SnackbarType.fail}
             />
 
@@ -260,121 +264,125 @@ function PartnerAccount() {
                     <main className="col-lg-12">
 
                         <div className="card-body">
-                                <div className="row">
-                                    <div className="col-lg-8">
-                                        <div className="row gx-">
-                                            <div className="col-lg-6 mb-3 accountUpdate">
-                                                <label className="form-label">User Name</label>
-                                                <input className="form-control" type="text" name='username' onChange={handleInputChange} value={userData.username} placeholder="Your Username" />
-                                            </div>
-                                            <div className="col-lg-6 mb-3 accountUpdate">
-                                                <label className="form-label">Email</label>
-                                                <input className="form-control" type="text" name='email' onChange={handleInputChange} value={userData.email} placeholder="Your Email" />
-                                            </div>
-                                            <div className="col-lg-6 mb-3 accountUpdate">
-                                                <label className="form-label">Company Name</label>
-                                                <input className="form-control" type="text" name='partnername' onChange={handleInputChange} value={userData.partnername} placeholder="Business Name" />
-                                            </div>
-                                            <div className="col-lg-6 mb-3 accountUpdate">
-                                                <label className="form-label">District</label>
-                                                <select className="form-control" id="district" onChange={handleInputChange} value={userData.district} name='district'>
-                                                    <option disabled selected>Your District</option>
-                                                    <option value="Galle" >Galle</option>
-                                                    <option value="Matara">Matara</option>
-                                                    <option value="Hambanthota">Hambanthota</option>
-                                                </select>
-                                            </div>
-                                            <div className="col-lg-6  mb-3 accountUpdate">
-                                                <label className="form-label">Contact Number</label>
-                                                <input className="form-control" type="text" name='contactnumber' onChange={handleInputChange} value={userData.contactnumber} placeholder="Your Contact Number" />
-                                            </div>
-                                            <div className="col-lg-6 mb-3 accountUpdate">
-                                                <label className="form-label">Address</label>
-                                                <input className="form-control" type="text" name='address' onChange={handleInputChange} value={userData.address} placeholder="Your Address" />
-                                            </div>
-                                            <div className="col-lg-6 mb-3 accountUpdate">
-                                                <label className="form-label">Service Start Time</label>
-                                                <input className="form-control" type="time" name='servicestarttime' onChange={handleInputChange} value={userData.servicestarttime} placeholder={+1234567890} />
-                                            </div>
-                                            <div className="col-lg-6 mb-3 accountUpdate">
-                                                <label className="form-label">Service End Time</label>
-                                                <input className="form-control" type="time" name='serviceendtime' onChange={handleInputChange} value={userData.serviceendtime} placeholder="Type here" />
-                                            </div>
-
-                                            <div className="col-lg-6 col-md-6 mb-3 accountUpdate">
-                                                <article className="box mb-3 bg-light partnerAccDiv">
-                                                    <button className="btn float-end btn-outline-dark btn-sm mb-3" name='nicCopy' onClick={handleClick}>
-                                                        <i className="fa fa-id-card" /> Upload</button>
-                                                    <p className="title mb-0">NIC Copy</p>
-
-                                                    <input
-                                                        type="file"
-                                                        name='nicCopy'
-                                                        ref={hiddenNICInput}
-                                                        onChange={handleNICChange}
-                                                        style={{ display: 'none' }}
-                                                    />
-                                                    {userDocs['nicCopy'] == null ? <></> : <img className='rounded  mb-3' src={userDocs['nicCopy']} style={{ height: 70 }}></img>}
-                                                    <small className="text-muted d-block" style={{ width: '70%' }}>
-                                                        Attach the National Identity Card of the company owner here.</small>
-                                                </article>
-                                            </div>
-
-                                            <div className="col-lg-6 col-md-6 mb-3 accountUpdate">
-                                                <article className="box mb-3 bg-light partnerAccDiv">
-                                                    <button className="btn float-end btn-outline-danger btn-sm mb-3" name='brCopy' onClick={handleClick}> <i className="fa fa-file-text" /> Upload</button>
-                                                    <p className="title mb-0">
-                                                        BR Copy</p>
-
-
-                                                    <input
-                                                        type="file"
-                                                        name='brCopy'
-                                                        ref={hiddenBRInput}
-                                                        onChange={handleBRChange}
-                                                        style={{ display: 'none' }}
-                                                    />
-                                                    {userDocs['brCopy'] == null ? <></> : <img className='rounded  mb-3' src={userDocs['brCopy']} style={{ height: 70 }}></img>}
-
-                                                    <small className="text-muted d-block" style={{ width: '70%' }}>
-                                                        Attach a copy of the business registration form of the organization here
-                                                    </small>
-                                                </article>
-                                            </div>
-
+                            <div className="row">
+                                <div className="col-lg-8">
+                                    <div className="row gx-">
+                                        <div className="col-lg-6 mb-3 accountUpdate">
+                                            <label className="form-label">User Name</label>
+                                            <input className="form-control" type="text" name='username' onChange={handleInputChange} value={userData.username} placeholder="Your Username" />
                                         </div>
-                                    </div>
-                                    <aside className="col-lg-4">
-                                        <figure className="text-lg-center mt-3">
-                                            <div className='frame-square'>
-                                                <img className="img-lg mb-3 rounded" src={userImage['imageView'] == null ? "https://www.survivorsuk.org/wp-content/uploads/2017/01/no-image.jpg" : userImage['imageView']} alt="User Photo" />
-                                            </div>
+                                        <div className="col-lg-6 mb-3 accountUpdate">
+                                            <label className="form-label">Email</label>
+                                            <input className="form-control" type="text" name='email' onChange={handleInputChange} value={userData.email} placeholder="Your Email" />
+                                        </div>
+                                        <div className="col-lg-6 mb-3 accountUpdate">
+                                            <label className="form-label">Company Name</label>
+                                            <input className="form-control" type="text" name='partnername' onChange={handleInputChange} value={userData.partnername} placeholder="Business Name" />
+                                        </div>
+                                        <div className="col-lg-6 mb-3 accountUpdate">
+                                            <label className="form-label">District</label>
+                                            <select className="form-control" id="district" onChange={handleInputChange} value={userData.district} name='district'>
+                                                <option disabled selected>Your District</option>
+                                                <option value="Galle" >Galle</option>
+                                                <option value="Matara">Matara</option>
+                                                <option value="Hambanthota">Hambanthota</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-lg-12 mb-3 accountUpdate">
+                                            <label className="form-label">Description</label>
+                                            <textarea className="form-control" type="text" name='description' onChange={handleInputChange} value={userData.description} placeholder="Business Description" />
+                                        </div>
+                                        <div className="col-lg-6  mb-3 accountUpdate">
+                                            <label className="form-label">Contact Number</label>
+                                            <input className="form-control" type="text" name='contactnumber' onChange={handleInputChange} value={userData.contactnumber} placeholder="Your Contact Number" />
+                                        </div>
+                                        <div className="col-lg-6 mb-3 accountUpdate">
+                                            <label className="form-label">Address</label>
+                                            <input className="form-control" type="text" name='address' onChange={handleInputChange} value={userData.address} placeholder="Your Address" />
+                                        </div>
+                                        <div className="col-lg-6 mb-3 accountUpdate">
+                                            <label className="form-label">Service Start Time</label>
+                                            <input className="form-control" type="time" name='servicestarttime' onChange={handleInputChange} value={userData.servicestarttime} placeholder={+1234567890} />
+                                        </div>
+                                        <div className="col-lg-6 mb-3 accountUpdate">
+                                            <label className="form-label">Service End Time</label>
+                                            <input className="form-control" type="time" name='serviceendtime' onChange={handleInputChange} value={userData.serviceendtime} placeholder="Type here" />
+                                        </div>
 
-                                            <br></br>
-
-                                            <figcaption className='uploadButtonDiv'>
-                                                <button className="btn  btn-sm btn-light" name='userImage' onClick={handleClick}>
-                                                    <i className="fa fa-camera" /> Upload
-                                                </button>
+                                        <div className="col-lg-6 col-md-6 mb-3 accountUpdate">
+                                            <article className="box mb-3 bg-light partnerAccDiv">
+                                                <button className="btn float-end btn-outline-dark btn-sm mb-3" name='nicCopy' onClick={handleClick}>
+                                                    <i className="fa fa-id-card" /> Upload</button>
+                                                <p className="title mb-0">NIC Copy</p>
 
                                                 <input
                                                     type="file"
-                                                    name='userImage'
-                                                    ref={hiddenFileInput}
-                                                    onChange={handleChange}
+                                                    name='nicCopy'
+                                                    ref={hiddenNICInput}
+                                                    onChange={handleNICChange}
                                                     style={{ display: 'none' }}
                                                 />
+                                                {userDocs['nicCopy'] == null ? <></> : <img className='rounded  mb-3' src={userDocs['nicCopy']} style={{ height: 70 }}></img>}
+                                                <small className="text-muted d-block" style={{ width: '70%' }}>
+                                                    Attach the National Identity Card of the company owner here.</small>
+                                            </article>
+                                        </div>
 
-                                                <a className="btn  btn-sm btn-outline-danger" href="#">
-                                                    <i className="fa fa-trash" />
-                                                </a>
-                                            </figcaption>
-                                        </figure>
-                                    </aside>
+                                        <div className="col-lg-6 col-md-6 mb-3 accountUpdate">
+                                            <article className="box mb-3 bg-light partnerAccDiv">
+                                                <button className="btn float-end btn-outline-danger btn-sm mb-3" name='brCopy' onClick={handleClick}> <i className="fa fa-file-text" /> Upload</button>
+                                                <p className="title mb-0">
+                                                    BR Copy</p>
 
+
+                                                <input
+                                                    type="file"
+                                                    name='brCopy'
+                                                    ref={hiddenBRInput}
+                                                    onChange={handleBRChange}
+                                                    style={{ display: 'none' }}
+                                                />
+                                                {userDocs['brCopy'] == null ? <></> : <img className='rounded  mb-3' src={userDocs['brCopy']} style={{ height: 70 }}></img>}
+
+                                                <small className="text-muted d-block" style={{ width: '70%' }}>
+                                                    Attach a copy of the business registration form of the organization here
+                                                </small>
+                                            </article>
+                                        </div>
+
+                                    </div>
                                 </div>
-                                <br />
-                                <button className="btn btn-primary" type="submit" onClick={formOnSubmit}>Save changes</button>
+                                <aside className="col-lg-4">
+                                    <figure className="text-lg-center mt-3">
+                                        <div className='frame-square'>
+                                            <img className="img-lg mb-3 rounded" src={userImage['imageView'] == null ? "https://www.survivorsuk.org/wp-content/uploads/2017/01/no-image.jpg" : userImage['imageView']} alt="User Photo" />
+                                        </div>
+
+                                        <br></br>
+
+                                        <figcaption className='uploadButtonDiv'>
+                                            <button className="btn  btn-sm btn-light" name='userImage' onClick={handleClick}>
+                                                <i className="fa fa-camera" /> Upload
+                                            </button>
+
+                                            <input
+                                                type="file"
+                                                name='userImage'
+                                                ref={hiddenFileInput}
+                                                onChange={handleChange}
+                                                style={{ display: 'none' }}
+                                            />
+
+                                            <a className="btn  btn-sm btn-outline-danger" href="#">
+                                                <i className="fa fa-trash" />
+                                            </a>
+                                        </figcaption>
+                                    </figure>
+                                </aside>
+
+                            </div>
+                            <br />
+                            <button className="btn btn-primary" type="submit" onClick={formOnSubmit}>Save changes</button>
                             <hr className="my-4" />
                             <div className="row">
                                 <div className="col-md">

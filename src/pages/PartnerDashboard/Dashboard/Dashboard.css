@@ -129,7 +129,7 @@
     font-size: 1.25rem
 }
 
-.show {
+.sideBarShow {
     left: 0
 }
 
@@ -186,7 +186,7 @@
         padding: 1rem 1rem 0 0;
     }
 
-    .show {
+    .sideBarShow {
         width: calc(var(--nav-width) + 156px);
     }
 

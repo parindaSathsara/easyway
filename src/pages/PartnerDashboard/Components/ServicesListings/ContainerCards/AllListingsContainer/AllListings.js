@@ -24,7 +24,7 @@ function AllListings() {
                     <div class="dropdown-menu">
                         <Link class="dropdown-item" to="#">Edit</Link>
                         <Link class="dropdown-item" to="#">Delete</Link>
-                        <Link class="dropdown-item" to={`/customerportal/${listingdata.listingid}`}>View</Link>
+                        <Link class="dropdown-item" to={`/customerportal/${listingdata.listingid}`} target='_blank'>View</Link>
                     </div>
                 </div>
             },

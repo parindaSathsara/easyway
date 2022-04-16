@@ -2,16 +2,9 @@
     text-align: center;
     vertical-align: middle;
 }
-.badge-primary{
-    padding:8px;
-    font-size: 12px;
-    font-weight: 100;
-    background-color: #ff6600;
-}
 
-.badge-secondary{
-    padding:8px;
-    font-size: 12px;
-    font-weight: 100;
-    background-color: #000731;
+.badge{
+    padding: 10px !important;
+    font-size: 11px;
+    
 }
