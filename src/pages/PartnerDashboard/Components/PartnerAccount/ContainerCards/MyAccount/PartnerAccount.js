@@ -91,6 +91,7 @@ function PartnerAccount() {
 
 
         if (userDocs['brToUpload'] != null) {
+            console.log("BRToUpload")
             const uploadBR = storage.ref(`ewBrCopies/${userDocs['brToUpload'].name}`).put(userDocs['brToUpload']);
             promises.push(uploadBR);
 
@@ -123,6 +124,7 @@ function PartnerAccount() {
         }
 
         if (userDocs['nicToUpload'] != null) {
+            console.log("NICTOUpload")
             const uploadNIC = storage.ref(`ewNICCopies/${userDocs['nicToUpload'].name}`).put(userDocs['nicToUpload']);
             promises.push(uploadNIC);
 
@@ -151,6 +153,7 @@ function PartnerAccount() {
             );
         }
         if (userImage['imageToUpload'] != null) {
+            console.log("ImageUserToUpload")
             const uploadUserImage = storage.ref(`ewNICCopies/${userImage['imageToUpload'].name}`).put(userImage['imageToUpload']);
             promises.push(uploadUserImage);
 
@@ -184,11 +187,14 @@ function PartnerAccount() {
                 if (userData.accountstatus == "AccountCreated" && userData.nic != null && userData.brcopy != null) {
                     userData.accountstatus = "DocumentsSubmitted"
                 }
+
                 axios.post('api/partners/updateProfile', userData).then(res => {
+                    
                     if (res.data.status === 200) {
                         console.log("Done Updated")
                         setProgress(100)
                         snackbarRef.current.show();
+                        console.log(res.data.partner)
                     }
 
                     else {
@@ -199,7 +205,6 @@ function PartnerAccount() {
 
                 });
 
-                console.log(userData)
             });
 
 
@@ -209,8 +214,6 @@ function PartnerAccount() {
     const handleInputChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value });
 
-
-        console.log(userData)
     }
 
     useEffect(() => {
@@ -220,7 +223,6 @@ function PartnerAccount() {
                 setUserData(res.data.partners[0]);
                 setUserImage({ ...userImage, imageView: res.data.partners[0]['profilepic'] })
                 setUserDocs({ ...userDocs, brCopy: res.data.partners[0]['brcopy'], nicCopy: res.data.partners[0]['nic'] })
-                console.log(res.data.partners[0])
             }
 
         })

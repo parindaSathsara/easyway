@@ -10,6 +10,7 @@ import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/alice-carousel.css";
 import { Markup } from 'interweave';
 import FSPreLoader from "../../../FSPreLoader/FSPreLoader";
+import NavigationHeader from "../NavigationHeader/NavigationHeader";
 
 
 function ListingView() {
@@ -19,7 +20,6 @@ function ListingView() {
 
     const [listing, setListing] = useState({})
 
-
     const [listingVariations, setListingVariations] = useState([])
     const [variationTitle, setVariationTitle] = useState([])
     const [listingPrice, setListingPrice] = useState()
@@ -27,7 +27,6 @@ function ListingView() {
 
 
     const [listingType, setListingType] = useState()
-
 
 
     const variationTypeOnChange = (e) => {
@@ -106,6 +105,8 @@ function ListingView() {
 
             <CustomerNavBar></CustomerNavBar>
             <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
+            
+            <NavigationHeader></NavigationHeader>
 
             <section className="padding-y">
                 <div className="container">

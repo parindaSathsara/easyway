@@ -292,7 +292,6 @@ function NewListing() {
                 onChange={onDrop}
                 imgExtension={[".jpg", ".gif", ".png", ".gif"]}
                 maxFileSize={5242880}
-
               />
             </div>
 

@@ -1,0 +1,4 @@
+.card-banner {
+    background: linear-gradient(to bottom, rgba(0, 83, 200, 0.708) 0%, rgba(0, 10, 119, 0.79) 100%), url('https://wallpapercave.com/wp/wp6044939.jpg');
+    background-size:cover;
+}
