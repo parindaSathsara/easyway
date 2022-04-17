@@ -5,7 +5,7 @@ import './Navigator.css'
 function NavigatorCus() {
     return (
         <>
-            <nav className="navbar navbar-dark bg-primary navbarCustomer navbar-expand-lg">
+            <nav className="navbar navbar-dark navbarCustomer navbar-expand-lg">
                 <div className="container">
                     <button className="navbar-toggler border" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_main" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" />
@@ -17,15 +17,6 @@ function NavigatorCus() {
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Hot offers</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Gift boxes</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Projects</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Menu item</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Menu name</a>

@@ -3,3 +3,9 @@
     font-size: 14px;
     font-weight: 400 !important;
 }
+
+
+.btn-primary{
+    background-color: #000731 !important;
+    border: none !important;
+}

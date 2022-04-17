@@ -12,6 +12,7 @@ import NavigatorCus from './pages/CustomerPortal/Components/Navigator/Navigator'
 import ListingView from './pages/CustomerPortal/Components/ListingViewPage/ListingView';
 import PartnerSignup from './pages/PartnerSignUp/PartnerSignup'
 import PartnerLogin from './pages/PartnerLogin/PartnerLogin';
+import CustomerMainPage from './pages/CustomerPortal/Components/MainPage/MainPage';
 
 axios.defaults.baseURL="http://127.0.0.1:8000/";
 axios.defaults.headers.post['Content-Type']='application/json';
@@ -28,6 +29,8 @@ function App() {
             <Route exact path="/signup" component={Signup}></Route>
             <Route exact path="/ewpartnersignup" component={PartnerSignup}></Route>
             <Route exact path="/ewpartnerlogin" component={PartnerLogin}></Route>
+
+            <Route exact path="/customerportal" component={CustomerMainPage}></Route>
             <Route path="/adminportal" name="AdminPortal" render={(props) => <Dashboard {...props}/>}></Route>
             <Route path="/partnerportal" name="PartnerPortal" render={(props) => <PartnerDashboard {...props}/>}></Route>
 

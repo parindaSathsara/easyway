@@ -11,6 +11,7 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import { Markup } from 'interweave';
 import FSPreLoader from "../../../FSPreLoader/FSPreLoader";
 import NavigationHeader from "../NavigationHeader/NavigationHeader";
+import NewListedServices from "../NewListedServices/NewListedServices";
 
 
 function ListingView() {
@@ -106,7 +107,7 @@ function ListingView() {
             <CustomerNavBar></CustomerNavBar>
             <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
             
-            <NavigationHeader></NavigationHeader>
+            <NewListedServices></NewListedServices>
 
             <section className="padding-y">
                 <div className="container">

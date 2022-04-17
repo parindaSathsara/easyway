@@ -1,0 +1,18 @@
+
+.card-product-grid .img-wrap {
+    height: auto !important;
+}
+
+.listingTitleText{
+    font-size: 20px;
+    font-weight: 600;
+    color: #161e4e !important;
+    
+} 
+
+.lblServiceName{
+    color: #ff8100 !important;
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 12px;
+}

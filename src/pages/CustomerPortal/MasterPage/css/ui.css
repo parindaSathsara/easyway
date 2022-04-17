@@ -668,7 +668,8 @@ a[class*=card]:hover .title {
   margin-bottom: 0;
 }
 [class*=card-product] a.title {
-  display: block;
+  /* display: block; */
+  /* line-height: 2; */
   text-decoration: none;
 }
 [class*=card-product] a.title:hover {
