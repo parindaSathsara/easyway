@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import './TopHeadingNav.css'
 
 function TopHeadingNav() {
@@ -15,14 +16,22 @@ function TopHeadingNav() {
                         </div>
 
                         <ul className="nav">
-                            <li className="nav-item dropdown">
-                               
-                                <select class="form-select form-select-sm TopNavDropDown" aria-label=".form-select-sm example">
+                            <li className="nav-item">
+
+                                <select class="form-select TopNavDropDown nav-link customerPortalNav" aria-label=".form-select-sm example">
                                     <option selected>District</option>
                                     <option value="1">Galle</option>
                                     <option value="2">Matara</option>
                                     <option value="3">Hambanthota</option>
                                 </select>
+                            </li>
+
+                            <li className="nav-item">
+                                <NavLink to={'/ewpartnerlogin'} target='_blank' className="nav-link customerPortalNav">Sell</NavLink>
+                            </li>
+
+                            <li className="nav-item">
+                                <NavLink to={'/ewpartnerlogin'} target='_blank' className="nav-link customerPortalNav">Become A Rider</NavLink>
                             </li>
 
                         </ul>

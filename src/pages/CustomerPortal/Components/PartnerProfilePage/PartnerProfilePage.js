@@ -2,95 +2,102 @@ import { useEffect, useState } from "react";
 import CustomerNavBar from "../NavBar/NavBar";
 import TopHeadingNav from "../TopHeadingNav/TopHeadingNav";
 import CustomerNavBarBreadCrumb from "../NavBarBreadCrumb/NavBarBreadCrumb"
-import { useHistory, useParams } from 'react-router-dom';
+import { NavLink, useHistory, useParams } from 'react-router-dom';
 import axios from "axios";
+import './PartnerProfilePage.css'
 
 function PartnerProfilePage() {
 
     const { id } = useParams()
 
-    const[partnerData,setPartnerData]=useState([])
+    const [partnerData, setPartnerData] = useState([])
+    const [listingData, setListingData] = useState([])
 
-    
     useEffect(() => {
         import(`../../MasterPage/css/boostrap.css`)
         import(`../../MasterPage/css/ui.css`)
         import(`../../MasterPage/css/responsive.css`)
 
-
-        axios.get(`/api/partners/getPartners/${id}`).then(res => {
-
-            if (res.data.status === 200) {
-                setPartnerData(res.data.partners[0]);
-
-                console.log(res.data.partners)
+        axios.get(`/api/partners/getListingsByPartnerID/${id}`).then(res => {
+            if (res.data.status == 200) {
+                setListingData(res.data.listings)
+                console.log(res.data.listings[0])
+            }
+            else {
+                console.log("NoData")
             }
         })
 
+        axios.get(`/api/partners/getPartners/${id}`).then(res => {
 
-    }, [id])
+            if (res.data.status == 200) {
+                setPartnerData(res.data.partners[0])
+                console.log(res.data.partners[0])
+            }
+            else {
+                console.log("NoData")
+            }
+        })
+
+    }, [id]);
 
     return (
         <>
-        <CustomerNavBar></CustomerNavBar>
-        <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
-            <section class="padding-y">
-                <div class="container">
+            <CustomerNavBar></CustomerNavBar>
+            <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
+
+            <section className="padding-y">
+                <div className="container">
                     <div className="card">
-                        <header className="card-img-top overflow-hidden bg-cover" style={{ backgroundImage: 'url("../images/banners/bg-cafe.jpg")' }}>
+                        <header className="card-img-top overflow-hidden bg-cover" style={{ backgroundImage: `url(${partnerData['profilepic']})` }}>
                             <div className="card-body bg-dark-50">
                                 <div className="d-lg-flex align-items-end">
                                     <div className="itemside mt-lg-5 flex-auto">
                                         <div className="aside">
-                                            <img src="../images/brands/cafe-logo3.jpg" className="img-md rounded-3" width={96} height={96} />
+                                            <img src={partnerData['profilepic']} className="img-md rounded-3" width={96} height={96} />
                                         </div>
                                         <div className="info">
-                                            <p className="text-white">Moscow city</p>
-                                            <h3 className="text-white">McDonalds Moscow</h3>
-                                            <p className="text-white-50">National food of Uzbekistan and European foods, luxury interior</p>
+                                            <p className="text-white">{partnerData['district'] + ' District'}</p>
+                                            <h3 className="text-white">{partnerData['partnername']}</h3>
+                                            <p className="text-white-50">{partnerData['description']}</p>
                                         </div>
                                     </div>
                                     <div className="flex-shrink-0 mt-3">
-                                        <span className="btn btn-sm btn-gray"> <i className="fa fa-truck" /> 15-20 min, $7</span>
-                                        <span className="btn btn-sm btn-warning"> <i className="fa fa-star" /> 4.7 </span>
-                                        <a className="btn btn-sm btn-outline-light" href="#"> More info </a>
+                                        <span className="btn btn-sm btn-success mr-3"> <i className="fa fa-clock mr-2" />{partnerData['servicestarttime'] + '-' + partnerData['serviceendtime']}</span>
+                                        {partnerData['servicestatus'] == 'Closed' ? <span className="btn btn-sm btn-danger"><i className="fa fa-star mr-2" />{partnerData['servicestatus']}
+                                        </span> : <span className="btn btn-sm btn-dark"><i className="fa fa-star mr-2" />{partnerData['servicestatus']}
+                                        </span>}
+
                                     </div>
                                 </div>
                             </div>
                         </header>
-                        <div className="row g-0">
 
+
+                        <div className="row g-0">
                             <main className="col-lg-12">
                                 <div className="content-body">
-                                    <h5 className="card-title">Recommended</h5>
+                                    <h4 className="card-title">Recommended</h4>
                                     <article className="row mb-3">
-                                        <div className="col-xl-3 col-lg-4 col-md-4 col-sm-12">
-                                            <img className="rounded w-100 obj-cover mb-3" height={140} src="../images/items/food1.jpg" />
-                                        </div>
-                                        <div className="col-xl-9 col-lg-8 col-md-8 col-sm-12">
-                                            <a href="#" className="btn btn-outline-primary float-end"> Add this</a>
-                                            <h6 className="title">Asian Beef Pilav</h6>
-                                            <div className="price-wrap mb-2">
-                                                <span className="price">$18.90</span>
+                                        {listingData.map((listingsDet) => (
+                                            <div className="col-lg-3 col-md-3 col-sm-3">
+                                                <figure className="card card-product-grid">
+                                                    <NavLink to={`/customerportal/${listingsDet.listingid}`} className="img-wrap listingImageView">
+                                                        <img className='imgListing' src={listingsDet['listingimageurl']} />
+                                                    </NavLink>
+                                                    <figcaption className="info-wrap border-top">
+                                                        <a href="#" className="title text-truncate listingTitleText">{listingsDet['listingtitle']}</a><br></br>
+                                                        <label className="lblServiceName">{listingsDet['servicename']}</label>
+                                                        <div className="price-wrap">
+                                                            <span className="price" style={{ fontSize: 20, fontWeight: 600 }}>{"LKR " + listingsDet['listingprice']}</span>
+                                                        </div>
+                                                        <small className="text-muted">{listingsDet['partnername']}</small>
+
+                                                    </figcaption>
+                                                </figure>
                                             </div>
-                                            <p className="text-muted" style={{ maxWidth: '600px' }}>Uzbek pilav cooked with chicken meat, carrot and other ingredients and some other descriptions Juicy, tender, succulent chicken</p>
-                                        </div>
-                                    </article>
-                                    <article className="row mb-3">
-                                        <div className="col-xl-3 col-lg-4 col-md-4 col-sm-12">
-                                            <img className="rounded w-100 obj-cover mb-3" height={140} src="../images/items/food2.jpg" />
-                                        </div>
-                                        <div className="col-xl-9 col-lg-8 col-md-8 col-sm-12">
-                                            <a href="#" className="btn btn-outline-primary float-end"> Add this</a>
-                                            <h6 className="title">Chicken Pizza </h6>
-                                            <div className="price-wrap mb-2">
-                                                <span className="price">$7.90</span>
-                                                <del className="text-muted"> $12.90</del>
-                                                <span className="ms-2 text-danger"> 15% off </span>
-                                            </div>
-                                            <p className="text-muted" style={{ maxWidth: '600px' }}>Juicy, tender, succulent chicken strips. Served with a choice of house made dips chicken meat and rice, carrot and other ingredients</p>
-                                        </div>
-                                    </article>
+                                        ))}
+                                    </article> {/* itemside .// */}
                                 </div>
                             </main>
                         </div>

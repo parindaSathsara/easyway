@@ -14,10 +14,10 @@ function CustomerNavBar() {
                             </div>
                             <div className="order-lg-last col-lg-5 col-sm-8 col-8">
                                 <div className="float-end">
-                                    <a href="#" className="btn btn-light">
+                                    <a href="#" className="btn btn-warning customerPortalNav">
                                         <i className="fa fa-user" />  <span className="ms-1 d-none d-sm-inline-block">Sign in</span>
                                     </a>
-                                    <a href="#" className="btn btn-light">
+                                    <a href="#" className="btn btn-dark customerPortalNav">
                                         <i className="fa fa-heart" />  <span className="ms-1 d-none d-sm-inline-block">Wishlist</span>
                                     </a>
                                     <a data-bs-toggle="offcanvas" href="#offcanvas_cart" className="btn btn-light">

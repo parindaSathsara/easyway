@@ -31,7 +31,7 @@ function App() {
             <Route exact path="/ewpartnersignup" component={PartnerSignup}></Route>
             <Route exact path="/ewpartnerlogin" component={PartnerLogin}></Route>
 
-            <Route exact path="/customerportal/partnerprofilepage" component={PartnerProfilePage}></Route>
+            <Route exact path="/customerportal/partnerprofilepage/:id" component={PartnerProfilePage}></Route>
             <Route exact path="/customerportal" component={CustomerMainPage}></Route>
             <Route path="/adminportal" name="AdminPortal" render={(props) => <Dashboard {...props}/>}></Route>
             <Route path="/partnerportal" name="PartnerPortal" render={(props) => <PartnerDashboard {...props}/>}></Route>

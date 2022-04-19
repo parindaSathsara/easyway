@@ -13,10 +13,10 @@ function NavigatorCus() {
                     <div className="collapse navbar-collapse" id="navbar_main">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link ps-0" href="#"> Categories </a>
+                                <a className="nav-link ps-0" href="#">All Services</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Hot offers</a>
+                                <a className="nav-link" href="#">Easy Way Partners</a>
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link" href="#">Menu name</a>
