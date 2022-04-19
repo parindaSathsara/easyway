@@ -49,7 +49,6 @@ function ListingView() {
             3000
         );
 
-
         const getListings = () => {
             axios.get(`/api/partners/getListingsImages/${id}`).then(res => {
 
