@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import './SquareListing.css'
 
 function SquareListing(props) {
@@ -6,11 +7,11 @@ function SquareListing(props) {
     return (
         <div className="col-lg-3 col-md-6 col-sm-6">
             <figure className="card card-product-grid">
-                <a href="#" className="img-wrap">
+                <NavLink to={`/customerportal/listing/${props.listingid}`} target="_blank" className="img-wrap">
                     <img src={props.image} />
-                </a>
+                </NavLink>
                 <figcaption className="info-wrap border-top">
-                    <a href="#" className="title text-truncate listingTitleText">{props.title}</a><br></br>
+                    <NavLink to={`/customerportal/listing/${props.listingid}`} target="_blank" className="title text-truncate listingTitleText">{props.title}</NavLink><br></br>
                     <label className="lblServiceName">{props.servicename}</label>
                     <div className="price-wrap">
                         <span className="price" style={{ fontSize: 20, fontWeight: 600 }}>{"LKR " + props.price}</span>

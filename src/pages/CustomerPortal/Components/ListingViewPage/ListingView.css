@@ -23,6 +23,14 @@
     margin-right: 10px;
 }
 
+.btnQty{
+    margin-right: 0 !important;
+}
+
+.textQty{
+    border: none !important;
+}
+
 .asideFrame {
     position: relative;
     width: 90px;

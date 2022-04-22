@@ -5,6 +5,7 @@ import CustomerNavBarBreadCrumb from "../NavBarBreadCrumb/NavBarBreadCrumb"
 import { NavLink, useHistory, useParams } from 'react-router-dom';
 import axios from "axios";
 import './PartnerProfilePage.css'
+import SquareListing from "../SquareListing/SquareListing";
 
 function PartnerProfilePage() {
 
@@ -80,22 +81,16 @@ function PartnerProfilePage() {
                                     <h4 className="card-title">Recommended</h4>
                                     <article className="row mb-3">
                                         {listingData.map((listingsDet) => (
-                                            <div className="col-lg-3 col-md-3 col-sm-3">
-                                                <figure className="card card-product-grid">
-                                                    <NavLink to={`/customerportal/${listingsDet.listingid}`} className="img-wrap listingImageView">
-                                                        <img className='imgListing' src={listingsDet['listingimageurl']} />
-                                                    </NavLink>
-                                                    <figcaption className="info-wrap border-top">
-                                                        <a href="#" className="title text-truncate listingTitleText">{listingsDet['listingtitle']}</a><br></br>
-                                                        <label className="lblServiceName">{listingsDet['servicename']}</label>
-                                                        <div className="price-wrap">
-                                                            <span className="price" style={{ fontSize: 20, fontWeight: 600 }}>{"LKR " + listingsDet['listingprice']}</span>
-                                                        </div>
-                                                        <small className="text-muted">{listingsDet['partnername']}</small>
+                                            <SquareListing
+                                                listingid={listingsDet['listingid']}
+                                                image={listingsDet['listingimageurl']}
+                                                title={listingsDet['listingtitle']}
+                                                servicename={listingsDet['servicename']}
+                                                price={listingsDet['listingprice']}
+                                                partnername={listingsDet['partnername']}
+                                            >
 
-                                                    </figcaption>
-                                                </figure>
-                                            </div>
+                                            </SquareListing>
                                         ))}
                                     </article> {/* itemside .// */}
                                 </div>

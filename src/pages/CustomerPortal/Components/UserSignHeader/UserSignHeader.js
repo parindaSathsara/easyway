@@ -9,7 +9,7 @@ function UserSignHeaders() {
                     <div className="row gy-3 align-items-center">
                         <div className="col-4">
                             <a href="http://bootstrap-ecommerce.com" className="brand-wrap">
-                                <img className="logo" height={40} src={logoimg} />
+                                <img className="logo" src={logoimg} />
                             </a>
                         </div>
                         <div className="col-8">

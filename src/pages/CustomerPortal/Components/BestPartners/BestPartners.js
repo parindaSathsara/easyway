@@ -2,6 +2,7 @@ import './BestPartners.css'
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 import PartnerDashboard from '../../../PartnerDashboard/Dashboard/Dashboard';
+import { NavLink } from 'react-router-dom';
 
 function BestPartners() {
     const [partners, setPartners] = useState([]);
@@ -33,12 +34,12 @@ function BestPartners() {
                         <div className="row gy-4">
                             {partners.map((partnersDetails) => (
                                 <div className="col-lg col-md-3 col-sm-4 col-6">
-                                    <a href="#" className="item-link text-center">
+                                    <NavLink target={"_blank"} to={"/customerportal/partnerprofilepage/"+partnersDetails["partnerid"]} className="item-link text-center">
                                         <div className="mb-2">
                                             <img className="icon icon-xl rounded-circle" width={120} height={120} src={partnersDetails['profilepic']} />
                                         </div>
                                         <span className="text">{partnersDetails['partnername']} </span>
-                                    </a>
+                                    </NavLink>
                                 </div>
 
                             ))}

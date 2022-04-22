@@ -12,6 +12,7 @@ import { Markup } from 'interweave';
 import FSPreLoader from "../../../FSPreLoader/FSPreLoader";
 import NavigationHeader from "../NavigationHeader/NavigationHeader";
 import NewListedServices from "../NewListedServices/NewListedServices";
+import TopHeadingNav from "../TopHeadingNav/TopHeadingNav";
 
 
 function ListingView() {
@@ -24,10 +25,35 @@ function ListingView() {
     const [listingVariations, setListingVariations] = useState([])
     const [variationTitle, setVariationTitle] = useState([])
     const [listingPrice, setListingPrice] = useState()
+    const [finalListingPrice,setFinalListingPrice]=useState()
     const [preloader, setPreLoader] = useState(true)
+
+    const [quantity, setQuantity] = useState(1)
 
 
     const [listingType, setListingType] = useState()
+
+
+
+    const incrementNumber = (e) => {
+        var qty = quantity + 1
+        var totPrice=qty*listingPrice
+        setQuantity(qty)
+        setFinalListingPrice(totPrice)
+    }
+
+    const decrementNumber = (e) => {
+
+        if (quantity!=0 && quantity!=1) {
+            var qty = quantity - 1
+            var totPrice=qty*listingPrice
+            setQuantity(qty)
+
+            setFinalListingPrice(totPrice)
+        }
+
+    }
+
 
 
     const variationTypeOnChange = (e) => {
@@ -35,6 +61,8 @@ function ListingView() {
 
         var index = e.target.value
         setListingPrice(listingVariations[index]['variationprice'])
+        setFinalListingPrice(listingVariations[index]['variationprice'])
+        setQuantity(1)
     }
 
 
@@ -69,10 +97,12 @@ function ListingView() {
                         setListingVariations(res.data.listingvariations)
                         setVariationTitle(res.data.listingvariations[0]['variationtitle'])
                         setListingPrice(res.data.listings[0]['listingprice'])
+                        setFinalListingPrice(res.data.listings[0]['listingprice'])
                     }
                     else {
                         setListingType("Fixed")
                         setListingPrice(res.data.listings[0]['listingprice'])
+                        setFinalListingPrice(res.data.listings[0]['listingprice'])
                     }
 
 
@@ -102,11 +132,9 @@ function ListingView() {
                 <FSPreLoader></FSPreLoader>
 
             </div>
-
+            <TopHeadingNav></TopHeadingNav>
             <CustomerNavBar></CustomerNavBar>
             <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
-            
-            <NewListedServices></NewListedServices>
 
             <section className="padding-y">
                 <div className="container">
@@ -125,22 +153,10 @@ function ListingView() {
                                 <h4 className="text-dark">{listing['listingtitle']}</h4>
                                 <h6 className="text-warning" style={{ fontWeight: 500 }}>{listing['servicename']}</h6>
 
-                                {/* <div className="rating-wrap my-3">
-                                    <ul className="rating-stars">
-                                        <li style={{ width: '80%' }} className="stars-active"> <img src="images/misc/stars-active.svg" alt="" /> </li>
-                                        <li> <img src="images/misc/starts-disable.svg" alt="" /> </li>
-                                    </ul>
-                                    <b className="label-rating text-warning"> 4.5</b>
-                                    <i className="dot" />
-                                    <span className="label-rating text-muted"> <i className="fa fa-shopping-basket" /> 154 orders </span>
-                                    <i className="dot" />
-                                    <span className="label-rating text-success">In stock</span>
-                                </div> */}
-
                                 <br></br>
 
-                                <div className="row mb-4">
-                                    <div className="col-md-4 col-6 mb-2">
+                                <div className="row mb-4" >
+                                    <div className="col-md-4 col-6 mb-2" style={listingType=="Fixed" ? {display:"none"} : {display:"block"}}>
                                         <label className="form-label">{variationTitle}</label>
                                         <select className="form-select" onChange={variationTypeOnChange}>
                                             <option selected disabled>Select Variation</option>
@@ -152,13 +168,13 @@ function ListingView() {
                                     <div className="col-md-4 col-6 mb-3">
                                         <label className="form-label d-block">Quantity</label>
                                         <div className="input-group input-spinner">
-                                            <button className="btn btn-icon btn-light" type="button">
+                                            <button className="btn btn-icon btn-light btnQty" type="button" onClick={decrementNumber}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} fill="#999" viewBox="0 0 24 24">
                                                     <path d="M19 13H5v-2h14v2z" />
                                                 </svg>
                                             </button>
-                                            <input className="form-control text-center" placeholder defaultValue={14} />
-                                            <button className="btn btn-icon btn-light" type="button">
+                                            <input value={quantity} className="form-control text-center textQty" placeholder contentEditable={false} />
+                                            <button className="btn btn-icon btn-light" type="button" onClick={incrementNumber}>
                                                 <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} fill="#999" viewBox="0 0 24 24">
                                                     <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
                                                 </svg>
@@ -171,12 +187,12 @@ function ListingView() {
                                 <label className="form-label h5">Price</label>
                                 <div className="mb-3">
                                     <span className="text-warning h3">LKR  </span>
-                                    <var className="price h3">{listingPrice + "/="}</var>
+                                    <var className="price h3">{finalListingPrice + "/="}</var>
 
                                 </div>
 
                                 <hr />
-                                <a href="#" className="btn  btn-warning" onClick={onClick}> Buy now </a>
+                                <a href="#" className="btn  btn-warning" onClick={onClick}> Order now </a>
                                 <a href="#" className="btn  btn-primary"> <i className="me-1 fa fa-shopping-basket" /> Add to cart </a>
                                 <a href="#" className="btn  btn-light"> <i className="me-1 fa fa-heart" /> Save </a>
                             </article>

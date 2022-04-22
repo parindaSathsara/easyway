@@ -1,6 +1,13 @@
+import { Block, LocalSee } from '@material-ui/icons';
+import { useState } from 'react';
 import logoimg from '../../../../assets/images/easywaymain.png';
 import './NavBar.css'
 function CustomerNavBar() {
+
+    const [userLogged, setUserLogged] = useState(true)
+
+
+
     return (
         <>
             <header className="section-header">
@@ -14,17 +21,28 @@ function CustomerNavBar() {
                             </div>
                             <div className="order-lg-last col-lg-5 col-sm-8 col-8">
                                 <div className="float-end">
-                                    <a href="#" className="btn btn-warning customerPortalNav">
+                                    {userLogged == false ? <a href="#" className="btn btn-dark customerPortalNav">
                                         <i className="fa fa-user" />  <span className="ms-1 d-none d-sm-inline-block">Sign in</span>
-                                    </a>
-                                    <a href="#" className="btn btn-dark customerPortalNav">
-                                        <i className="fa fa-heart" />  <span className="ms-1 d-none d-sm-inline-block">Wishlist</span>
-                                    </a>
-                                    <a data-bs-toggle="offcanvas" href="#offcanvas_cart" className="btn btn-light">
-                                        <i className="fa fa-shopping-cart" /> <span className="ms-1">My cart </span>
-                                    </a>
+                                    </a> :
+
+                                        <div className="icontext me-4 ml-4">
+                                            <img className="icon icon-xs rounded-circle iconBGIMG" src={localStorage.getItem("userprofile")} />
+                                            <div class="dropdown show">
+                                                <a class="text-xs dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    {localStorage.getItem("username")}
+                                                </a>
+                                                <div class="dropdown-menu dropDownMenu" aria-labelledby="dropdownMenuLink">
+                                                    <a class="dropdown-item" href="#">My Profile</a>
+                                                    <a class="dropdown-item" href="#">My Orders</a>
+                                                    <a class="dropdown-item" href="#">Signout</a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+
                                 </div>
-                            </div> {/* col end.// */}
+                            </div>
                             <div className="col-lg-5 col-md-12 col-12">
                                 <form action="#" className>
                                     <div className="input-group">
@@ -38,7 +56,7 @@ function CustomerNavBar() {
                         </div> {/* row end.// */}
                     </div> {/* container end.// */}
                 </section> {/* header-main end.// */}
-                
+
             </header> {/* section-header end.// */}
 
         </>

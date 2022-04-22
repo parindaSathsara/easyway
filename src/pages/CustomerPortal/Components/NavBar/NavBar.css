@@ -3,3 +3,17 @@
     font-size: 14px;
     font-weight: 400 !important;
 }
+
+.iconBGIMG{
+    object-fit: cover !important;
+}
+
+.text-xs{
+    font-size: 14px;
+    color:#000731 ;
+}
+
+.dropDownMenu{
+    font-size: 14px !important;
+    border-radius: 0 !important;
+}

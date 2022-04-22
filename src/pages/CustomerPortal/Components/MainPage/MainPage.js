@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import FSPreLoader from "../../../FSPreLoader/FSPreLoader";
 import BestPartners from "../BestPartners/BestPartners";
 import CustomerNavBar from "../NavBar/NavBar";
 import CustomerNavBarBreadCrumb from "../NavBarBreadCrumb/NavBarBreadCrumb";
@@ -11,16 +12,26 @@ import './MainPage.css'
 
 function CustomerMainPage() {
 
+    const [preloader, setPreLoader] = useState(true)
     useEffect(() => {
         import(`../../MasterPage/css/boostrap.css`)
         import(`../../MasterPage/css/ui.css`)
         import(`../../MasterPage/css/responsive.css`)
 
 
+        setTimeout(
+            () => setPreLoader(false),
+            3000
+        );
     }, []);
 
     return (
         <>
+            <div style={preloader == true ? { display: 'block' } : { display: 'none' }}>
+
+                <FSPreLoader></FSPreLoader>
+
+            </div>
             <TopHeadingNav></TopHeadingNav>
             <CustomerNavBar></CustomerNavBar>
             <NavigatorCus></NavigatorCus>

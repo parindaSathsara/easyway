@@ -18,13 +18,13 @@ function AllListings() {
                 title: "",
                 field: "listingid",
                 render: listingdata => <div class="btn-group">
-                    <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button className="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
                     </button>
-                    <div class="dropdown-menu">
-                        <Link class="dropdown-item" to="#">Edit</Link>
-                        <Link class="dropdown-item" to="#">Delete</Link>
-                        <Link class="dropdown-item" to={`/customerportal/${listingdata.listingid}`} target='_blank'>View</Link>
+                    <div className="dropdown-menu">
+                        <Link className="dropdown-item" to="#">Edit</Link>
+                        <Link className="dropdown-item" to="#">Delete</Link>
+                        <Link className="dropdown-item" to={`/customerportal/listing/${listingdata.listingid}`} target='_blank'>View</Link>
                     </div>
                 </div>
             },

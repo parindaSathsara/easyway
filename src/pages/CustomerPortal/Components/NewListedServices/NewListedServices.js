@@ -32,7 +32,9 @@ function NewListedServices() {
                     <div class="row">
                         {listings.map((listingsDet) => (
 
-                            <SquareListing image={listingsDet['listingimageurl']}
+                            <SquareListing 
+                            listingid={listingsDet['listingid']}
+                            image={listingsDet['listingimageurl']}
                             title={listingsDet['listingtitle']} 
                             servicename={listingsDet['servicename']}
                             price={listingsDet['listingprice']}

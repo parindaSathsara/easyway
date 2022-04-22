@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
-body{
+body {
   margin: 0;
   padding: 0;
   background: #fff;
@@ -8,49 +8,59 @@ body{
   overflow: hidden;
   overflow-y: scroll;
 }
+
 html {
   overflow: scroll;
   overflow-x: hidden;
 }
+
 ::-webkit-scrollbar {
   width: 0;
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #F7F6FB;
   border-radius: 20px;
 }
 
 
-.btn-primary{
+.btn-primary {
   background-color: #000731;
   border: none;
   border-radius: 10px;
 }
-.btn-primary:hover{
+
+.btn-primary:hover {
   background-color: #000f61;
   transition: 0.5s;
 }
 
-.btn-primary:focus{
+.btn-primary:focus {
   background-color: #FFB600;
   transition: 0.5s;
 }
 
 
-.btn-warning{
+.btn-warning {
   background-color: #FFB600;
   border: none;
   border-radius: 10px;
   color: white;
 }
-.btn-warning:hover{
+
+.btn-warning:hover {
   color: white;
   background-color: #ff9100;
   transition: 0.5s;
 }
 
-.table{
+
+.btn-dark:hover {
+  background-color: #000f61 !important;
+}
+
+.table {
   font-size: 14px;
 }
 
@@ -103,19 +113,19 @@ html {
   font-size: 15px;
 }
 
-.btn{
+.btn {
   font-size: 14px;
 }
 
-.deleteImage{
+.deleteImage {
   background: #ff9100 !important;
 }
 
-.submissionrow{
+.submissionrow {
   margin-right: 0px !important;
   margin-left: 0px !important;
 }
 
-.rotateSpinner{
+.rotateSpinner {
   margin-left: 20px;
 }
