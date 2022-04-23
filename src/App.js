@@ -17,6 +17,7 @@ import PartnerProfilePage from './pages/CustomerPortal/Components/PartnerProfile
 import CustomerSignUp from './pages/CustomerPortal/Components/CustomerSignUp/CustomerSignUp';
 import CustomerSignIn from './pages/CustomerPortal/Components/CustomerSignIn/CustomerSignIn';
 import CustomerOrder from './pages/CustomerPortal/Components/CustomerOrder/CustomerOrder';
+import ChartCheckOut from './pages/CustomerPortal/Components/CartCheckOut/CartCheckOut';
 
 axios.defaults.baseURL="http://127.0.0.1:8000/";
 axios.defaults.headers.post['Content-Type']='application/json';
@@ -36,7 +37,7 @@ function App() {
             <Route exact path="/customersignup" component={CustomerSignUp}></Route>
             <Route exact path="/customerlogin" component={CustomerSignIn}></Route>
             <Route exact path="/customerorder" component={CustomerOrder}></Route>
-
+            <Route exact path="/customercart" component={ChartCheckOut}></Route>
 
             <Route exact path="/customerportal/partnerprofilepage/:id" component={PartnerProfilePage}></Route>
             <Route exact path="/customerportal" component={CustomerMainPage}></Route>

@@ -32,7 +32,7 @@ html {
 }
 
 .btn-primary:hover {
-  background-color: #000f61;
+  background-color: #00137c !important;
   transition: 0.5s;
 }
 
@@ -57,7 +57,8 @@ html {
 
 
 .btn-dark:hover {
-  background-color: #000f61 !important;
+  background-color: #00106d !important;
+  transition: 0.5s;
 }
 
 .table {

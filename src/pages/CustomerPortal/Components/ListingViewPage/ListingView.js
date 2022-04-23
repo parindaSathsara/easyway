@@ -13,7 +13,15 @@ import FSPreLoader from "../../../FSPreLoader/FSPreLoader";
 import NavigationHeader from "../NavigationHeader/NavigationHeader";
 import NewListedServices from "../NewListedServices/NewListedServices";
 import TopHeadingNav from "../TopHeadingNav/TopHeadingNav";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import Snackbar from "../../../SnackBar/Snackbar";
 
+
+const SnackbarType = {
+    success: "success",
+    fail: "fail",
+  };
 
 function ListingView() {
 
@@ -25,28 +33,32 @@ function ListingView() {
     const [listingVariations, setListingVariations] = useState([])
     const [variationTitle, setVariationTitle] = useState([])
     const [listingPrice, setListingPrice] = useState()
-    const [finalListingPrice,setFinalListingPrice]=useState()
+    const [finalListingPrice, setFinalListingPrice] = useState()
     const [preloader, setPreLoader] = useState(true)
+    const [variationId,setVariationId]=useState()
 
     const [quantity, setQuantity] = useState(1)
 
 
     const [listingType, setListingType] = useState()
 
+    const snackbarRef = useRef(null);
+    const snackbarRefErr = useRef(null);
+  
 
 
     const incrementNumber = (e) => {
         var qty = quantity + 1
-        var totPrice=qty*listingPrice
+        var totPrice = qty * listingPrice
         setQuantity(qty)
         setFinalListingPrice(totPrice)
     }
 
     const decrementNumber = (e) => {
 
-        if (quantity!=0 && quantity!=1) {
+        if (quantity != 0 && quantity != 1) {
             var qty = quantity - 1
-            var totPrice=qty*listingPrice
+            var totPrice = qty * listingPrice
             setQuantity(qty)
 
             setFinalListingPrice(totPrice)
@@ -60,6 +72,8 @@ function ListingView() {
         console.log(e.target.value)
 
         var index = e.target.value
+
+        setVariationId(listingVariations[index]['variationid'])
         setListingPrice(listingVariations[index]['variationprice'])
         setFinalListingPrice(listingVariations[index]['variationprice'])
         setQuantity(1)
@@ -124,6 +138,46 @@ function ListingView() {
     }
 
 
+    const onAddToCart = (e) => {
+        confirmAlert({
+            title: 'Add To Cart ?',
+            message: 'Are you sure you want to add this listing to your cart?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
+
+                        const cartData = {
+                            userid: localStorage.getItem("customerid"),
+                            listingid: listing['listingid'],
+                            listingtype: listing['listingtype']=="Variation"?variationId:listing['listingtype'],
+                            quantity: quantity,
+                            totalprice: finalListingPrice,
+                            status: "NotPurchased"
+                        }
+
+                        console.log(cartData)
+
+                        axios.post('api/customers/addToCart', cartData).then(res => {
+                            if (res.data.status === 200) {
+                                snackbarRef.current.show();
+                            }
+                            else {
+                                snackbarRefErr.current.show();
+                                console.log(res.data.validator_errors);
+                            }
+                        })
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => console.log("No")
+                }
+            ]
+        })
+    }
+
+
 
     return (
         <div>
@@ -135,6 +189,18 @@ function ListingView() {
             <TopHeadingNav></TopHeadingNav>
             <CustomerNavBar></CustomerNavBar>
             <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
+
+            <Snackbar
+                ref={snackbarRef}
+                message="Listing Added To Cart Successfully !"
+                type={SnackbarType.success}
+            />
+
+            <Snackbar
+                ref={snackbarRefErr}
+                message="Listing Added To Cart Unsuccessfully !"
+                type={SnackbarType.fail}
+            />
 
             <section className="padding-y">
                 <div className="container">
@@ -156,7 +222,7 @@ function ListingView() {
                                 <br></br>
 
                                 <div className="row mb-4" >
-                                    <div className="col-md-4 col-6 mb-2" style={listingType=="Fixed" ? {display:"none"} : {display:"block"}}>
+                                    <div className="col-md-4 col-6 mb-2" style={listingType == "Fixed" ? { display: "none" } : { display: "block" }}>
                                         <label className="form-label">{variationTitle}</label>
                                         <select className="form-select" onChange={variationTypeOnChange}>
                                             <option selected disabled>Select Variation</option>
@@ -192,8 +258,8 @@ function ListingView() {
                                 </div>
 
                                 <hr />
-                                <a href="#" className="btn  btn-warning" onClick={onClick}> Order now </a>
-                                <a href="#" className="btn  btn-primary"> <i className="me-1 fa fa-shopping-basket" /> Add to cart </a>
+                                <button href="#" className="btn  btn-warning" onClick={onClick}> Order now </button>
+                                <button href="#" className="btn  btn-primary" onClick={onAddToCart}> <i className="me-1 fa fa-shopping-basket" /> Add to cart </button>
                                 <a href="#" className="btn  btn-light"> <i className="me-1 fa fa-heart" /> Save </a>
                             </article>
                         </main>
@@ -259,7 +325,9 @@ function ListingView() {
                 </div>
             </div>
 
+            <div>
 
+            </div>
 
         </div>
 
