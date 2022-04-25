@@ -1,0 +1,30 @@
+.customerMainContainerSubTitle{
+    font-size: 12px;
+}
+
+.customerMainContainerTitle{
+    font-size: 16px;
+    line-height: 1 !important;
+}
+
+.chevDown{
+    font-size: 16;
+    color: #000731;
+}
+
+.chevDown:hover{
+    text-decoration: none;
+    color: #000c52;
+}
+
+
+.chevDownSmall{
+    font-size: 13 !important;
+    color: #000731 !important;
+    line-height: 30px;
+}
+
+.chevDownSmall:hover{
+    text-decoration: none !important;
+    color: #0019aa !important;
+}

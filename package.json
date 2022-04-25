@@ -35,6 +35,7 @@
     "react-flip-move": "^3.0.4",
     "react-google-places-autocomplete": "^3.3.4",
     "react-images-upload": "^1.2.8",
+    "react-moment": "^1.1.2",
     "react-multiple-image-uploader": "^1.0.3",
     "react-native-input-spinner": "^1.7.12",
     "react-notifications-component": "^3.3.11",

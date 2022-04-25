@@ -26,6 +26,8 @@ const SnackbarType = {
 function ListingView() {
 
     const { id } = useParams()
+    const history = useHistory();
+
     const [listingImages, setListingImages] = useState([])
 
     const [listing, setListing] = useState({})
@@ -41,7 +43,7 @@ function ListingView() {
 
 
     const [listingType, setListingType] = useState()
-    const [cartItemCount,setCartItemCount]=useState(0)
+    const [cartItemCount, setCartItemCount] = useState(0)
 
     const snackbarRef = useRef(null);
     const snackbarRefErr = useRef(null);
@@ -165,10 +167,11 @@ function ListingView() {
                         const cartData = {
                             userid: localStorage.getItem("customerid"),
                             listingid: listing['listingid'],
-                            listingtype: listing['listingtype'] == "Variation" ? variationId : listing['listingtype'],
+                            listingtypeid: listing['listingtype'] == "Variation" ? variationId : listing['listingtype'],
                             quantity: quantity,
                             totalprice: finalListingPrice,
-                            status: "NotPurchased"
+                            status: "NotPurchased",
+                            purpose:"Cart"
                         }
 
                         console.log(cartData)
@@ -190,6 +193,33 @@ function ListingView() {
                     onClick: () => console.log("No")
                 }
             ]
+        })
+    }
+
+    const onOrderNow = (e) => {
+        const cartData = {
+            userid: localStorage.getItem("customerid"),
+            listingid: listing['listingid'],
+            listingtypeid: listing['listingtype'] == "Variation" ? variationId : listing['listingtype'],
+            quantity: quantity,
+            totalprice: finalListingPrice,
+            status: "NotPurchased",
+            purpose:"BuyItNow"
+        }
+
+        console.log(cartData)
+
+        axios.post('api/customers/addToCart', cartData).then(res => {
+            if (res.data.status === 200) {
+                snackbarRef.current.show();
+                getCartCount();
+                history.push(`/customerorder/${res.data.cartid}`)
+            }
+            else {
+                snackbarRefErr.current.show();
+                console.log(res.data.validator_errors);
+            }
+            
         })
     }
 
@@ -274,7 +304,7 @@ function ListingView() {
                                 </div>
 
                                 <hr />
-                                <button href="#" className="btn  btn-warning" onClick={onClick}> Order now </button>
+                                <button href="#" className="btn  btn-warning" onClick={onOrderNow}> Order now </button>
                                 <button href="#" className="btn  btn-primary" onClick={onAddToCart}> <i className="me-1 fa fa-shopping-basket" /> Add to cart </button>
                                 <a href="#" className="btn  btn-light"> <i className="me-1 fa fa-heart" /> Save </a>
                             </article>

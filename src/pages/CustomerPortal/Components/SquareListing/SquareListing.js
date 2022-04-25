@@ -5,7 +5,7 @@ function SquareListing(props) {
 
 
     return (
-        <div className="col-lg-3 col-md-6 col-sm-6">
+        <div className="col-lg-4 col-md-6 col-sm-6">
             <figure className="card card-product-grid">
                 <NavLink to={`/customerportal/listing/${props.listingid}`} target="_blank" className="img-wrap">
                     <img src={props.image} />
