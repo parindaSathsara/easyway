@@ -21,7 +21,7 @@ import Snackbar from "../../../SnackBar/Snackbar";
 const SnackbarType = {
     success: "success",
     fail: "fail",
-  };
+};
 
 function ListingView() {
 
@@ -35,16 +35,17 @@ function ListingView() {
     const [listingPrice, setListingPrice] = useState()
     const [finalListingPrice, setFinalListingPrice] = useState()
     const [preloader, setPreLoader] = useState(true)
-    const [variationId,setVariationId]=useState()
+    const [variationId, setVariationId] = useState()
 
     const [quantity, setQuantity] = useState(1)
 
 
     const [listingType, setListingType] = useState()
+    const [cartItemCount,setCartItemCount]=useState(0)
 
     const snackbarRef = useRef(null);
     const snackbarRefErr = useRef(null);
-  
+
 
 
     const incrementNumber = (e) => {
@@ -79,6 +80,18 @@ function ListingView() {
         setQuantity(1)
     }
 
+    const getCartCount = () => {
+        axios.get(`/api/customers/getCartItemCount/${localStorage.getItem("customerid")}`).then(res => {
+
+            if (res.data.status == 200) {
+                setCartItemCount(res.data.cartCount)
+            }
+            else {
+                console.log("NoData")
+            }
+        })
+    }
+
 
 
     useEffect(() => {
@@ -90,6 +103,7 @@ function ListingView() {
             () => setPreLoader(false),
             3000
         );
+
 
         const getListings = () => {
             axios.get(`/api/partners/getListingsImages/${id}`).then(res => {
@@ -126,7 +140,7 @@ function ListingView() {
         }
 
         getListings();
-
+        getCartCount();
 
     }, [id]);
 
@@ -136,6 +150,7 @@ function ListingView() {
         e.preventDefault();
         console.log(listing)
     }
+
 
 
     const onAddToCart = (e) => {
@@ -150,7 +165,7 @@ function ListingView() {
                         const cartData = {
                             userid: localStorage.getItem("customerid"),
                             listingid: listing['listingid'],
-                            listingtype: listing['listingtype']=="Variation"?variationId:listing['listingtype'],
+                            listingtype: listing['listingtype'] == "Variation" ? variationId : listing['listingtype'],
                             quantity: quantity,
                             totalprice: finalListingPrice,
                             status: "NotPurchased"
@@ -161,6 +176,7 @@ function ListingView() {
                         axios.post('api/customers/addToCart', cartData).then(res => {
                             if (res.data.status === 200) {
                                 snackbarRef.current.show();
+                                getCartCount();
                             }
                             else {
                                 snackbarRefErr.current.show();
@@ -187,7 +203,7 @@ function ListingView() {
 
             </div>
             <TopHeadingNav></TopHeadingNav>
-            <CustomerNavBar></CustomerNavBar>
+            <CustomerNavBar cartItemCount={cartItemCount}></CustomerNavBar>
             <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
 
             <Snackbar

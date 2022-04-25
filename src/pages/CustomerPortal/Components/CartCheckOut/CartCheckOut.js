@@ -5,6 +5,8 @@ import CustomerNavBarBreadCrumb from "../NavBarBreadCrumb/NavBarBreadCrumb";
 import TopHeadingNav from "../TopHeadingNav/TopHeadingNav";
 import CustomerNavBar from "../NavBar/NavBar";
 import Snackbar from "../../../SnackBar/Snackbar";
+import { confirmAlert } from 'react-confirm-alert';
+import { NavLink } from 'react-router-dom';
 
 const SnackbarType = {
     success: "success",
@@ -19,6 +21,7 @@ function ChartCheckOut() {
     const [cartVarListings, setCartVarListings] = useState([])
     const [totPrice, setTotPrice] = useState(0.00)
     const [discountPrice, setDiscountPrice] = useState(0.00)
+    const [cartItemCount,setCartItemCount]=useState(0)
 
     const snackbarRef = useRef(null);
 
@@ -36,17 +39,48 @@ function ChartCheckOut() {
         })
     }
 
+    const getCartCount = () => {
+        axios.get(`/api/customers/getCartItemCount/${localStorage.getItem("customerid")}`).then(res => {
+
+            if (res.data.status == 200) {
+                setCartItemCount(res.data.cartCount)
+            }
+            else {
+                console.log("NoData")
+            }
+        })
+    }
+
     const deleteCartItem = (id) => {
         console.log(id)
 
-        axios.post(`/api/customers/deleteCart/${id}`).then(res => {
+        confirmAlert({
+            title: 'Delete Cart Item ?',
+            message: 'Are you sure you want to delete this item from cart?',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: () => {
 
-            if (res.data.status === 200) {
-                snackbarRef.current.show();
-                getCart()
-            }
+                        axios.post(`/api/customers/deleteCart/${id}`).then(res => {
 
+                            if (res.data.status === 200) {
+                                snackbarRef.current.show();
+                                getCart()
+                                getCartCount()
+                            }
+
+                        })
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => console.log("No")
+                }
+            ]
         })
+
+
 
     }
 
@@ -55,8 +89,9 @@ function ChartCheckOut() {
         import(`../../MasterPage/css/ui.css`)
         import(`../../MasterPage/css/responsive.css`)
 
-
         getCart()
+        getCartCount()
+
     }, [])
 
 
@@ -70,7 +105,7 @@ function ChartCheckOut() {
             />
 
             <TopHeadingNav></TopHeadingNav>
-            <CustomerNavBar></CustomerNavBar>
+            <CustomerNavBar cartItemCount={cartItemCount}></CustomerNavBar>
             <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
             <section class="padding-y">
                 <div class="container">
@@ -102,7 +137,7 @@ function ChartCheckOut() {
                                                 <div className="col-lg-2 col-sm-4 col-6">
                                                     <div className="price-wrap lh-sm">
                                                         <var className="price h6">{"LKR " + listings.totalprice}</var>  <br />
-                                                        <small className="text-muted"> {listings.listingprice+ "LKR/per unit"} </small>
+                                                        <small className="text-muted"> {listings.listingprice + "LKR/per unit"} </small>
                                                     </div>
                                                 </div>
                                                 <div className="col-lg col-sm-4">
@@ -189,7 +224,7 @@ function ChartCheckOut() {
                                         <dd className="text-end text-dark h5">{"LKR " + totPrice} </dd>
                                     </dl>
                                     <div className="d-grid gap-2 my-3">
-                                        <a href="#" className="btn btn-primary w-100"> Make Purchase </a>
+                                        <NavLink to="#" className="btn btn-primary w-100"> Make Purchase </NavLink>
                                         <a href="#" className="btn btn-light w-100"> Back to shop </a>
                                     </div>
                                 </div>

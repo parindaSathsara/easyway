@@ -1,11 +1,29 @@
 import { Block, LocalSee } from '@material-ui/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import logoimg from '../../../../assets/images/easywaymain.png';
 import './NavBar.css'
-function CustomerNavBar() {
+import axios from 'axios'
+function CustomerNavBar(props) {
 
     const [userLogged, setUserLogged] = useState(true)
+    const [cartItemCount,setCartItemCount]=useState(0)
+
+    useEffect(() => {
+
+        axios.get(`/api/customers/getCartItemCount/${localStorage.getItem("customerid")}`).then(res => {
+
+            if (res.data.status == 200) {
+                setCartItemCount(res.data.cartCount)
+            }
+            else {
+                console.log("NoData")
+            }
+        })
+
+
+    }, [])
+
 
 
 
@@ -31,11 +49,11 @@ function CustomerNavBar() {
                                         <i className="fa fa-user" />  <span className="ms-1 d-none d-sm-inline-block">Sign in</span>
                                     </a> :
                                         <>
-                                            <NavLink to={"customerportal"} className="NavLinkCP">
+                                            <NavLink to={"customercart"} className="NavLinkCP">
                                                 <div className="icontext me-4 customerPortalNav">
                                                     <span className="icon icon-xs rounded-circle bg-dark">
                                                         <i className="fa fa-shopping-cart text-white" />
-                                                        <span className="notify bg-warning">2</span>
+                                                        <span className="notify bg-warning">{props.cartItemCount==null?cartItemCount:props.cartItemCount}</span>
                                                     </span>
                                                     <span class="ms-1 d-none d-sm-inline-block">Cart</span>
                                                 </div>

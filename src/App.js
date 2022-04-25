@@ -39,6 +39,7 @@ function App() {
             <Route exact path="/customerorder" component={CustomerOrder}></Route>
             <Route exact path="/customercart" component={ChartCheckOut}></Route>
 
+
             <Route exact path="/customerportal/partnerprofilepage/:id" component={PartnerProfilePage}></Route>
             <Route exact path="/customerportal" component={CustomerMainPage}></Route>
             <Route path="/adminportal" name="AdminPortal" render={(props) => <Dashboard {...props}/>}></Route>

@@ -1,0 +1,4 @@
+.box-check input:checked ~ .border-oncheck {
+    border-color: transparent !important;
+    background-color: transparent !important;
+}
