@@ -40,7 +40,8 @@ function App() {
             <Route exact path="/customerorder/:id" component={CustomerOrderCart}></Route>
             <Route exact path="/customerorder/" component={CustomerOrderCart}></Route>
             <Route exact path="/customercart" component={ChartCheckOut}></Route>
-            <Route exact path="/customerportal/allservices" component={AllListingsCusPortal}></Route>
+
+            <Route path="/customerportal/allservices" name="CustomerPortal" render={(props) => <AllListingsCusPortal {...props}/>}></Route>
 
             <Route exact path="/customerportal/partnerprofilepage/:id" component={PartnerProfilePage}></Route>
             <Route exact path="/customerportal" component={CustomerMainPage}></Route>

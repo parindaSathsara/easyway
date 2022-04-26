@@ -22,9 +22,18 @@
     font-size: 13 !important;
     color: #000731 !important;
     line-height: 30px;
+    padding: 5px;
 }
 
 .chevDownSmall:hover{
     text-decoration: none !important;
     color: #0019aa !important;
+    cursor:pointer !important;
+}
+
+.chevDownSmall.activeChev{
+    color: #0019aa !important;
+    background-color: #0015ff05;
+    padding: 5px;
+    border-radius: 10px;
 }

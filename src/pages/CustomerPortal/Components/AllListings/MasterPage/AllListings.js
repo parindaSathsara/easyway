@@ -11,7 +11,9 @@ import TopHeadingNav from "../../TopHeadingNav/TopHeadingNav";
 import './AllListings.css'
 import axios from 'axios'
 import SquareListing from '../../SquareListing/SquareListing'
-import { NavLink } from "react-router-dom";
+import ServiceFilter from "../ServiceFilter/ServiceFilter";
+import { Link, NavLink, Redirect, Route, Switch } from 'react-router-dom';
+import routes from '../../../../../routes/routes';
 
 function AllListingsCusPortal() {
 
@@ -38,7 +40,7 @@ function AllListingsCusPortal() {
 
             if (res.data.status === 200) {
                 setServicesList(res.data.services);
-                console.log(res.data.services);
+                // console.log(res.data.services);
             }
 
 
@@ -50,7 +52,7 @@ function AllListingsCusPortal() {
 
             if (res.data.status === 200) {
                 setListings(res.data.listings);
-                console.log(res.data.listings);
+                // console.log(res.data.listings);
             }
         })
     }
@@ -83,17 +85,16 @@ function AllListingsCusPortal() {
                                         <div className="card-body">
                                             <ul className="list-menu">
                                                 {serviceslist.map((service) => (
-                                                    <li ><NavLink to={`/customerportal/servicepartner/${service.serviceid}`} className="chevDownSmall" activeClassName="active" >{service['servicename']}</NavLink></li>
+                                                    <li ><NavLink to={`/customerportal/allservices/${service['serviceid']}`} className="chevDownSmall" activeClassName="activeChev" >{service['servicename']}</NavLink></li>
                                                 ))}
                                             </ul>
-                                        </div> {/* card-body.// */}
-                                    </div> {/* collapse.// */}
-                                </article> {/* filter-group // */}
+                                        </div> 
+                                    </div>
+                                </article>
 
+                            </div>
 
-                            </div> {/* card.// */}
-                            {/* ===== Card for sidebar filter .// ===== */}
-                        </aside> {/* col .// */}
+                        </aside> 
                         <main className="col-lg-9">
                             <header className="d-sm-flex align-items-center border-bottom mb-4 pb-3">
                                 <strong className="d-block py-2">32 Items found </strong>
@@ -107,22 +108,19 @@ function AllListingsCusPortal() {
                                 </div>
                             </header>
                             {/* ========= content items ========= */}
-                            <div className="row">
-                                {listings.map((listingsDet) => (
-
-                                    <SquareListing
-                                        listingid={listingsDet['listingid']}
-                                        image={listingsDet['listingimageurl']}
-                                        title={listingsDet['listingtitle']}
-                                        servicename={listingsDet['servicename']}
-                                        price={listingsDet['listingprice']}
-                                        partnername={listingsDet['partnername']}
-                                    >
-
-                                    </SquareListing>
-
-                                ))}
-                            </div> {/* row end.// */}
+                            <Switch>
+                                {routes.map((route, idx) => {
+                                    return (
+                                        route.component && (
+                                            <Route key={idx} path={route.path} exact={route.exact} name={route.name} render={(props) => (
+                                                <route.component {...props}
+                                                />
+                                            )} />
+                                        )
+                                    )
+                                })}
+                                <Redirect from="/empmasterpage" to="/empmasterpage/dashboard" />
+                            </Switch>
                             <hr />
                             <footer className="d-flex mt-4">
                                 <div>
