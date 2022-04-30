@@ -1,0 +1,138 @@
+
+.riderAccountTracking .steps .step {
+    display: block;
+    width: 100%;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.riderAccountTracking .steps .step .step-icon-wrap {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 80px;
+    text-align: center;
+}
+
+.riderAccountTracking .steps .step .step-icon-wrap::before,
+.riderAccountTracking .steps .step .step-icon-wrap::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    width: 50%;
+    height: 3px;
+    margin-top: -1px;
+    background-color: #a7f8ff;
+    content: '';
+    z-index: 1
+}
+
+.riderAccountTracking .steps .step .step-icon-wrap::before {
+    left: 0
+}
+
+
+.riderAccountTracking .steps .step .step-icon-wrap::after {
+    right: 0
+}
+
+.riderAccountTracking .steps .step .step-icon {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    background-color: #ccfbff;
+    color: #78f4ff;
+    font-size: 35px;
+    line-height: 88px;
+    z-index: 5;
+}
+
+.riderAccountTracking .steps .step .step-title {
+
+    margin-top: 16px;
+    margin-bottom: 0;
+    color: #07382e;
+    font-size: 16px;
+    font-weight: 400;
+
+}
+
+.riderAccountTracking .steps .step:first-child .step-icon-wrap::before {
+    display: none
+}
+
+.riderAccountTracking .steps .step:last-child .step-icon-wrap::after {
+    display: none
+}
+
+.riderAccountTracking .steps .step.completed .step-icon-wrap::before,
+.riderAccountTracking .steps .step.completed .step-icon-wrap::after {
+    background-color: #48f0ff;
+    transition: linear .2s;
+}
+
+.riderAccountTracking .steps .step.completed .step-icon {
+    border-color: #00c9dc;
+    background-color: #00c9dc;
+    color: #fff;
+    transition: linear .2s;
+}
+
+
+
+@media (max-width: 576px) {
+
+    .flex-sm-nowrap .step .step-icon-wrap::before,
+    .flex-sm-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+
+
+    .logoImgTracking{
+        width: 30%;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .flex-md-nowrap .step .step-icon-wrap::before,
+    .flex-md-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+    
+    .logoImgTracking{
+        width: 30%;
+    }
+}
+
+@media (max-width: 991px) {
+
+    .flex-lg-nowrap .step .step-icon-wrap::before,
+    .flex-lg-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+
+
+    .logoImgTracking{
+        width: 30%;
+    }
+}
+
+@media (max-width: 1200px) {
+
+    .flex-xl-nowrap .step .step-icon-wrap::before,
+    .flex-xl-nowrap .step .step-icon-wrap::after {
+        display: none
+    }
+
+    .logoImgTracking{
+        width: 30%;
+    }
+}
+
+.bg-faded, .bg-secondary {
+    background-color: #f5f5f5 !important;
+}

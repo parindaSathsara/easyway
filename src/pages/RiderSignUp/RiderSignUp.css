@@ -1,0 +1,91 @@
+
+.cardcontentsignup {
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 0px !important;
+  box-shadow: 0 1rem 1rem 0rem rgba(0, 0, 0, 0.096);
+  width: 120vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.riderImgSide {
+  width: 50%;
+  background: url('../../assets/images/ridercoverside.png') center !important;
+  background-size: cover;
+}
+
+.clBodySignupRider{
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+
+.selectOpt {
+  width: 100%;
+  height: 45px;
+  font-size: 14px;
+  padding-left: 40px;
+  margin-bottom: 2px;
+  box-sizing: border-box;
+  box-shadow: none;
+  border: 1px solid #00000020;
+  border-radius: 50px;
+  outline: none;
+  background: transparent;
+}
+
+.selectOpt:focus, .selectOpt:hover {
+  background-color: white;
+}
+
+.riderSelect:focus {
+  border: 2px solid #00c9dc;
+  transition: 0.5s;
+
+}
+
+.riderfaicon {
+  color: #00c9dc !important;
+}
+
+.form-input input::placeholder {
+  color: #454b69;
+  padding-left: 0px;
+}
+
+.riderInput input:focus {
+  border: 2px solid #00c9dc;
+  transition: 0.5s;
+}
+
+.form-input input:focus::placeholder {
+  color: #454b69;
+}
+
+
+.riderSubmit button[type="submit"] {
+  background: #00c9dc;
+}
+
+.riderSubmit button[type="submit"]:hover {
+  background: #00a9b9;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .cardcontentsignup {
+    overflow: hidden;
+    border: 0 !important;
+    border-radius: 20px !important;
+    width: 90%;
+  }
+}
+
+.error {
+  color: rgb(255, 97, 97);
+  font-size: 12px;
+}

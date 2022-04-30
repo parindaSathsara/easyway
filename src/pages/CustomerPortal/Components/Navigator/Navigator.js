@@ -16,20 +16,10 @@ function NavigatorCus() {
                                 <a className="nav-link ps-0" href="#">All Services</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Easy Way Partners</a>
+                                <a className="nav-link ps-0" href="#">Other Services</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Menu name</a>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="dropdown-toggle nav-link" href="#" data-bs-toggle="dropdown">
-                                    Others
-                                </a>
-                                <ul className="dropdown-menu">
-                                    <li> <a className="dropdown-item" href="#">Submenu one </a> </li>
-                                    <li> <a className="dropdown-item" href="#">Submenu two</a> </li>
-                                    <li> <a className="dropdown-item" href="#">Submenu three</a> </li>
-                                </ul>
+                                <a className="nav-link" href="#">Easy Way Partners</a>
                             </li>
                         </ul>
                     </div> {/* collapse end.// */}

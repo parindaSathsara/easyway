@@ -34,7 +34,7 @@ function CustomerOrderCart() {
         customerid: localStorage.getItem("customerid"),
         orderstatus: 'OrderPlaced',
         remark: '',
-        orderdate: moment().format("DD-MM-YYYY"),
+        orderdate: moment().format("YYYY-MM-DD"),
         ordertime: moment().format("hh:mm:ss"),
         fullname: '',
         contactnumber: '',
@@ -43,6 +43,7 @@ function CustomerOrderCart() {
         city: '',
         paymentoption: ''
     })
+    
 
 
     const getCart = () => {
@@ -102,6 +103,8 @@ function CustomerOrderCart() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
+
+        console.log(orderData.orderdate)
 
         const passingData = {
             customerid: orderData.customerid,

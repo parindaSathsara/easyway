@@ -78,7 +78,7 @@ function AllListingsCusPortal() {
                                 <article className="filter-group">
                                     <header className="card-header">
                                         <a className="chevDown" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                            <i className="icon-control fa fa-chevron-down" /> Related items
+                                            <i className="icon-control fa fa-chevron-down" /> Services
                                         </a>
                                     </header>
                                     <div className="collapse show" id="collapseExample">

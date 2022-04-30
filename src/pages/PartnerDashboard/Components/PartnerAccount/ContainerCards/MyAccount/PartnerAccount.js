@@ -31,7 +31,8 @@ function PartnerAccount() {
     const [progress, setProgress] = useState(0)
 
     const [userData, setUserData] = useState({
-        'serviceid': localStorage.getItem("PartnerID"),
+        'partnerid':localStorage.getItem("PartnerID"),
+        'serviceid': '',
         'partnername': '',
         'contactnumber': '',
         'address': '',

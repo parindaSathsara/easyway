@@ -1,8 +1,9 @@
 
 
-import React from 'react';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import React, { useEffect, useState } from 'react';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import { Pie, Doughnut } from 'react-chartjs-2';
+import axios from 'axios';
 
 function ServiceChart() {
     ChartJS.register(
@@ -12,50 +13,91 @@ function ServiceChart() {
         LineElement,
         Title,
         Tooltip,
-        Legend
+        Legend,
+        ArcElement
     );
 
-    const options = {
-        responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Performance of Services'
-            },
-        },
-    };
+    const [services, setServices] = useState([]);
+    const [servicesData, setServicesData] = useState([]);
+    const [allServicesData, setAllServicesData] = useState([]);
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const getOrdersList = () => {
+        axios.get('/api/administration/getServicesOrders').then(res => {
 
-    const data = {
-        labels,
+            if (res.data.status === 200) {
+                setAllServicesData(res.data.orders);
+
+                res.data.services.forEach(element => {
+                    setServices(oldArray => [...oldArray, element.servicename]);
+                });
+
+                res.data.services.forEach(element => {
+                    setServicesData(oldArray => [...oldArray, element.total]);
+                });
+
+            }
+            console.log("first");
+
+        })
+    }
+
+
+    useEffect(() => {
+
+        getOrdersList()
+
+    }, [])
+    
+
+
+    const state = {
+        labels: services,
         datasets: [
             {
-                label: 'Main Services',
-                data: [33, 53, 85, 41, 44, 65, 85, 80, 23, 55, 66, 76],
-                borderColor: '#FFB600',
-                backgroundColor: '#FFB600',
-            },
-            {
-                label: 'Easy Services',
-                data: [85, 80, 23, 55, 66, 76, 33, 25, 35, 51, 54, 65],
-                borderColor: '#0822A6',
-                backgroundColor: '#0822A6',
-            },
-        ],
-    };
+                label: 'Rainfall',
+                backgroundColor: [
+                    '#AB46D2',
+                    '#FF6FB5',
+                    '#55D8C1',
+                    '#FCF69C',
+                    '#B4FF9F',
+                    '#F9FFA4',
+                    '#FFD59E',
+                    '#FFA1A1',
+                    '#FFD36E',
+                    '#FFD36E',
+                    '#FFD36E',
+                    '#FFD36E',
+                    '#FFD36E',
+                ],
+
+                data: servicesData
+            }
+        ]
+    }
     return (
-        <div className="col-xl-12 mx-auto mt-5">
+        <div className="col-xl-5 mx-auto mt-5">
             <div className="col-md-12 containerbox">
                 <div className="containerbox-title">
                     <h5>
-                        Monthly Performance
+                        Services Orders
                     </h5>
                 </div>
-                <Line options={options} data={data} />
+                <Pie
+                    data={state}
+                    options={{
+                        title: {
+                            display: true,
+                            text: 'Services Order Count',
+                            fontSize: 20
+                        },
+                        legend: {
+                            display: true,
+                            position: 'left'
+                        }
+                    }}
+                />
+
             </div>
         </div>
     );

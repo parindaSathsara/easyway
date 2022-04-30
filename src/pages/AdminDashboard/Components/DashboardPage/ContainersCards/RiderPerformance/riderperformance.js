@@ -1,79 +1,103 @@
-import React from 'react';
-import '../containercards.css'
+
+
+import React, { useEffect, useState } from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
+import MaterialTable from 'material-table';
+import axios from 'axios';
 
 function RiderPerformance() {
-  const [datatable, setDatatable] = React.useState({
+
+  const [ordersList, setOrders] = useState([
+    {
+      ridername:"Waidya Sewwandi",
+      jobcount:"31",
+      district:"Galle",
+    },
+    {
+      ridername:"Parinda Sathsara",
+      jobcount:"25",
+      district:"Galle",
+    },
+    {
+      ridername:"Viraj Kavinda",
+      jobcount:"13",
+      district:"Hambantota",
+    }
+  ]);
+
+
+
+  const getOrdersList = () => {
+    // axios.get('/api/administration/getRecentOrders').then(res => {
+
+    //   if (res.data.status === 200) {
+    //     setOrders(res.data.orders);
+    //     console.log(res.data.orders)
+    //   }
+    //   console.log("first");
+
+    // })
+  }
+
+  useEffect(() => {
+    getOrdersList();
+  }, []);
+
+  
+
+
+
+
+  const data = {
     columns: [
       {
-        label: 'Rider Name',
-        field: 'ridername',
-        width: 160,
-        attributes: {
-          'aria-controls': 'DataTable',
-          'aria-label': 'Rider Name',
-        },
+        title: "Rider Name",
+        field: "ridername",
       },
       {
-        label: 'Job Count',
-        field: 'jobcount',
-        width: 120,
+        title: "Job Count",
+        field: "jobcount",
       },
-      {
-        label: 'District',
-        field: 'district',
-        width: 130,
-      },
+
     ],
-    rows: [
-      {
-        ridername: 'Parinda Sathsara',
-        jobcount: '42',
-        district: 'Galle',
-      }, 
-      {
-        ridername: 'Waidya Sewwandi',
-        jobcount: '56',
-        district: 'Matara',
-      }, 
-      {
-        ridername: 'Viraj Kavinda',
-        jobcount: '32',
-        district: 'Galle',
-      }, 
-      {
-        ridername: 'Chathuna Samodya',
-        jobcount: '21',
-        district: 'Hambanthota',
-      }, 
 
-      {
-        ridername: 'Yovin Paranawithana',
-        jobcount: '32',
-        district: 'Galle',
-      }, 
-      {
-        ridername: 'Sanju Nimesha',
-        jobcount: '37',
-        district: 'Matara',
-      }, 
-      
-    ],
-  });
+    rows: ordersList.map(ordersdata => {
+      return {
+        ridername: ordersdata.ridername,
+        jobcount: ordersdata.jobcount,
+      }
+    }),
+  };
 
 
-
-  return(
+  return (
     <div className="col-xl-5 mx-auto mt-5">
-    <div className="col-md-12 containerbox">
+      <div className="col-md-12 containerbox">
         <div className="containerbox-title">
-            <h5>
-                Rider Performance
-            </h5>
+          <h5>
+            Rider Performance
+          </h5>
         </div>
-        <MDBDataTableV5 hover scrollX maxHeight='300px' data={datatable} searchTop searchBottom={false}/>
+
+        <MaterialTable
+          title={""}
+          data={data.rows}
+          columns={data.columns}
+          options={{
+            sorting: true, search: true,
+            searchFieldAlignment: "left", searchAutoFocus: true, searchFieldVariant: "standard",
+            filtering: false, paging: true, pageSizeOptions: [5, 10, 20, 25, 50, 100], pageSize: 5,
+            paginationType: "stepped", showFirstLastPageButtons: false, paginationPosition: "both", exportButton: true,
+            exportAllData: true, exportFileName: "Services Data", addRowPosition: "first", actionsColumnIndex: -1, selection: false,
+            showSelectAllCheckbox: false, showTextRowsSelected: false, selectionProps: rowData => ({
+                disabled: rowData.serviceid == null,
+                // color:"primary"
+            }),
+            columnsButton: true,
+          }}
+        />
+      </div>
     </div>
-  </div>
   )
 
 }

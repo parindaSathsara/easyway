@@ -1,117 +1,102 @@
 
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MDBDataTableV5 } from 'mdbreact';
+import MaterialTable from 'material-table';
+import axios from 'axios';
 
-function RegisteredPartners() {
-  const [datatable, setDatatable] = React.useState({
+function RecentOrders() {
+
+  const [ordersList, setOrders] = useState([]);
+
+
+
+  const getOrdersList = () => {
+    axios.get(`/api/partners/getRecentOrdersPartners/${localStorage.getItem("PartnerID")}`).then(res => {
+
+      if (res.data.status === 200) {
+        setOrders(res.data.orders)
+        console.log(res.data.orders)
+      }
+      console.log("first");
+
+    })
+  }
+
+  useEffect(() => {
+    getOrdersList();
+  }, []);
+
+  
+
+
+
+
+  const data = {
     columns: [
       {
-        label: 'Service Name',
-        field: 'servicename',
-        width: 180,
-        attributes: {
-          'aria-controls': 'DataTable',
-          'aria-label': 'Service Name',
-        },
-      },
-      {
-        label: 'Customer Name',
-        field: 'customername',
-        width: 200,
-      },
-      {
-        label: 'Order Date',
-        field: 'orderdate',
-        width: 120,
-      },
-      {
-        label: 'Order Time',
-        field: 'ordertime',
-        width: 150,
+        title: "Customer Name",
+        field: "cusname",
       },
 
+      {
+        title: "Service Name",
+        field: "servicename",
+      },
+
+      {
+        title: "Order Date",
+        field: "orderdate",
+      },
+      {
+        title: "Order Time",
+        field: "ordertime",
+      },
     ],
-    rows: [
-      {
-        servicename: 'Grocery Delivery',
-        customername: 'Waidya Sewwandi',
-        orderdate: '02/01/2022',
-        ordertime: '01.10 PM',
-      }, 
 
-      {
-        servicename: 'Laundry Service',
-        customername: 'Parinda Sathsara',
-        orderdate: '02/01/2022',
-        ordertime: '08.17 PM',
-      }, 
-
-      {
-        servicename: 'Medicine Delivery',
-        customername: 'Viraj Kavinda',
-        orderdate: '02/01/2022',
-        ordertime: '10.17 PM',
-      }, 
-
-      {
-        servicename: 'Grocery Delivery',
-        customername: 'Chathuna Samodya',
-        orderdate: '02/01/2022',
-        ordertime: '11.17 PM',
-      }, 
-
-      {
-        servicename: 'Stationary Delivery',
-        customername: 'Sanju Nimesha',
-        orderdate: '02/01/2022',
-        ordertime: '12.17 PM',
-      }, 
-
-      {
-        servicename: 'Medicine Delivery',
-        customername: 'Dilishika Fernando',
-        orderdate: '02/01/2022',
-        ordertime: '12.17 PM',
-      }, 
-
-      {
-        servicename: 'Stationary Delivery',
-        customername: 'Sanju Nimesha',
-        orderdate: '02/01/2022',
-        ordertime: '12.17 PM',
-      }, 
-      {
-        servicename: 'Stationary Delivery',
-        customername: 'Sanju Nimesha',
-        orderdate: '02/01/2022',
-        ordertime: '12.17 PM',
-      }, 
-      {
-        servicename: 'Stationary Delivery',
-        customername: 'Sanju Nimesha',
-        orderdate: '02/01/2022',
-        ordertime: '12.17 PM',
-      }, 
-
-    ],
-  });
+    rows: ordersList.map(ordersdata => {
+      return {
+        cusname: ordersdata.customername,
+        servicename: ordersdata.servicename,
+        orderdate:ordersdata.orderdate,
+        ordertime:ordersdata.ordertime
+      }
+    }),
+  };
 
 
-
-  return(
-    <div className="col-xl-7 mx-auto mt-5">
-    <div className="col-md-12 containerbox">
+  return (
+    <div className="col-xl-12 mx-auto mt-5">
+      <div className="col-md-12 containerbox">
         <div className="containerbox-title">
-            <h5>
-                Recent Orders
-            </h5>
+          <h5>
+            Recent Orders
+          </h5>
         </div>
-        <MDBDataTableV5 hover scrollX maxHeight='300px' data={datatable} searchTop searchBottom={false}/>
+
+
+
+        <MaterialTable
+          title={""}
+          data={data.rows}
+          columns={data.columns}
+          options={{
+            sorting: true, search: true,
+            searchFieldAlignment: "left", searchAutoFocus: true, searchFieldVariant: "standard",
+            filtering: false, paging: true, pageSizeOptions: [5, 10, 20, 25, 50, 100], pageSize: 5,
+            paginationType: "stepped", showFirstLastPageButtons: false, paginationPosition: "both", exportButton: true,
+            exportAllData: true, exportFileName: "Services Data", addRowPosition: "first", actionsColumnIndex: -1, selection: false,
+            showSelectAllCheckbox: false, showTextRowsSelected: false, selectionProps: rowData => ({
+                disabled: rowData.serviceid == null,
+                // color:"primary"
+            }),
+            columnsButton: true,
+          }}
+        />
+      </div>
     </div>
-  </div>
   )
 
 }
 
-export default RegisteredPartners;
+export default RecentOrders;

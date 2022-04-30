@@ -19,6 +19,9 @@ import CustomerSignIn from './pages/CustomerPortal/Components/CustomerSignIn/Cus
 import ChartCheckOut from './pages/CustomerPortal/Components/CartCheckOut/CartCheckOut';
 import CustomerOrderCart from './pages/CustomerPortal/Components/CustomerOrderCart/CustomerOrderCart';
 import AllListingsCusPortal from './pages/CustomerPortal/Components/AllListings/MasterPage/AllListings';
+import RiderDashboard from './pages/RiderDashboard/Dashboard/Dashboard';
+import RiderSignUp from './pages/RiderSignUp/RiderSignUp';
+import RiderLogin from './pages/RiderLogin/RiderLogin';
 
 axios.defaults.baseURL="http://127.0.0.1:8000/";
 axios.defaults.headers.post['Content-Type']='application/json';
@@ -33,6 +36,10 @@ function App() {
             <Route exact path="/" component={LandingPage}></Route>
             <Route exact path="/login" component={Login}></Route>
             <Route exact path="/signup" component={Signup}></Route>
+
+            <Route exact path="/ewridersignup" component={RiderSignUp}></Route>
+            <Route exact path="/ewriderlogin" component={RiderLogin}></Route>
+
             <Route exact path="/ewpartnersignup" component={PartnerSignup}></Route>
             <Route exact path="/ewpartnerlogin" component={PartnerLogin}></Route>
             <Route exact path="/customersignup" component={CustomerSignUp}></Route>
@@ -45,6 +52,7 @@ function App() {
 
             <Route exact path="/customerportal/partnerprofilepage/:id" component={PartnerProfilePage}></Route>
             <Route exact path="/customerportal" component={CustomerMainPage}></Route>
+            <Route path="/riderportal" name="Rider" render={(props) => <RiderDashboard {...props}/>}></Route>
             <Route path="/adminportal" name="AdminPortal" render={(props) => <Dashboard {...props}/>}></Route>
             <Route path="/partnerportal" name="PartnerPortal" render={(props) => <PartnerDashboard {...props}/>}></Route>
 

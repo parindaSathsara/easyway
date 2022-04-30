@@ -173,7 +173,11 @@ function Services() {
 
                     <div className="form-group">
                         <label>Service Type</label>
-                        <input type="text" className="form-control dashboardInputField" id="servicetype" name="servicetype" onChange={handleInput} value={services.servicetype}></input>
+                        
+                        <select className="form-control dashboardInputField" id="servicetype" name="servicetype" onChange={handleInput} value={services.servicetype}>
+                            <option value={"MainService"}>Main Service</option>
+                            <option value={"OtherService"}>Other Service</option>
+                        </select>
                         <span className="error" id="serviceType"></span>
                     </div>
 

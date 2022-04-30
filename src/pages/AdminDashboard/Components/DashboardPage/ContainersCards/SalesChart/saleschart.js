@@ -1,9 +1,10 @@
 
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import '../containercards.css'
+import axios from 'axios';
 
 function SalesChart() {
     ChartJS.register(
@@ -15,6 +16,49 @@ function SalesChart() {
         Tooltip,
         Legend
     );
+
+
+    const [dates, setDates] = useState([]);
+    const [mainServices, setMainServices] = useState([]);
+    const [easyServices, setEasyServices] = useState([]);
+    const [ordersList, setOrders] = useState([]);
+
+
+
+    const getOrdersList = () => {
+        axios.get('/api/administration/getOrderCounts').then(res => {
+
+            if (res.data.status === 200) {
+                setOrders(res.data.orders);
+
+                res.data.orders.forEach(element => {
+                    setDates(oldArray => [...oldArray, element.orderdate]);
+                });
+        
+                res.data.orders.forEach(element => {
+                    setMainServices(oldArray => [...oldArray, element.MainServices]);
+                });
+        
+                res.data.orders.forEach(element => {
+                    setEasyServices(oldArray => [...oldArray, element.EasyServices]);
+                });
+            }
+            console.log("first");
+
+        })
+    }
+
+    const handleOnClick = () => {
+
+
+    }
+
+
+
+    useEffect(() => {
+        getOrdersList()
+    }, [])
+
 
     const options = {
         responsive: true,
@@ -29,20 +73,20 @@ function SalesChart() {
         },
     };
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const labels = dates;
 
     const data = {
         labels,
         datasets: [
             {
                 label: 'Main Services',
-                data: [33, 53, 85, 41, 44, 65, 85, 80, 23, 55, 66, 76],
+                data: mainServices,
                 borderColor: '#FFB600',
                 backgroundColor: '#FFB600',
             },
             {
                 label: 'Easy Services',
-                data: [85, 80, 23, 55, 66, 76, 33, 25, 35, 51, 54, 65],
+                data: easyServices,
                 borderColor: '#0822A6',
                 backgroundColor: '#0822A6',
             },

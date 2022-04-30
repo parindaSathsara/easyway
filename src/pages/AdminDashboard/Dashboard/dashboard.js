@@ -8,7 +8,23 @@ function Dashboard() {
         <div id='body-pdd' className='bodyclass'>
             <header className="header" id="header">
                 <div className="header_toggle"> <i className='bx bx-menu' id="header-toggle"></i> </div>
-                <div className="header_img"> <img src={require('../../../assets/images/profile.jpg')} alt=""></img> </div>
+
+
+                <div className="headerTgl row">
+
+                    <div>
+                        <i class="bx bxs-bell bx-tada-hover notificationButton" style={{ fontSize: 18 }} aria-hidden="true"></i>
+                    </div>
+                    <div>
+                        <h6 class="notificationButton navUName">Parinda Sathsara</h6>
+                    </div>
+                    <div className="header_img">
+                        <img src={require('../../../assets/images/profile.jpg')} alt=""></img>
+                    </div>
+                </div>
+
+
+
             </header>
             <div className="l-navbar" id="nav-bar">
                 <nav className="nav mainsidebarnav">
@@ -16,7 +32,12 @@ function Dashboard() {
                         <div className="nav_list sidenavlist"> <Link to='/adminportal/dashboard' className="nav_link active sidebarnav"> <i className='bx bx-grid-alt nav_icon'></i> <span className="nav_name">Dashboard</span> </Link>
                             <Link to='/adminportal/partners' className="nav_link sidebarnav"> <i className='bx bx-building-house nav_icon'></i> <span className="nav_name">Partners</span> </Link>
                             <Link to="/adminportal/services" className="nav_link sidebarnav"> <i className='bx bxs-hand nav_icon'></i> <span className="nav_name">Services</span> </Link>
-                            </div>
+                            <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bxs-bell-plus bx-tada-hover nav_icon'></i> <span className="nav_name">Create Listing</span> </Link>
+                            <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bxs-bell bx-tada-hover nav_icon'></i> <span className="nav_name">Services Listings</span> </Link>
+                            <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bx-cycling nav_icon'></i> <span className="nav_name">Riders</span> </Link>
+                            <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bx-money nav_icon'></i> <span className="nav_name">Sales</span> </Link>
+                            <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bx-book-alt nav_icon'></i> <span className="nav_name">Reports</span> </Link>
+                        </div>
                     </div> <a href="#" className="nav_link sidebarnav"> <i className='bx bx-log-out nav_icon'></i> <span className="nav_name">SignOut</span> </a>
                 </nav>
             </div>
