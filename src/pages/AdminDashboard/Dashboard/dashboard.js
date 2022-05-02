@@ -32,8 +32,10 @@ function Dashboard() {
                         <div className="nav_list sidenavlist"> <Link to='/adminportal/dashboard' className="nav_link active sidebarnav"> <i className='bx bx-grid-alt nav_icon'></i> <span className="nav_name">Dashboard</span> </Link>
                             <Link to='/adminportal/partners' className="nav_link sidebarnav"> <i className='bx bx-building-house nav_icon'></i> <span className="nav_name">Partners</span> </Link>
                             <Link to="/adminportal/services" className="nav_link sidebarnav"> <i className='bx bxs-hand nav_icon'></i> <span className="nav_name">Services</span> </Link>
-                            <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bxs-bell-plus bx-tada-hover nav_icon'></i> <span className="nav_name">Create Listing</span> </Link>
-                            <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bxs-bell bx-tada-hover nav_icon'></i> <span className="nav_name">Services Listings</span> </Link>
+                            <Link to="/adminportal/customers" className="nav_link sidebarnav"> <i className='bx bxs-user-voice bx-tada-hover nav_icon'></i> <span className="nav_name">Customers</span> </Link>
+                            <Link to="/adminportal/createlisting" className="nav_link sidebarnav"> <i className='bx bxs-bell-plus bx-tada-hover nav_icon'></i> <span className="nav_name">Create Listing</span> </Link>
+                            <Link to="/adminportal/viewListings" className="nav_link sidebarnav"> <i className='bx bxs-bell bx-tada-hover nav_icon'></i> <span className="nav_name">Services Listings</span> </Link>
+                            
                             <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bx-cycling nav_icon'></i> <span className="nav_name">Riders</span> </Link>
                             <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bx-money nav_icon'></i> <span className="nav_name">Sales</span> </Link>
                             <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bx-book-alt nav_icon'></i> <span className="nav_name">Reports</span> </Link>

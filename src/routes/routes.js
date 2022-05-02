@@ -12,12 +12,18 @@ import RiderAccountProgressMaster from "../pages/RiderDashboard/Components/Accou
 import RiderAccountMaster from "../pages/RiderDashboard/Components/RiderAccount/MasterPage/RiderAccountMaster";
 import RiderPGMaster from "../pages/AdminDashboard/Components/RiderPage/MasterPage/partnermaster";
 import CustomerOrdersMaster from "../pages/RiderDashboard/Components/CustomerOrders/MasterPage/CustomerOrdersMaster";
+import AdminCreateListing from "../pages/AdminDashboard/Components/CreateListing/MasterPage/CreateListingMaster";
+import ServicesListingsMasterAdmin from "../pages/AdminDashboard/Components/ServicesListings/MasterPage/ServicesListings";
+import CustomerPGMaster from "../pages/AdminDashboard/Components/CustomersPage/MasterPage/Customers";
 const routes = [
     
     {path: '/adminportal/dashboard', exact:true, name:'Dashboard', component: DPMaster},
     {path: '/adminportal/partners', exact:true, name:'Dashboard', component: PartnerPGMaster},
     {path: '/adminportal/services', exact:true, name:'Dashboard', component: ServiceMaster},
     {path: '/adminportal/riders', exact:true, name:'Dashboard', component: RiderPGMaster},
+    {path: '/adminportal/createlisting', exact:true, name:'Dashboard', component: AdminCreateListing},
+    {path: '/adminportal/viewListings', exact:true, name:'Dashboard', component: ServicesListingsMasterAdmin},
+    {path: '/adminportal/customers', exact:true, name:'Dashboard', component: CustomerPGMaster},
 
     {path: '/customerportal/allservices/:id', exact:true, name:'Dashboard', component: ServiceFilter},
 

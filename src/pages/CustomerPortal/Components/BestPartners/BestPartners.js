@@ -27,7 +27,7 @@ function BestPartners() {
                 <div class="container">
 
                     <header class="section-heading">
-                        <h4 class="section-title">Recent Listed Services</h4>
+                        <h4 class="section-title">Best Partners</h4>
                     </header>
 
                     <div className="content-body">

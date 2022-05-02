@@ -74,12 +74,12 @@ function CustomerSignIn() {
 
                             <div className="mb-3">
                                 <label className="form-label">Email</label>
-                                <input className="form-control" placeholder="Type email" onChange={handleOnChange} name="customeremail" type="text" />
+                                <input className="form-control" placeholder="Enter Your Email" onChange={handleOnChange} name="customeremail" type="text" />
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label">Create password</label>
-                                <input className="form-control" placeholder="At least 6 characters." onChange={handleOnChange} name="customerpassword" type="password" />
+                                <label className="form-label">Password</label>
+                                <input className="form-control" placeholder="Enter Your Password" onChange={handleOnChange} name="customerpassword" type="password" />
                             </div>
                             <div className="mb-4">
                                 <button type="submit" className="btn btn-primary w-100"> Login</button>

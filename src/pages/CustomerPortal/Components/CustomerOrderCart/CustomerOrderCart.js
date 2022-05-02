@@ -19,6 +19,7 @@ const SnackbarType = {
 function CustomerOrderCart() {
 
     const { id } = useParams()
+    const history = useHistory()
 
     const [cartListings, setCartListings] = useState([])
     const [cartVarListings, setCartVarListings] = useState([])
@@ -43,42 +44,42 @@ function CustomerOrderCart() {
         city: '',
         paymentoption: ''
     })
-    
+
 
 
     const getCart = () => {
 
-        if(id==null){
+        if (id == null) {
             axios.get(`/api/customers/getCarts/${localStorage.getItem("customerid")}`).then(res => {
 
                 if (res.data.status === 200) {
-    
+
                     setCartListings(res.data.fixedListings)
                     setCartVarListings(res.data.variationListings)
                     setTotPrice(res.data.cartprice)
-    
-    
+
+
                     console.log(res.data.variationListings)
-    
+
                 }
-    
+
             })
         }
-        else{
+        else {
             console.log("NotNull")
             axios.get(`/api/customers/getCartsByID/${id}`).then(res => {
 
                 if (res.data.status === 200) {
-    
+
                     setCartListings(res.data.fixedListings)
                     setCartVarListings(res.data.variationListings)
                     setTotPrice(res.data.cartprice)
-    
-    
+
+
                     console.log(res.data.variationListings)
-    
+
                 }
-    
+
             })
         }
 
@@ -183,90 +184,87 @@ function CustomerOrderCart() {
                         <main className="col-lg-8">
                             <article className="card">
                                 <div className="card-body">
-                                    <form onSubmit={handleOnSubmit}>
-                                        <h5 className="card-title mb-5">Contact Info</h5>
-                                        <div className="row">
-                                            <div className="col-8 mb-4">
-                                                <label className="form-label">Deliver To</label>
-                                                <input type="text" className="form-control" name='fullname' onChange={handleInput} />
-                                            </div>
 
-                                            <div className="col-lg-4 mb-4">
-                                                <label className="form-label">Contact Number</label>
-                                                <input type="text" className="form-control" name='contactnumber' onChange={handleInput} />
-                                            </div>
-
+                                    <h5 className="card-title mb-5">Contact Info</h5>
+                                    <div className="row">
+                                        <div className="col-8 mb-4">
+                                            <label className="form-label">Deliver To</label>
+                                            <input type="text" className="form-control" name='fullname' onChange={handleInput} />
                                         </div>
-                                        <hr className="my-4" />
-                                        <h5 className="card-title mb-5"> Shipping info </h5>
 
-                                        <div className="row">
-                                            <div className="col-sm-12 mb-4">
-                                                <label className="form-label">Address</label>
-                                                <input type="text" className="form-control" placeholder="Type Address Here" name='address' onChange={handleInput} />
-                                            </div>
-                                            <div className="col-sm-6 mb-4">
-                                                <label className="form-label">Distict*</label>
-                                                <select className="form-select" id="district*" aria-label="District*" name='district' onChange={handleInput}>
-                                                    <option disabled>Select City</option>
-                                                    <option value={"Galle"}>Galle</option>
-                                                    <option value={"Matara"}>Matara</option>
-                                                    <option value={"Hambanthota"}>Hambanthota</option>
-                                                </select>
-                                            </div>
-                                            <div className="col-sm-6 mb-4">
-                                                <label className="form-label">City*</label>
-                                                <select className="form-select" id="city*" aria-label="City*" name='city' onChange={handleInput}>
-                                                    <option disabled>Select City</option>
-                                                    <option value={"Galle"}>Galle</option>
-                                                    <option value={"Wakwella"}>Wakwella</option>
-                                                    <option value={"Kalegana"}>Kalegana</option>
-                                                </select>
-                                            </div>
-                                            <div className="col-sm-12 mb-4">
-                                                <label className="form-label">Remarks</label>
-                                                <input type="text" className="form-control" placeholder="Type Additional Informations" name='remark' onChange={handleInput} />
-                                            </div>
+                                        <div className="col-lg-4 mb-4">
+                                            <label className="form-label">Contact Number</label>
+                                            <input type="text" className="form-control" name='contactnumber' onChange={handleInput} />
                                         </div>
-                                        <label className="form-check mb-5">
-                                            <input className="form-check-input" type="checkbox" defaultValue />
-                                            <span className="form-check-label"> Save this address </span>
-                                        </label>
 
-                                        <hr className="my-4" />
-                                        <h5 className="card-title mb-5"> Payment info </h5>
+                                    </div>
+                                    <hr className="my-4" />
+                                    <h5 className="card-title mb-5"> Shipping info </h5>
 
-                                        <div className="row">
-                                            <div className="col-lg-6 mb-3">
-                                                <div className="box box-check">
-                                                    <label className="form-check">
-                                                        <input className="form-check-input" type="radio" name="paymentoption" value="CashOnDelivery" onChange={handleInput} />
-                                                        <b className="border-oncheck" />
-                                                        <span className="form-check-label">
-                                                            Cash On Delivery<br />
-                                                            <small className="text-muted">
-                                                                Make cash payment after deliver</small>
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div className="col-lg-6 mb-5">
-                                                <div className="box box-check">
-                                                    <label className="form-check">
-                                                        <input className="form-check-input" type="radio" name="paymentoption" value="OnlinePayment" onChange={handleInput} />
-                                                        <b className="border-oncheck" />
-                                                        <span className="form-check-label">
-                                                            Online Payment<br />
-                                                            <small className="text-muted">
-                                                                Make payment using Visa or Master card </small>
-                                                        </span>
-                                                    </label>
-                                                </div>
+                                    <div className="row">
+                                        <div className="col-sm-12 mb-4">
+                                            <label className="form-label">Address</label>
+                                            <input type="text" className="form-control" placeholder="Type Address Here" name='address' onChange={handleInput} />
+                                        </div>
+                                        <div className="col-sm-6 mb-4">
+                                            <label className="form-label">Distict*</label>
+                                            <select className="form-select" id="district*" aria-label="District*" name='district' onChange={handleInput}>
+                                                <option disabled>Select City</option>
+                                                <option value={"Galle"}>Galle</option>
+                                                <option value={"Matara"}>Matara</option>
+                                                <option value={"Hambanthota"}>Hambanthota</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-sm-6 mb-4">
+                                            <label className="form-label">City*</label>
+                                            <select className="form-select" id="city*" aria-label="City*" name='city' onChange={handleInput}>
+                                                <option disabled>Select City</option>
+                                                <option value={"Galle"}>Galle</option>
+                                                <option value={"Wakwella"}>Wakwella</option>
+                                                <option value={"Kalegana"}>Kalegana</option>
+                                            </select>
+                                        </div>
+                                        <div className="col-sm-12 mb-4">
+                                            <label className="form-label">Remarks</label>
+                                            <input type="text" className="form-control" placeholder="Type Additional Informations" name='remark' onChange={handleInput} />
+                                        </div>
+                                    </div>
+                                    <label className="form-check mb-5">
+                                        <input className="form-check-input" type="checkbox" defaultValue />
+                                        <span className="form-check-label"> Save this address </span>
+                                    </label>
+
+                                    <hr className="my-4" />
+                                    <h5 className="card-title mb-5"> Payment info </h5>
+
+                                    <div className="row">
+                                        <div className="col-lg-6 mb-3">
+                                            <div className="box box-check">
+                                                <label className="form-check">
+                                                    <input className="form-check-input" type="radio" name="paymentoption" value="CashOnDelivery" onChange={handleInput} />
+                                                    <b className="border-oncheck" />
+                                                    <span className="form-check-label">
+                                                        Cash On Delivery<br />
+                                                        <small className="text-muted">
+                                                            Make cash payment after deliver</small>
+                                                    </span>
+                                                </label>
                                             </div>
                                         </div>
-                                        <button className="btn btn-primary">Continue</button>
-                                        <button className="btn btn-light">Cancel </button>
-                                    </form>
+                                        <div className="col-lg-6 mb-5">
+                                            <div className="box box-check">
+                                                <label className="form-check">
+                                                    <input className="form-check-input" type="radio" name="paymentoption" value="OnlinePayment" onChange={handleInput} />
+                                                    <b className="border-oncheck" />
+                                                    <span className="form-check-label">
+                                                        Online Payment<br />
+                                                        <small className="text-muted">
+                                                            Make payment using Visa or Master card </small>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </article>
                         </main>
@@ -294,7 +292,8 @@ function CustomerOrderCart() {
                                     </dl>
                                     <div className="d-grid gap-2 my-3">
                                         {/* <NavLink to="#" className="btn btn-primary w-100"> Make Purchase </NavLink> */}
-                                        <a href="#" className="btn btn-light w-100"> Back to shop </a>
+                                        <button className="btn btn-danger w-100" onClick={handleOnSubmit}>Make Payment</button>
+                                        <button className="btn btn-light w-100" onClick={history.goBack}> Back to shop </button>
                                     </div>
                                     <hr />
                                     <h5 className="mb-4">Items in cart</h5>
@@ -336,7 +335,7 @@ function CustomerOrderCart() {
 
                     <div className="row">
                         <main className="col-lg-8">
-                           
+
                             <article className="card">
                                 <div className="card-body">
                                     <figure className="mt-4 mx-auto text-center" style={{ maxWidth: '600px' }}>
@@ -362,7 +361,7 @@ function CustomerOrderCart() {
                                         <li className="step ">
                                             <span className="icon">2</span>
                                             <span className="text">Confirmation</span>
-                                        </li> 
+                                        </li>
                                         <li className="step ">
                                             <span className="icon">3</span>
                                             <span className="text">Delivery</span>
@@ -371,10 +370,10 @@ function CustomerOrderCart() {
                                     <br />
                                 </div>
                             </article>
-                           
+
                         </main>
                         <aside className="col-lg-4">
-                            
+
                             <article className="card">
                                 <div className="card-body">
                                     <h5 className="card-title"> Receipe </h5>
@@ -407,7 +406,7 @@ function CustomerOrderCart() {
                                     <a href="#" className="btn btn-light">Download invoice</a>
                                 </div>
                             </article>
-                           
+
                         </aside>
                     </div>
                 </div>

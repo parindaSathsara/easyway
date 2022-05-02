@@ -101,10 +101,6 @@ function ListingView() {
         import(`../../MasterPage/css/ui.css`)
         import(`../../MasterPage/css/responsive.css`)
 
-        setTimeout(
-            () => setPreLoader(false),
-            3000
-        );
 
 
         const getListings = () => {
@@ -137,6 +133,11 @@ function ListingView() {
 
 
                     console.log(res.data.listings[0]);
+                    setTimeout(
+                        () => setPreLoader(false),
+                        1500
+                    );
+            
                 }
             })
         }

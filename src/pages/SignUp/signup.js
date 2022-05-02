@@ -75,7 +75,7 @@ function SignUp() {
     var username = registerUser.username;
 
     var message = "Hello Dear " + username + ". Thank you for register to the Easy Way Admin Portal."
-    //axios.post('https://app.notify.lk/api/v1/send?user_id=15060&api_key=wwVghBwtFySHwhyuVdLk&sender_id=NotifyDEMO&to=94' + contact + '&message=' + message);
+    axios.post('https://app.notify.lk/api/v1/send?user_id=15060&api_key=wwVghBwtFySHwhyuVdLk&sender_id=NotifyDEMO&to=94' + contact + '&message=' + message);
   }
 
   return (

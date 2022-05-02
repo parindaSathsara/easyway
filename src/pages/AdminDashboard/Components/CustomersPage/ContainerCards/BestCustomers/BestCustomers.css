@@ -1,0 +1,49 @@
+.btnDropDown:focus {
+    background-color: aqua !important;
+}
+
+
+.btn-group {
+    white-space: nowrap !important;
+}
+
+.btn-group .btn {
+    float: none !important;
+    display: inline-block !important;
+}
+
+/* .show {
+    width: calc(var(--nav-width) + px) !important;
+} */
+
+.float-left {
+    float: left !important;
+}
+
+.imagewrapperDiv {
+    height: 300px;
+}
+
+.imageTop {
+    height: 300px;
+    object-fit: cover;
+}
+
+@media only screen and (max-width: 400px) {
+    .imageTop {
+        height: 200px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .imageTop {
+        height: 200px;
+    }
+}
+
+
+@media only screen and (max-width: 900px) {
+    .imageTop {
+        height: 200px;
+    }
+}

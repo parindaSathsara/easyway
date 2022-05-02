@@ -9,8 +9,6 @@ function RecentOrders() {
 
   const [ordersList, setOrders] = useState([]);
 
-
-
   const getOrdersList = () => {
     axios.get('/api/administration/getRecentOrders').then(res => {
 
@@ -18,8 +16,6 @@ function RecentOrders() {
         setOrders(res.data.orders);
         console.log(res.data.orders)
       }
-      console.log("first");
-
     })
   }
 
@@ -28,9 +24,6 @@ function RecentOrders() {
   }, []);
 
   
-
-
-
 
   const data = {
     columns: [
@@ -84,6 +77,10 @@ function RecentOrders() {
             columnsButton: true,
           }}
         />
+
+
+
+        
       </div>
     </div>
   )

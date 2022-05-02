@@ -92,12 +92,14 @@ function SalesChart() {
             },
         ],
     };
+
+
     return (
         <div className="col-xl-12 mx-auto mt-5">
             <div className="col-md-12 containerbox">
                 <div className="containerbox-title">
                     <h5>
-                        Monthly Performance
+                        Daily Performance
                     </h5>
                 </div>
                 <Line options={options} data={data} />
@@ -106,4 +108,8 @@ function SalesChart() {
     );
 }
 
+
 export default SalesChart
+
+
+

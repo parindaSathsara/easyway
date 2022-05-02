@@ -6,6 +6,7 @@ import { NavLink, useHistory, useParams } from 'react-router-dom';
 import axios from "axios";
 import './PartnerProfilePage.css'
 import SquareListing from "../SquareListing/SquareListing";
+import FSPreLoader from "../../../FSPreLoader/FSPreLoader";
 
 function PartnerProfilePage() {
 
@@ -13,7 +14,7 @@ function PartnerProfilePage() {
 
     const [partnerData, setPartnerData] = useState([])
     const [listingData, setListingData] = useState([])
-
+    const [preloader, setPreLoader] = useState(true)
     useEffect(() => {
         import(`../../MasterPage/css/boostrap.css`)
         import(`../../MasterPage/css/ui.css`)
@@ -23,6 +24,7 @@ function PartnerProfilePage() {
             if (res.data.status == 200) {
                 setListingData(res.data.listings)
                 console.log(res.data.listings[0])
+                
             }
             else {
                 console.log("NoData")
@@ -34,16 +36,27 @@ function PartnerProfilePage() {
             if (res.data.status == 200) {
                 setPartnerData(res.data.partners[0])
                 console.log(res.data.partners[0])
+                setTimeout(
+                    () => setPreLoader(false),
+                    1500
+                );
             }
             else {
                 console.log("NoData")
             }
         })
 
+
+
     }, [id]);
 
     return (
         <>
+            <div style={preloader == true ? { display: 'block' } : { display: 'none' }}>
+
+                <FSPreLoader></FSPreLoader>
+
+            </div>
             <CustomerNavBar></CustomerNavBar>
             <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
 
@@ -78,7 +91,7 @@ function PartnerProfilePage() {
                         <div className="row g-0">
                             <main className="col-lg-12">
                                 <div className="content-body">
-                                    <h4 className="card-title">Recommended</h4>
+                                    <h4 className="card-title">Services</h4>
                                     <article className="row mb-3">
                                         {listingData.map((listingsDet) => (
                                             <SquareListing
