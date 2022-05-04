@@ -38,7 +38,7 @@ function Dashboard() {
                             
                             <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bx-cycling nav_icon'></i> <span className="nav_name">Riders</span> </Link>
                             <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bx-money nav_icon'></i> <span className="nav_name">Sales</span> </Link>
-                            <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bx-book-alt nav_icon'></i> <span className="nav_name">Reports</span> </Link>
+                            <Link to="/adminportal/reports" className="nav_link sidebarnav"> <i className='bx bx-book-alt nav_icon'></i> <span className="nav_name">Reports</span> </Link>
                         </div>
                     </div> <a href="#" className="nav_link sidebarnav"> <i className='bx bx-log-out nav_icon'></i> <span className="nav_name">SignOut</span> </a>
                 </nav>

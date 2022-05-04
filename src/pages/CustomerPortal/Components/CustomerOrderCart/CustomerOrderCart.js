@@ -9,7 +9,10 @@ import TopHeadingNav from '../TopHeadingNav/TopHeadingNav';
 import moment from "moment";
 import Snackbar from '../../../SnackBar/Snackbar';
 import { NavLink, useHistory, useParams } from 'react-router-dom';
+import GooglePlacesAutoComplete from 'react-google-places-autocomplete';
 
+
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 const SnackbarType = {
     success: "success",
     fail: "fail",
@@ -20,6 +23,7 @@ function CustomerOrderCart() {
 
     const { id } = useParams()
     const history = useHistory()
+
 
     const [cartListings, setCartListings] = useState([])
     const [cartVarListings, setCartVarListings] = useState([])
@@ -44,6 +48,9 @@ function CustomerOrderCart() {
         city: '',
         paymentoption: ''
     })
+
+
+    const [value, setValue] = useState(null);
 
 
 
@@ -103,46 +110,52 @@ function CustomerOrderCart() {
 
 
     const handleOnSubmit = (e) => {
-        e.preventDefault()
 
-        console.log(orderData.orderdate)
+        geocodeByAddress(value['label'])
+            .then(results => getLatLng(results[0]))
+            .then(({ lat, lng }) =>
+                console.log('Successfully got latitude and longitude', { lat, lng })
+            );
+        // e.preventDefault()
 
-        const passingData = {
-            customerid: orderData.customerid,
-            orderstatus: orderData.orderstatus,
-            remark: orderData.remark,
-            orderdate: orderData.orderdate,
-            ordertime: orderData.ordertime,
-            fullname: orderData.fullname,
-            contactnumber: orderData.contactnumber,
-            address: orderData.address,
-            district: orderData.district,
-            city: orderData.city,
-            paymentoption: orderData.paymentoption,
-            listings: cartListings,
-            varListings: cartVarListings,
-        }
+        // console.log(orderData.orderdate)
+
+        // const passingData = {
+        //     customerid: orderData.customerid,
+        //     orderstatus: orderData.orderstatus,
+        //     remark: orderData.remark,
+        //     orderdate: orderData.orderdate,
+        //     ordertime: orderData.ordertime,
+        //     fullname: orderData.fullname,
+        //     contactnumber: orderData.contactnumber,
+        //     address: orderData.address,
+        //     district: orderData.district,
+        //     city: orderData.city,
+        //     paymentoption: orderData.paymentoption,
+        //     listings: cartListings,
+        //     varListings: cartVarListings,
+        // }
 
 
-        axios.get('/sanctum/csrf-cookie').then(response => {
-            axios.post('api/customers/placeOrder', passingData).then(res => {
+        // axios.get('/sanctum/csrf-cookie').then(response => {
+        //     axios.post('api/customers/placeOrder', passingData).then(res => {
 
-                if (res.data.status === 200) {
-                    console.log(passingData)
-                    console.log("Done Updated")
-                    // setProgress(100)
-                    snackbarRef.current.show();
-                    getCart()
-                }
+        //         if (res.data.status === 200) {
+        //             console.log(passingData)
+        //             console.log("Done Updated")
+        //             // setProgress(100)
+        //             snackbarRef.current.show();
+        //             getCart()
+        //         }
 
-                else {
-                    snackbarRefErr.current.show();
-                    console.log(res.data.validator_errors);
-                    console.log(res.data.status)
-                }
+        //         else {
+        //             snackbarRefErr.current.show();
+        //             console.log(res.data.validator_errors);
+        //             console.log(res.data.status)
+        //         }
 
-            });
-        });
+        //     });
+        // });
 
     }
 
@@ -204,6 +217,12 @@ function CustomerOrderCart() {
                                     <div className="row">
                                         <div className="col-sm-12 mb-4">
                                             <label className="form-label">Address</label>
+                                            <GooglePlacesAutoComplete
+                                                selectProps={{
+                                                    value,
+                                                    onChange: setValue,
+                                                }}
+                                            />
                                             <input type="text" className="form-control" placeholder="Type Address Here" name='address' onChange={handleInput} />
                                         </div>
                                         <div className="col-sm-6 mb-4">

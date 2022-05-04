@@ -149,7 +149,7 @@ function NewOrdersToGet() {
                                                 <div className="col-lg-12 m-01 mb-3">
                                                     <figure className="text-lg-center mt-3">
                                                         <div className='frame-square'>
-                                                            <img className="img-lg mb-3 rounded" src={orderData.listingimageurl == null ? "https://www.survivorsuk.org/wp-content/uploads/2017/01/no-image.jpg" : orderData.listingimageurl} alt="User Photo" />
+                                                            <img className="img-lg mb-3 rounded" src={orderData["listingimageurl"] == null ? "https://www.survivorsuk.org/wp-content/uploads/2017/01/no-image.jpg" : orderData.listingimageurl} alt="User Photo" />
                                                         </div>
 
                                                         <h6 className='mt-3'>{orderData.listingtitle == null ? "" : orderData.listingtitle}</h6>
@@ -174,9 +174,9 @@ function NewOrdersToGet() {
                                                     <label className="form-label">Customer Address</label>
                                                 </div>
                                                 <div className="input-group col-lg-12 mb-4">
-                                                    <input type="text" className="form-control" value={orderData.partneraddress} aria-describedby="basic-addon2" />
+                                                    <input type="text" className="form-control" value={orderData.orderaddress} aria-describedby="basic-addon2" />
                                                     <div className="input-group-append">
-                                                        <Link type="button" class="btn btn-light" to={{ pathname: `https://www.google.com/maps/search/${encodeURIComponent(orderData.address)}` }} target="_blank"><i class="fa fa-map appendBtn" aria-hidden="true"></i></Link>
+                                                        <Link type="button" class="btn btn-light" to={{ pathname: `https://www.google.com/maps/search/${encodeURIComponent(orderData.orderaddress)}` }} target="_blank"><i class="fa fa-map appendBtn" aria-hidden="true"></i></Link>
                                                     </div>
                                                 </div>
 

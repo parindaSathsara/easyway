@@ -15,6 +15,7 @@ import CustomerOrdersMaster from "../pages/RiderDashboard/Components/CustomerOrd
 import AdminCreateListing from "../pages/AdminDashboard/Components/CreateListing/MasterPage/CreateListingMaster";
 import ServicesListingsMasterAdmin from "../pages/AdminDashboard/Components/ServicesListings/MasterPage/ServicesListings";
 import CustomerPGMaster from "../pages/AdminDashboard/Components/CustomersPage/MasterPage/Customers";
+import ReportPageMasterAdmin from "../pages/AdminDashboard/Components/ReportPage/OrderReport/MasterPage/OrderReportMaster";
 const routes = [
     
     {path: '/adminportal/dashboard', exact:true, name:'Dashboard', component: DPMaster},
@@ -24,6 +25,7 @@ const routes = [
     {path: '/adminportal/createlisting', exact:true, name:'Dashboard', component: AdminCreateListing},
     {path: '/adminportal/viewListings', exact:true, name:'Dashboard', component: ServicesListingsMasterAdmin},
     {path: '/adminportal/customers', exact:true, name:'Dashboard', component: CustomerPGMaster},
+    {path: '/adminportal/reports', exact:true, name:'Dashboard', component: ReportPageMasterAdmin},
 
     {path: '/customerportal/allservices/:id', exact:true, name:'Dashboard', component: ServiceFilter},
 
