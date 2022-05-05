@@ -3,7 +3,7 @@ import { MDBDataTableV5 } from 'mdbreact';
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import MaterialTable from 'material-table';
-import './NewOrdersToGet.css';
+
 import { Link } from 'react-router-dom';
 import Snackbar from '../../../../../SnackBar/Snackbar';
 import { confirmAlert } from 'react-confirm-alert';
@@ -15,7 +15,7 @@ const SnackbarType = {
     fail: "fail",
 };
 
-function NewOrdersToGet() {
+function PendingToDeliver() {
 
     const [ordersList, setOrders] = useState([]);
     const [orderData, setOrderData] = useState([]);
@@ -24,8 +24,6 @@ function NewOrdersToGet() {
     const snackbarRefErr = useRef(null);
 
     const [pickupDetails, setPickupDetails] = useState({
-        estimatetime: '',
-        estimatedate: '',
         totaldistance: '',
         totalprice: ''
     })
@@ -37,8 +35,8 @@ function NewOrdersToGet() {
         axios.get(`/api/riders/getOrdersNotCollected/${localStorage.getItem("RiderID")}`).then(res => {
 
             if (res.data.status === 200) {
-                setOrders(res.data.orders);
-                console.log(res.data.orders)
+                setOrders(res.data.pendingToDelivery);
+                console.log(res.data.pendingToDelivery)
             }
         })
     }
@@ -55,50 +53,12 @@ function NewOrdersToGet() {
             console.log("Order ID-" + e.target.value)
 
             if (res.data.status == 200) {
-                setOrderData(res.data.orders[0])
-                console.log(res.data.orders[0])
+                setOrderData(res.data.acceptedOrders[0])
+                console.log(res.data.acceptedOrders[0])
 
-
-                var customerlatlan = res.data.orders[0]['customerlatlan'].split(',')
-                var partnerlatlan = res.data.orders[0]['partnerlatlon'].split(',')
-
-                var location = getDistance(
-                    { latitude: customerlatlan[0], longitude: customerlatlan[1] },
-                    { latitude: partnerlatlan[0], longitude: partnerlatlan[1] }
-                );
-
-
-
-
-                var finalDistance = Math.round(location / 1000)
-
-                setTotalDistanceBetween(finalDistance);
-
-
-                var finalDelivery;
-
-
-                if (finalDistance <= 10) {
-                    finalDelivery = finalDistance * 50
-                    setPickupDetails({ ...pickupDetails, totalprice: finalDistance * 50 });
-                }
-                else if (finalDistance > 10 && finalDistance <= 30) {
-                    finalDelivery = finalDistance * 30
-                    setPickupDetails({ ...pickupDetails, totalprice: finalDistance * 30 });
-                }
-                else if (finalDistance > 30 && finalDistance < 60) {
-                    finalDelivery = finalDistance * 20
-                    setPickupDetails({ ...pickupDetails, totalprice: finalDistance * 20 });
-                }
-
-
-                if (res.data.orders[0]["paymentoption"] == "CashOnDelivery") {
-
-                    setTotalPayable(parseFloat(res.data.orders[0]["totalprice"]) + parseFloat(finalDelivery))
-                }
-                else{
-                    setTotalPayable(finalDelivery)
-                }
+                setTotalDistanceBetween(res.data.acceptedOrders[0]['totaldistance']);
+                setPickupDetails({ ...pickupDetails, totalprice: res.data.acceptedOrders[0]['totalprice'] });
+                setTotalPayable(res.data.acceptedOrders[0]['totalPayable'])
             }
             else {
                 console.log("NoData")
@@ -107,23 +67,15 @@ function NewOrdersToGet() {
     }
 
 
-    const inputOnChange = (e) => {
-        setPickupDetails({ ...pickupDetails, [e.target.name]: e.target.value });
-    }
+    const onOrderDeliver = (e) => {
 
-    const onGetOrderClick = () => {
         const orderDataToDB = {
-            orderid: orderData['orderid'],
-            riderid: localStorage.getItem("RiderID"),
-            estimatetime: pickupDetails.estimatetime,
-            estimatedate: pickupDetails.estimatedate,
-            totaldistance: totalDistanceBetween,
-            totalprice: pickupDetails.totalprice,
-            totalPayable:totalPayable
+            orderid: e.target.value,
+            orderstatus: "DeliverToCustomer"
         }
 
         axios.get('/sanctum/csrf-cookie').then(response => {
-            axios.post('api/deliveryjob/newjob', orderDataToDB).then(res => {
+            axios.post('api/deliveryjob/updateDeliveryStatus', orderDataToDB).then(res => {
 
                 if (res.data.status === 200) {
                     snackbarRef.current.show();
@@ -148,27 +100,19 @@ function NewOrdersToGet() {
                 field: "cusname",
             },
             {
-                title: "Address",
-                field: "address",
+                title: "Contact Number",
+                field: "contact",
             },
             {
                 title: "Service Name",
                 field: "servicename",
             },
             {
-                title: "Payment Option",
-                field: "paymentoption",
-            },
-            {
-                title: "Order Time",
-                field: "ordertime",
-            },
-            {
                 title: '',
                 field: 'orderid',
                 render: order =>
-                    <button className='btn btn-info text-light' data-toggle="modal" data-target="#riderJob" style={{ fontSize: 14 }} value={order.orderid} onClick={handleApproveButtonOnClick}>
-                        <i class="fa fa-eye" aria-hidden="true" style={{ marginRight: 8 }}></i>View</button>
+                    <button className='btn btn-info text-light' data-toggle="modal" data-target="#riderJobPendingDelivery" style={{ fontSize: 14 }} value={order.orderid} onClick={handleApproveButtonOnClick}>
+                        <i class="fa fa-eye" aria-hidden="true" style={{ marginRight: 8 }}></i>Collect Order</button>
             },
         ],
 
@@ -178,8 +122,7 @@ function NewOrdersToGet() {
                 cusname: ordersdata.customername,
                 servicename: ordersdata.servicename,
                 address: ordersdata.address,
-                paymentoption: ordersdata.paymentoption,
-                ordertime: ordersdata.ordertime
+                contact: ordersdata.contactnumber,
             }
         }),
     };
@@ -191,20 +134,20 @@ function NewOrdersToGet() {
 
             <Snackbar
                 ref={snackbarRef}
-                message="Delivery Job Added Successfully!"
+                message="Delivered Successfully!"
                 type={SnackbarType.success}
             />
             <Snackbar
                 ref={snackbarRefErr}
-                message="Delivery Job Added Unsuccessfully!"
+                message="Delivered Unsuccessfully!"
                 type={SnackbarType.fail}
             />
 
-            <div className="col-xl-12 mx-auto mt-5">
+            <div className="col-xl-6 mx-auto mt-5">
                 <div className="col-md-12 containerbox">
                     <div className="containerbox-title">
                         <h5>
-                            Customer Orders
+                            Pending Orders To Deliver
                         </h5>
                     </div>
                     {/* <MDBDataTableV5 hover scrollX maxHeight='400px' data={data} gtValueCheckBox={(val) => console.log(val)} searchTop searchBottom={false} /> */}
@@ -233,11 +176,11 @@ function NewOrdersToGet() {
 
 
 
-            <div class="modal fade" id="riderJob" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal fade" id="riderJobPendingDelivery" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-md" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h6 class="modal-title" id="exampleModalLongTitle">Order Info</h6>
+                            <h6 class="modal-title" id="exampleModalLongTitle">Collect Order</h6>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -266,7 +209,7 @@ function NewOrdersToGet() {
                                                 <div className="col-lg-12">
                                                     <label className="form-label">Partner Address</label>
                                                 </div>
-                                                <div className="input-group col-lg-12 mb-4">
+                                                <div className="input-group col-lg-12 mb-3">
                                                     <input type="text" className="form-control" value={orderData["partneraddress"]} aria-describedby="basic-addon2" />
                                                     <div className="input-group-append">
                                                         <Link type="button" class="btn btn-light" to={{ pathname: `http://www.google.com/maps/dir/${orderData["partnerlatlon"]}` }} target="_blank"><i class="fa fa-map appendBtn" aria-hidden="true"></i></Link>
@@ -275,7 +218,7 @@ function NewOrdersToGet() {
                                                 <div className="col-lg-12">
                                                     <label className="form-label">Customer Address</label>
                                                 </div>
-                                                <div className="input-group col-lg-12 mb-4">
+                                                <div className="input-group col-lg-12 mb-3">
                                                     <input type="text" className="form-control" value={orderData["orderaddress"]} aria-describedby="basic-addon2" />
                                                     <div className="input-group-append">
                                                         <Link type="button" class="btn btn-light" to={{ pathname: `http://www.google.com/maps/dir/${orderData["customerlatlan"]}` }} target="_blank"><i class="fa fa-map appendBtn" aria-hidden="true"></i></Link>
@@ -285,7 +228,7 @@ function NewOrdersToGet() {
                                                 <div className="col-lg-12">
                                                     <label className="form-label">Directions</label>
                                                 </div>
-                                                <div className="input-group col-lg-12 mb-4">
+                                                <div className="input-group col-lg-12 mb-3">
                                                     <input type="text" className="form-control" value={"Get Directions"} aria-describedby="basic-addon2" />
                                                     <div className="input-group-append">
                                                         <Link type="button" class="btn btn-light" to={{ pathname: `http://www.google.com/maps/dir/${orderData["partnerlatlon"]}/${orderData["customerlatlan"]}` }} target="_blank"><i class="fa fa-map appendBtn" aria-hidden="true"></i></Link>
@@ -294,11 +237,11 @@ function NewOrdersToGet() {
 
                                                 <div className="col-lg-12 mb-3 accountUpdate">
                                                     <label className="form-label">Estimate Delivery Time</label>
-                                                    <input className="form-control" type="time" name='estimatetime' onChange={inputOnChange} />
+                                                    <input className="form-control" type="text" name='estimatetime' value={orderData["estimatetime"]} />
                                                 </div>
                                                 <div className="col-lg-12 mb-3 accountUpdate">
                                                     <label className="form-label">Estimate Delivery Date</label>
-                                                    <input className="form-control" type="date" name='estimatedate' onChange={inputOnChange} />
+                                                    <input className="form-control" type="text" name='estimatedate' value={orderData["estimatedate"]} />
                                                 </div>
 
 
@@ -313,7 +256,7 @@ function NewOrdersToGet() {
                                                 </div>
                                                 <div className="col-lg-12 mb-3 accountUpdate">
                                                     <label className="form-label mr-2">Total Amount Payable:</label>
-                                                    <label className="text-danger h5">{"LKR " + totalPayable + ".00"}</label>
+                                                    <label className="text-danger h5">{"LKR " + totalPayable}</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -323,7 +266,7 @@ function NewOrdersToGet() {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-dark"  data-dismiss="modal" onClick={onGetOrderClick}>Get Order</button>
+                            <button type="button" class="btn btn-dark" data-dismiss="modal" value={orderData['orderid']} onClick={onOrderDeliver}>Deliver Order</button>
                         </div>
                     </div>
                 </div>
@@ -333,4 +276,4 @@ function NewOrdersToGet() {
     );
 }
 
-export default NewOrdersToGet;
+export default PendingToDeliver;

@@ -10,9 +10,10 @@ import moment from "moment";
 import Snackbar from '../../../SnackBar/Snackbar';
 import { NavLink, useHistory, useParams } from 'react-router-dom';
 import GooglePlacesAutoComplete from 'react-google-places-autocomplete';
-
-
 import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+import { getDistance,getPreciseDistance } from 'geolib';
+
+
 const SnackbarType = {
     success: "success",
     fail: "fail",
@@ -45,13 +46,15 @@ function CustomerOrderCart() {
         contactnumber: '',
         address: '',
         district: '',
-        city: '',
-        paymentoption: ''
+        paymentoption: '',
+        customerlatlon: '',
     })
 
 
     const [value, setValue] = useState(null);
+    const [latlan, setLatLan] = useState(null);
 
+    const [latlanst, setLatLanSt] = useState([])
 
 
     const getCart = () => {
@@ -108,54 +111,50 @@ function CustomerOrderCart() {
         setOrderData({ ...orderData, [e.target.name]: e.target.value });
     }
 
-
     const handleOnSubmit = (e) => {
 
+        e.preventDefault();
         geocodeByAddress(value['label'])
             .then(results => getLatLng(results[0]))
-            .then(({ lat, lng }) =>
-                console.log('Successfully got latitude and longitude', { lat, lng })
+            .then(({ lat, lng }) => {
+                const passingData = {
+                    customerid: orderData.customerid,
+                    orderstatus: orderData.orderstatus,
+                    remark: orderData.remark,
+                    orderdate: orderData.orderdate,
+                    ordertime: orderData.ordertime,
+                    fullname: orderData.fullname,
+                    contactnumber: orderData.contactnumber,
+                    address: orderData.address,
+                    district: orderData.district,
+                    paymentoption: orderData.paymentoption,
+                    listings: cartListings,
+                    varListings: cartVarListings,
+                    customerlatlan: lat + "," + lng
+                }
+
+
+                axios.get('/sanctum/csrf-cookie').then(response => {
+                    axios.post('api/customers/placeOrder', passingData).then(res => {
+
+                        if (res.data.status === 200) {
+                            console.log(passingData)
+                            console.log("Done Updated")
+                            // setProgress(100)
+                            snackbarRef.current.show();
+                            getCart()
+                        }
+
+                        else {
+                            snackbarRefErr.current.show();
+                            console.log(res.data.validator_errors);
+                            console.log(res.data.status)
+                        }
+
+                    });
+                });
+            }
             );
-        // e.preventDefault()
-
-        // console.log(orderData.orderdate)
-
-        // const passingData = {
-        //     customerid: orderData.customerid,
-        //     orderstatus: orderData.orderstatus,
-        //     remark: orderData.remark,
-        //     orderdate: orderData.orderdate,
-        //     ordertime: orderData.ordertime,
-        //     fullname: orderData.fullname,
-        //     contactnumber: orderData.contactnumber,
-        //     address: orderData.address,
-        //     district: orderData.district,
-        //     city: orderData.city,
-        //     paymentoption: orderData.paymentoption,
-        //     listings: cartListings,
-        //     varListings: cartVarListings,
-        // }
-
-
-        // axios.get('/sanctum/csrf-cookie').then(response => {
-        //     axios.post('api/customers/placeOrder', passingData).then(res => {
-
-        //         if (res.data.status === 200) {
-        //             console.log(passingData)
-        //             console.log("Done Updated")
-        //             // setProgress(100)
-        //             snackbarRef.current.show();
-        //             getCart()
-        //         }
-
-        //         else {
-        //             snackbarRefErr.current.show();
-        //             console.log(res.data.validator_errors);
-        //             console.log(res.data.status)
-        //         }
-
-        //     });
-        // });
 
     }
 
@@ -167,9 +166,6 @@ function CustomerOrderCart() {
 
         getCart()
         getCartCount()
-
-
-        console.log(id)
 
     }, []);
 
@@ -217,32 +213,35 @@ function CustomerOrderCart() {
                                     <div className="row">
                                         <div className="col-sm-12 mb-4">
                                             <label className="form-label">Address</label>
+
+                                            <input type="text" className="form-control" placeholder="Type Address Here" name='address' onChange={handleInput} />
+                                        </div>
+
+                                        <div className="col-sm-6 mb-4">
+                                            <label className="form-label">Nearest Location</label>
+
                                             <GooglePlacesAutoComplete
+                                                autocompletionRequest={{
+                                                    componentRestrictions: {
+                                                        country: ["lk"] //to set the specific country
+                                                    }
+                                                }}
                                                 selectProps={{
                                                     value,
                                                     onChange: setValue,
                                                 }}
                                             />
-                                            <input type="text" className="form-control" placeholder="Type Address Here" name='address' onChange={handleInput} />
                                         </div>
                                         <div className="col-sm-6 mb-4">
                                             <label className="form-label">Distict*</label>
                                             <select className="form-select" id="district*" aria-label="District*" name='district' onChange={handleInput}>
-                                                <option disabled>Select City</option>
+                                                <option disabled>Select District</option>
                                                 <option value={"Galle"}>Galle</option>
                                                 <option value={"Matara"}>Matara</option>
                                                 <option value={"Hambanthota"}>Hambanthota</option>
                                             </select>
                                         </div>
-                                        <div className="col-sm-6 mb-4">
-                                            <label className="form-label">City*</label>
-                                            <select className="form-select" id="city*" aria-label="City*" name='city' onChange={handleInput}>
-                                                <option disabled>Select City</option>
-                                                <option value={"Galle"}>Galle</option>
-                                                <option value={"Wakwella"}>Wakwella</option>
-                                                <option value={"Kalegana"}>Kalegana</option>
-                                            </select>
-                                        </div>
+
                                         <div className="col-sm-12 mb-4">
                                             <label className="form-label">Remarks</label>
                                             <input type="text" className="form-control" placeholder="Type Additional Informations" name='remark' onChange={handleInput} />
@@ -300,10 +299,7 @@ function CustomerOrderCart() {
                                         <dt>Discount:</dt>
                                         <dd className="text-end text-success"> - {"LKR " + discountPrice} </dd>
                                     </dl>
-                                    <dl className="dlist-align">
-                                        <dt>Delivery Fee:</dt>
-                                        <dd className="text-end text-danger">+ LKR 0</dd>
-                                    </dl>
+
                                     <hr />
                                     <dl className="dlist-align">
                                         <dt>Total:</dt>

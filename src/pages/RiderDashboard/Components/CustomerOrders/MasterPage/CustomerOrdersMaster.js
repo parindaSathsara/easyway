@@ -1,4 +1,8 @@
+
+import AllCustomerOrders from "../ContainerCards/AllCustomerOrders/AllCustomerOrders";
 import NewOrdersToGet from "../ContainerCards/NewOrdersToGet/NewOrdersToGet";
+import PendingToDeliver from "../ContainerCards/PendingToDeliver/PendingToDeliver";
+import AcceptedOrders from "../ContainerCards/PendingToPickup/AcceptedOrders";
 
 function CustomerOrdersMaster() {
 
@@ -9,6 +13,11 @@ function CustomerOrdersMaster() {
                 <div className='container'>
                     <div className="row">
                         <NewOrdersToGet></NewOrdersToGet>
+                        <AllCustomerOrders></AllCustomerOrders>
+                        <AcceptedOrders></AcceptedOrders>
+                        
+                        <PendingToDeliver></PendingToDeliver>
+
                     </div>
 
                 </div>

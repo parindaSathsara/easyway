@@ -87,7 +87,8 @@ function OrderReport() {
                     style={{
                         position: "absolute",
                         left: "1px",
-                        right: "1px"
+                        right: "1px",
+                        top:"1px"
                     }}
                 >
 

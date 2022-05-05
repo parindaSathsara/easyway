@@ -8,6 +8,8 @@ import { render } from '@testing-library/react';
 import storage from '../../../../../../firebase-config';
 import LoadingBar from "react-top-loading-bar";
 import Snackbar from '../../../../../SnackBar/Snackbar';
+import GooglePlacesAutoComplete from 'react-google-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
 
 const SnackbarType = {
@@ -30,8 +32,11 @@ function PartnerAccount() {
     const [userDocs, setUserDocs] = useState([])
     const [progress, setProgress] = useState(0)
 
+
+    const [value, setValue] = useState(null);
+
     const [userData, setUserData] = useState({
-        'partnerid':localStorage.getItem("PartnerID"),
+        'partnerid': localStorage.getItem("PartnerID"),
         'serviceid': '',
         'partnername': '',
         'contactnumber': '',
@@ -41,12 +46,13 @@ function PartnerAccount() {
         'district': '',
         'profilepic': '',
         'username': '',
+        'password': '',
         'email': '',
         'nic': '',
         'brcopy': '',
         'servicestatus': '',
         'accountstatus': '',
-        'description':''
+        'description': ''
     })
 
     const handleClick = (e) => {
@@ -184,29 +190,94 @@ function PartnerAccount() {
 
         Promise.all(promises)
             .then(() => {
+                geocodeByAddress(value['label'])
+                    .then(results => getLatLng(results[0]))
+                    .then(({ lat, lng }) => {
 
-                if (userData.accountstatus == "AccountCreated" && userData.nic != null && userData.brcopy != null) {
-                    userData.accountstatus = "DocumentsSubmitted"
-                }
 
-                axios.post('api/partners/updateProfile', userData).then(res => {
-                    
-                    if (res.data.status === 200) {
-                        console.log("Done Updated")
-                        setProgress(100)
-                        snackbarRef.current.show();
-                        console.log(res.data.partner)
-                    }
+                        // 'partnerid': localStorage.getItem("PartnerID"),
+                        // 'serviceid': '',
+                        // 'partnername': '',
+                        // 'contactnumber': '',
+                        // 'address': '',
+                        // 'servicestarttime': '',
+                        // 'serviceendtime': '',
+                        // 'district': '',
+                        // 'profilepic': '',
+                        // 'username': '',
+                        // 'email': '',
+                        // 'nic': '',
+                        // 'brcopy': '',
+                        // 'servicestatus': '',
+                        // 'accountstatus': '',
+                        // 'description': ''
 
-                    else {
-                        snackbarRefErr.current.show();
-                        console.log(res.data.validator_errors);
-                        console.log(res.data.status)
-                    }
+                        if (userData.accountstatus == "AccountCreated" && userData.nic != null && userData.brcopy != null) {
+                            userData.accountstatus = "DocumentsSubmitted"
+                        }
 
-                });
+                        const userDataInfo = {
+                            partnerid: userData.partnerid,
+                            serviceid: userData.serviceid,
+                            partnername: userData.partnername,
+                            contactnumber: userData.contactnumber,
+                            address: userData.address,
+                            servicestarttime: userData.servicestarttime,
+                            serviceendtime: userData.serviceendtime,
+                            district: userData.district,
+                            profilepic: userData.profilepic,
+                            username: userData.username,
+                            password: userData.password,
+                            email: userData.email,
+                            nic: userData.nic,
+                            brcopy: userData.brcopy,
+                            servicestatus: userData.servicestatus,
+                            accountstatus: userData.accountstatus,
+                            description: userData.description,
+                            partnerlatlon: lat + "," + lng
+                        }
 
-            });
+                        console.log(userDataInfo)
+
+                        axios.post('api/partners/updateProfile', userDataInfo).then(res => {
+
+                            if (res.data.status === 200) {
+                                console.log("Done Updated")
+                                setProgress(100)
+                                snackbarRef.current.show();
+                                console.log(res.data.partner)
+                            }
+
+                            else {
+                                snackbarRefErr.current.show();
+                                console.log(res.data.validator_errors);
+                                console.log(res.data.status)
+                            }
+
+                        });
+
+
+                        axios.post('api/partners/updateProfile', userDataInfo).then(res => {
+
+                            if (res.data.status === 200) {
+                                console.log("Done Updated")
+                                setProgress(100)
+                                snackbarRef.current.show();
+                                console.log(res.data.partner)
+                            }
+
+                            else {
+                                snackbarRefErr.current.show();
+                                console.log(res.data.validator_errors);
+                                console.log(res.data.status)
+                            }
+
+                        });
+
+                    });
+
+            }
+            );
 
 
 
@@ -224,6 +295,7 @@ function PartnerAccount() {
                 setUserData(res.data.partners[0]);
                 setUserImage({ ...userImage, imageView: res.data.partners[0]['profilepic'] })
                 setUserDocs({ ...userDocs, brCopy: res.data.partners[0]['brcopy'], nicCopy: res.data.partners[0]['nic'] })
+                setValue(res.data.partners[0]['partnerlatlon'])
             }
 
         })
@@ -302,6 +374,22 @@ function PartnerAccount() {
                                         <div className="col-lg-6 mb-3 accountUpdate">
                                             <label className="form-label">Address</label>
                                             <input className="form-control" type="text" name='address' onChange={handleInputChange} value={userData.address} placeholder="Your Address" />
+                                        </div>
+
+                                        <div className="col-lg-12 mb-4">
+                                            <label className="form-label">Nearest Location</label>
+
+                                            <GooglePlacesAutoComplete
+                                                autocompletionRequest={{
+                                                    componentRestrictions: {
+                                                        country: ["lk"] //to set the specific country
+                                                    }
+                                                }}
+                                                selectProps={{
+                                                    value,
+                                                    onChange: setValue,
+                                                }}
+                                            />
                                         </div>
                                         <div className="col-lg-6 mb-3 accountUpdate">
                                             <label className="form-label">Service Start Time</label>

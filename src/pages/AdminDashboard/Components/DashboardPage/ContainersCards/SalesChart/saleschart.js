@@ -5,6 +5,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import { Line } from 'react-chartjs-2';
 import '../containercards.css'
 import axios from 'axios';
+import { getDistance } from 'geolib';
 
 function SalesChart() {
     ChartJS.register(
