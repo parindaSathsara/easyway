@@ -30,11 +30,9 @@ function AllListings() {
                 title: "",
                 field: "listingid",
                 render: listingdata => <div class="btn-group">
-                    <button className="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                    </button>
+                    <button className="btn btn-light btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">View More </button>
                     <div className="dropdown-menu">
-                        <Link className="dropdown-item" to="#">Edit</Link>
+
                         <Link className="dropdown-item" onClick={e => deleteListing(e, listingdata.listingid)}>Delete</Link>
                         <Link className="dropdown-item" to={`/customerportal/listing/${listingdata.listingid}`} target='_blank'>View</Link>
                     </div>
@@ -90,6 +88,7 @@ function AllListings() {
 
                     </button>
                     <div className="dropdown-menu">
+
                         <Link className="dropdown-item" onClick={e => activeListing(e, listingdata.listingid)}>Set Active</Link>
                         <Link className="dropdown-item" to={`/customerportal/listing/${listingdata.listingid}`} target='_blank'>View</Link>
                     </div>

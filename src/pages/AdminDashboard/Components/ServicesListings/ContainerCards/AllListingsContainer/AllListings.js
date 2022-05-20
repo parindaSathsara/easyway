@@ -34,7 +34,6 @@ function AllListingsAdmin() {
 
                     </button>
                     <div className="dropdown-menu">
-                        <Link className="dropdown-item" to="#">Edit</Link>
                         <Link className="dropdown-item" onClick={e => deleteListing(e, listingdata.listingid)}>Delete</Link>
                         <Link className="dropdown-item" to={`/customerportal/listing/${listingdata.listingid}`} target='_blank'>View</Link>
                     </div>
@@ -195,7 +194,7 @@ function AllListingsAdmin() {
     }
 
     const getListings = () => {
-        axios.get(`/api/partners/getListingsByPartnerID/${localStorage.getItem("PartnerID")}`).then(res => {
+        axios.get(`/api/partners/getListingsByPartnerIDAdmin/`).then(res => {
 
             if (res.data.status === 200) {
                 setListings(res.data.listings);
@@ -205,7 +204,7 @@ function AllListingsAdmin() {
     }
 
     const getDeletedListings = () => {
-        axios.get(`/api/partners/getDeletedListingsByPartnerID/${localStorage.getItem("PartnerID")}`).then(res => {
+        axios.get(`/api/partners/getDeletedListingsByPartnerIDAdmin/`).then(res => {
 
             if (res.data.status === 200) {
                 setRemovedListings(res.data.listings);

@@ -65,7 +65,7 @@ function PartnerByDistrict() {
 
     return (
 
-        <div className="col-xl-6 mx-auto mt-5">
+        <div className="col-xl-12 mx-auto mt-5">
             <div className="col-md-12 containerbox">
                 <div className="containerbox-title">
                     <h5>

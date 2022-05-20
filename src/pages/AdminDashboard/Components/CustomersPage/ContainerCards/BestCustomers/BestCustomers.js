@@ -55,7 +55,7 @@ function BestCustomers() {
 
                                             </div>
                                             <div className="flex-grow-1 ms-3 ml-4">
-                                                <h5 className="mb-1">{customer.customername} {index == 0 ? <i class="fa fa-star ml-2" style={{ fontSize: 18, color: 'orange' }} aria-hidden="true"></i> : <></>}</h5>
+                                                <h5 className="mb-1 mt-3">{customer.customername} {index == 0 ? <i class="fa fa-star ml-2" style={{ fontSize: 18, color: 'orange' }} aria-hidden="true"></i> : <></>}</h5>
                                                 <p className="mb-2 pb-1" style={{ color: '#2b2a2a' }}>{customer.customerdistrict}</p>
                                                 <div className="d-flex justify-content-start rounded-3 p-2 mb-2">
                                                     <div>
@@ -67,9 +67,6 @@ function BestCustomers() {
                                                         <p className="mb-0 text-danger">{"LKR " + customer.TotalPrice}</p>
                                                     </div>
 
-                                                </div>
-                                                <div className="d-flex pt-1">
-                                                    <button type="button" className="btn btn-outline-dark me-1 flex-grow-1"><i class="fa fa-gift mr-2" aria-hidden="true"></i> Give Coupons</button>
                                                 </div>
                                             </div>
                                         </div>

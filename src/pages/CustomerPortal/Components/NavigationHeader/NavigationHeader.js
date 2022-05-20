@@ -36,7 +36,7 @@ function NavigationHeader() {
                             <nav className="nav flex-column nav-pills">
 
                                 {serviceslist.map((service) => (
-                                    <NavLink to={`/customerportal/servicepartner/${service.serviceid}`} className="nav-link" activeClassName="active" >{service['servicename']}</NavLink>
+                                    <NavLink to={`/customerportal/servicepage/${service.serviceid}`} className="nav-link" activeClassName="active" target={"_blank"} >{service['servicename']}</NavLink>
                                 ))}
 
                             </nav>
@@ -46,7 +46,7 @@ function NavigationHeader() {
                                 <div style={{ maxWidth: '500px' }}>
                                     <h3 className="text-white">We make the things you need arrive on time </h3>
                                     <p className="text-white">You focus on what you need to do</p>
-                                    <a href="#" className="btn btn-warning"> View more </a>
+                                    {/* <a href="#" className="btn btn-warning"> View more </a> */}
                                 </div>
                             </article>
                         </div>

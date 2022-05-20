@@ -44,7 +44,7 @@ function RiderLogin() {
         if (res.data.status === 200) {
           console.log(res.data.message);
           localStorage.setItem("RiderID",res.data.userdata['riderid'])
-          history.push('/riderportal/dashboard');
+          history.push('/riderportal/myaccount');
         }
         else {
           snackbarRefErr.current.show();

@@ -22,6 +22,9 @@ import AllListingsCusPortal from './pages/CustomerPortal/Components/AllListings/
 import RiderDashboard from './pages/RiderDashboard/Dashboard/Dashboard';
 import RiderSignUp from './pages/RiderSignUp/RiderSignUp';
 import RiderLogin from './pages/RiderLogin/RiderLogin';
+import CustomerProfileMaster from './pages/CustomerPortal/Components/CustomerProfile/MasterPage/CustomerProfile';
+import TrackingPage from './pages/CustomerPortal/Components/TrackingPage/TrackingPage';
+import ServicePageCustomer from './pages/CustomerPortal/Components/ServicePage/ServicePage';
 
 axios.defaults.baseURL="http://127.0.0.1:8000/";
 axios.defaults.headers.post['Content-Type']='application/json';
@@ -48,6 +51,9 @@ function App() {
             <Route exact path="/customerorder/" component={CustomerOrderCart}></Route>
             <Route exact path="/customercart" component={ChartCheckOut}></Route>
 
+            <Route exact path="/customerportal/servicepage/:id" component={ServicePageCustomer}></Route>
+            <Route exact path="/customerportal/ordertracking/:id" component={TrackingPage}></Route>
+            <Route path="/customerportal/customerprofile" name="CustomerPortal" render={(props) => <CustomerProfileMaster {...props}/>}></Route>
             <Route path="/customerportal/allservices" name="CustomerPortal" render={(props) => <AllListingsCusPortal {...props}/>}></Route>
 
             <Route exact path="/customerportal/partnerprofilepage/:id" component={PartnerProfilePage}></Route>

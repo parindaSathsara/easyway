@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import logoimg from '../../../../assets/images/easywaymain.png';
 import CustomerNavBar from '../NavBar/NavBar';
 import CustomerNavBarSecondary from '../NavBarSecondary/NavBarSecondary';
@@ -13,13 +14,13 @@ function NavigatorCus() {
                     <div className="collapse navbar-collapse" id="navbar_main">
                         <ul className="navbar-nav">
                             <li className="nav-item">
-                                <a className="nav-link ps-0" href="#">All Services</a>
+                                <NavLink to='/customerportal/' className="nav-link ps-0 mr-2" activeClassName='navLinkActiveServices'>Home Page</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link ps-0" href="#">Other Services</a>
+                                <NavLink to='/customerportal/allservices' className="nav-link ps-0 mr-2" activeClassName='navLinkActiveServices'>All Services</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Easy Way Partners</a>
+                                <NavLink to='/customerportal/customerprofile/userprofile' className="nav-link ps-0 mr-2" activeClassName='navLinkActiveServices'>Profile</NavLink>
                             </li>
                         </ul>
                     </div> {/* collapse end.// */}

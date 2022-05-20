@@ -55,7 +55,11 @@ function RiderSignUp() {
       axios.post('api/riderRegister', dataset).then(res => {
 
         if (res.data.status === 200) {
-          history.push('/ewriderlogin');
+
+          snackbarRef.current.show();
+          setTimeout(() => {
+            history.push('/ewriderlogin');
+          }, 3000);
         }
         else {
           console.log(res.data.validator_errors);
@@ -82,7 +86,7 @@ function RiderSignUp() {
       />
       <Snackbar
         ref={snackbarRefErr}
-        message="Registration Error Plese Try Again!"
+        message="Registration Error Plese Fill All The Fields & Try Again!"
         type={SnackbarType.fail}
       />
 
@@ -119,7 +123,7 @@ function RiderSignUp() {
                 <div className="form-input riderInput">
                   <span className='riderfaicon'><i className="fa fa-map-marker"></i></span>
                   <select className="form-control selectOpt riderSelect" id="riderdistrict" name='riderdistrict' onChange={handleInput} value={registerUser.riderdistrict}>
-                    <option disabled selected>Your District</option>
+                    <option redonly selected>Your District</option>
                     <option value="Galle" >Galle</option>
                     <option value="Matara">Matara</option>
                     <option value="Hambanthota">Hambanthota</option>

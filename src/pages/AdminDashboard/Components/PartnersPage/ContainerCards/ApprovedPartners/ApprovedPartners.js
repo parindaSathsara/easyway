@@ -64,12 +64,17 @@ function ApprovedPartners() {
       buttons: [
         {
           label: 'Yes',
-          onClick: () =>{
+          onClick: () => {
             userData.accountstatus = 'ReadyToSell'
             axios.post('api/partners/updateProfile', userData).then(res => {
               if (res.data.status === 200) {
                 snackbarRef.current.show();
                 getPartnersByStatus();
+
+                var contact = userData['contactnumber'];
+
+                var message = "Hello Dear " + userData['partnername'] + ". Your account has been approved by easy way administration. Now you can ready to sell your products."
+                axios.post('https://app.notify.lk/api/v1/send?user_id=15060&api_key=wwVghBwtFySHwhyuVdLk&sender_id=NotifyDEMO&to=94' + contact + '&message=' + message);
               }
               else {
                 snackbarRefErr.current.show();

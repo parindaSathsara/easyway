@@ -9,6 +9,7 @@ import NavigatorCus from "../Navigator/Navigator";
 import NewListedServices from "../NewListedServices/NewListedServices";
 import TopHeadingNav from "../TopHeadingNav/TopHeadingNav";
 import './MainPage.css'
+import FooterCustomer from '../Footer/Footer'
 
 function CustomerMainPage() {
 
@@ -27,6 +28,7 @@ function CustomerMainPage() {
 
     return (
         <>
+
             <div style={preloader == true ? { display: 'block' } : { display: 'none' }}>
 
                 <FSPreLoader></FSPreLoader>
@@ -103,6 +105,7 @@ function CustomerMainPage() {
                     </article>
                 </div>
             </section>
+            <FooterCustomer></FooterCustomer>
         </>
     );
 }

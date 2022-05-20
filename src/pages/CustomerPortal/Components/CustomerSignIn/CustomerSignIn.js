@@ -41,10 +41,11 @@ function CustomerSignIn() {
             
             if (res.data.status === 200) {
                 // snackbarRef.current.show();
-                history.push('/customerportal');
+
                 localStorage.setItem("customerid",res.data.user['customerid'])
                 localStorage.setItem("username",res.data.user['customername'])
                 localStorage.setItem("userprofile",res.data.user['profilepic'])
+                history.push('/customerportal');
             }
 
             else {

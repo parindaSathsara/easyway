@@ -14,8 +14,7 @@ function UserSignHeaders() {
                         </div>
                         <div className="col-8">
                             <div className="float-end">
-                                <a href="#" className="btn btn-outline-primary">  Sign in </a>
-                                <a href="#" className="btn btn-primary">  Register </a>
+
                             </div>
                         </div>
                     </div>

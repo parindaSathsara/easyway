@@ -20,23 +20,22 @@ function AccountProgress() {
 
 
     useEffect(() => {
-        axios.get(`/api/partners/getPartners/${localStorage.getItem("PartnerID")}`).then(res => {
+        axios.get(`/api/riders/getRiders/${localStorage.getItem("RiderID")}`).then(res => {
             if (res.data.status === 200) {
-                console.log(res.data.partners)
+                console.log(res.data.rider)
 
-                if (res.data.partners[0]['accountstatus'] == "AccountCreated") {
+                if (res.data.rider[0]['accountstatus'] == "AccountCreated") {
                     setTracking({ ...tracking, accCreated: true, docSubmitted: false, docAccepted: false, sellingActivated: false });
                 }
-                else if (res.data.partners[0]['accountstatus'] == "DocumentsSubmitted") {
+                else if (res.data.rider[0]['accountstatus'] == "DocumentsSubmitted") {
                     setTracking({ ...tracking, accCreated: true, docSubmitted: true, docAccepted: false, sellingActivated: false });
                 }
-                else if (res.data.partners[0]['accountstatus'] == "DocumentsApproved") {
+                else if (res.data.rider[0]['accountstatus'] == "DocumentsApproved") {
                     setTracking({ ...tracking, accCreated: true, docSubmitted: true, docAccepted: true, sellingActivated: false });
                 }
-                else if (res.data.partners[0]['accountstatus'] == "ReadyToSelll") {
+                else if (res.data.rider[0]['accountstatus'] == "ReadyToRide") {
                     setTracking({ ...tracking, accCreated: true, docSubmitted: true, docAccepted: true, sellingActivated: true });
                 }
-
             }
         })
     }, []);

@@ -96,7 +96,7 @@ function Customers() {
                             searchFieldAlignment: "left", searchAutoFocus: true, searchFieldVariant: "standard",
                             filtering: true, paging: true, pageSizeOptions: [2, 5, 10, 20, 25, 50, 100], pageSize: 10,
                             paginationType: "stepped", showFirstLastPageButtons: false, paginationPosition: "both", exportButton: true,
-                            exportAllData: true, exportFileName: "Services Data", addRowPosition: "first", actionsColumnIndex: -1, 
+                            exportAllData: true, exportFileName: "Registered Customers", addRowPosition: "first", actionsColumnIndex: -1, 
                             columnsButton: true,
                         }}
                     />

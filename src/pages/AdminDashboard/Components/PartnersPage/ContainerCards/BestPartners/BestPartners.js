@@ -55,7 +55,7 @@ function BestPartners() {
                                                 
                                             </div>
                                             <div className="flex-grow-1 ms-3 ml-4">
-                                                <h5 className="mb-1">{partner.partnername} {index == 0 ? <i class="fa fa-star ml-2" style={{fontSize:18,color:'orange'}} aria-hidden="true"></i> : <></>}</h5>
+                                                <h5 className="mb-1 mt-5">{partner.partnername} {index == 0 ? <i class="fa fa-star ml-2" style={{fontSize:18,color:'orange'}} aria-hidden="true"></i> : <></>}</h5>
                                                 <p className="mb-2 pb-1" style={{ color: '#2b2a2a' }}>{setPartners.customerdistrict}</p>
                                                 <div className="d-flex justify-content-start rounded-3 p-2 mb-2">
                                                     <div>
@@ -68,9 +68,9 @@ function BestPartners() {
                                                     </div>
 
                                                 </div>
-                                                <div className="d-flex pt-1">
+                                                {/* <div className="d-flex pt-1">
                                                     <button type="button" className="btn btn-outline-dark me-1 flex-grow-1"><i class="fa fa-gift mr-2" aria-hidden="true"></i> Give Coupons</button>
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </div>
                                     </div>

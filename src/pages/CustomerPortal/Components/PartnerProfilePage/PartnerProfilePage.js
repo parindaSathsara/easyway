@@ -7,6 +7,7 @@ import axios from "axios";
 import './PartnerProfilePage.css'
 import SquareListing from "../SquareListing/SquareListing";
 import FSPreLoader from "../../../FSPreLoader/FSPreLoader";
+import NavigatorCus from "../Navigator/Navigator";
 
 function PartnerProfilePage() {
 
@@ -57,8 +58,9 @@ function PartnerProfilePage() {
                 <FSPreLoader></FSPreLoader>
 
             </div>
+            <TopHeadingNav></TopHeadingNav>
             <CustomerNavBar></CustomerNavBar>
-            <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
+            <NavigatorCus></NavigatorCus>
 
             <section className="padding-y">
                 <div className="container">

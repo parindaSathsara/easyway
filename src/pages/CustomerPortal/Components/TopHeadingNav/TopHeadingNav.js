@@ -11,12 +11,10 @@ function TopHeadingNav() {
                         <div className="nav">
                             <a href="#" className="nav-link p-2">  <i className="fab fa-lg fa-facebook" /></a>
                             <a href="#" className="nav-link p-2">  <i className="fab fa-lg fa-instagram" /></a>
-                            <a href="#" className="nav-link p-2">  <i className="fab fa-lg fa-twitter" /></a>
-                            <a href="#" className="nav-link p-2">  <i className="fab fa-lg fa-linkedin" /></a>
                         </div>
 
                         <ul className="nav">
-                            <li className="nav-item">
+                            {/* <li className="nav-item">
 
                                 <select class="form-select TopNavDropDown nav-link customerPortalNav" aria-label=".form-select-sm example">
                                     <option selected>District</option>
@@ -24,14 +22,14 @@ function TopHeadingNav() {
                                     <option value="2">Matara</option>
                                     <option value="3">Hambanthota</option>
                                 </select>
-                            </li>
+                            </li> */}
 
                             <li className="nav-item">
                                 <NavLink to={'/ewpartnerlogin'} target='_blank' className="nav-link customerPortalNav">Sell</NavLink>
                             </li>
 
                             <li className="nav-item">
-                                <NavLink to={'/ewpartnerlogin'} target='_blank' className="nav-link customerPortalNav">Become A Rider</NavLink>
+                                <NavLink to={'/ewriderlogin'} target='_blank' className="nav-link customerPortalNav">Become A Rider</NavLink>
                             </li>
 
                         </ul>

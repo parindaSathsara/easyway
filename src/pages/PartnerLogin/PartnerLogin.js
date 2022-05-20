@@ -44,7 +44,7 @@ function PartnerLogin() {
         if (res.data.status === 200) {
           console.log(res.data.message);
           localStorage.setItem("PartnerID",res.data.userdata['partnerid'])
-          history.push('/partnerportal/dashboard');
+          history.push('/partnerportal/myaccount');
         }
         else {
           snackbarRefErr.current.show();

@@ -6,7 +6,7 @@ import axios from 'axios';
 import storage from '../../../../firebase-config';
 import Snackbar from "../../../SnackBar/Snackbar";
 import LoadingBar from "react-top-loading-bar";
-import { NavLink } from "react-router-dom";
+import { NavLink,useHistory } from "react-router-dom";
 
 const SnackbarType = {
     success: "success",
@@ -15,6 +15,7 @@ const SnackbarType = {
 
 function CustomerSignUp() {
 
+    const history = useHistory();
     const snackbarRef = useRef(null);
     const snackbarRefErr = useRef(null);
 
@@ -89,6 +90,10 @@ function CustomerSignUp() {
                             console.log("Done Updated")
                             setProgress(100)
                             snackbarRef.current.show();
+                            setTimeout(() => {
+                                history.push('customerlogin')
+                            }, 3000);
+                            
                         }
 
                         else {
@@ -174,7 +179,7 @@ function CustomerSignUp() {
                                                 <div className="col-lg-12 mb-5 accountUpdate">
                                                     <label className="form-label">District</label>
                                                     <select className="form-control" id="customerdistrict" onChange={handleInputChange} value={userData.customerdistrict} name='customerdistrict'>
-                                                        <option disabled selected>Your District</option>
+                                                        <option readonly selected>Your District</option>
                                                         <option value="Galle" >Galle</option>
                                                         <option value="Matara">Matara</option>
                                                         <option value="Hambanthota">Hambanthota</option>
@@ -186,7 +191,7 @@ function CustomerSignUp() {
                                                 </div>
                                                 <div className="col-lg-6  mb-5 accountUpdate">
                                                     <label className="form-label">Password</label>
-                                                    <input className="form-control" type="text" name='customerpassword' onChange={handleInputChange} value={userData.customerpassword} placeholder="Your Password" />
+                                                    <input className="form-control" type="password" name='customerpassword' onChange={handleInputChange} value={userData.customerpassword} placeholder="Your Password" />
                                                 </div>
                                             </div>
                                         </div>
@@ -211,9 +216,6 @@ function CustomerSignUp() {
                                                         style={{ display: 'none' }}
                                                     />
 
-                                                    <a className="btn  btn-sm btn-outline-danger" href="#">
-                                                        <i className="fa fa-trash" />
-                                                    </a>
                                                 </figcaption>
                                             </figure>
                                         </aside>

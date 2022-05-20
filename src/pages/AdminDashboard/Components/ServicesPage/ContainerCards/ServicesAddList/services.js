@@ -40,7 +40,7 @@ function Services() {
     const [serviceslist, setServicesList] = useState([]); //Services List State
 
     const [services, setServices] = useState({
-        serviceid:'',
+        serviceid: '',
         servicename: '',
         servicetype: '',
         servicedescription: '',
@@ -67,10 +67,10 @@ function Services() {
         });
     }
 
-    const deleteService = async(e)=>{
+    const deleteService = async (e) => {
         console.log(services.serviceid);
-        axios.post('api/deleteService',{'serviceid':services.serviceid}).then(res=>{
-            if(res.data.status===200){
+        axios.post('api/deleteService', { 'serviceid': services.serviceid }).then(res => {
+            if (res.data.status === 200) {
                 console.log(res.data.services);
                 getServicesList();
             }
@@ -112,7 +112,7 @@ function Services() {
 
 
 
-    
+
     //Data Table
     const data = {
         columns: [
@@ -124,12 +124,12 @@ function Services() {
             {
                 title: "Service Type",
                 field: "servicetype",
-                lookup: {MainService:"Main Service",OtherService:"Other Service"}
+                lookup: { MainService: "Main Service", OtherService: "Other Service" }
             },
             {
                 title: "Service Description",
                 field: "servicedescription",
-                
+
             },
         ],
 
@@ -176,8 +176,9 @@ function Services() {
 
                     <div className="form-group">
                         <label>Service Type</label>
-                        
+
                         <select className="form-control dashboardInputField" id="servicetype" name="servicetype" onChange={handleInput} value={services.servicetype}>
+                            <option readonly select>Choose Service</option>
                             <option value={"MainService"}>Main Service</option>
                             <option value={"OtherService"}>Other Service</option>
                         </select>
@@ -212,33 +213,28 @@ function Services() {
 
                         onRowUpdate: (newRow, oldRow) => new Promise((resolve, reject) => {
 
-                            
-                            services.serviceid=oldRow['serviceid'];
-                            services.servicename=newRow['servicename'];
-                            services.servicetype=newRow['servicetype'];
-                            services.servicedescription=newRow['servicedescription'];
+
+                            services.serviceid = oldRow['serviceid'];
+                            services.servicename = newRow['servicename'];
+                            services.servicetype = newRow['servicetype'];
+                            services.servicedescription = newRow['servicedescription'];
 
                             updateService();
                             setTimeout(() => resolve(), 500)
                         }),
                         onRowDelete: (selectedRow) => new Promise((resolve, reject) => {
-                            services.serviceid=selectedRow['serviceid'];
+                            services.serviceid = selectedRow['serviceid'];
                             deleteService();
                             setTimeout(() => resolve(), 500)
                         }),
                     }}
-                    onSelectionChange={(selectedRows) => console.log(selectedRows)}
                     options={{
                         sorting: true, search: true,
-                        
+
                         searchFieldAlignment: "left", searchAutoFocus: true, searchFieldVariant: "standard",
                         filtering: true, paging: true, pageSizeOptions: [2, 5, 10, 20, 25, 50, 100], pageSize: 5,
                         paginationType: "stepped", showFirstLastPageButtons: false, paginationPosition: "both", exportButton: true,
-                        exportAllData: true, exportFileName: "Services Data", addRowPosition: "first", actionsColumnIndex: -1, selection: true,
-                        showSelectAllCheckbox: false, showTextRowsSelected: false, selectionProps: rowData => ({
-                            disabled: rowData.serviceid == null,
-                            // color:"primary"
-                        }),
+                        exportAllData: true, exportFileName: "Services Data", addRowPosition: "first", actionsColumnIndex: -1,
                         columnsButton: true,
                     }}
                 />

@@ -65,7 +65,12 @@ function PartnerSignUp() {
       axios.post('api/partnerRegister', dataset).then(res => {
 
         if (res.data.status === 200) {
-          history.push('/login');
+
+          snackbarRef.current.show();
+          setTimeout(() => {
+            history.push('/ewpartnerlogin');
+          }, 3000);
+
         }
         else {
           console.log(res.data.validator_errors);
@@ -129,7 +134,7 @@ function PartnerSignUp() {
                 <div className="form-input partnerInput">
                   <span className='partnerfaicon'><i className="fa fa-map-marker"></i></span>
                   <select className="form-control selectOpt partnerSelect" id="district" name='district' onChange={handleInput} value={registerUser.district}>
-                    <option disabled selected>Your District</option>
+                    <option readonly selected>Your District</option>
                     <option value="Galle" >Galle</option>
                     <option value="Matara">Matara</option>
                     <option value="Hambanthota">Hambanthota</option>

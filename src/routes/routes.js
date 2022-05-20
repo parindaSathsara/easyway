@@ -16,6 +16,12 @@ import AdminCreateListing from "../pages/AdminDashboard/Components/CreateListing
 import ServicesListingsMasterAdmin from "../pages/AdminDashboard/Components/ServicesListings/MasterPage/ServicesListings";
 import CustomerPGMaster from "../pages/AdminDashboard/Components/CustomersPage/MasterPage/Customers";
 import ReportPageMasterAdmin from "../pages/AdminDashboard/Components/ReportPage/OrderReport/MasterPage/OrderReportMaster";
+import OrdersMasterPage from "../pages/PartnerDashboard/Components/OrdersPage/MasterPage/OrdersMaster";
+import CustomerOrders from "../pages/CustomerPortal/Components/CustomerProfile/ContainerCards/CustomerOrders/CustomerOrders";
+import CustomerUserProfile from "../pages/CustomerPortal/Components/CustomerProfile/ContainerCards/Profile/CustomerProfile/CustomerUserProfile";
+import RiderMasterPage from "../pages/RiderDashboard/Components/DashboardPage/MasterPage/RiderMaster";
+import SalesMasterPagePartner from "../pages/PartnerDashboard/Components/SalesPage/MasterPage/SalesMaster";
+
 const routes = [
     
     {path: '/adminportal/dashboard', exact:true, name:'Dashboard', component: DPMaster},
@@ -29,11 +35,18 @@ const routes = [
 
     {path: '/customerportal/allservices/:id', exact:true, name:'Dashboard', component: ServiceFilter},
 
+
+    {path: '/customerportal/customerprofile/orders', exact:true, name:'Dashboard', component: CustomerOrders},
+    {path: '/customerportal/customerprofile/userprofile', exact:true, name:'Dashboard', component: CustomerUserProfile},
+
+
     {path: '/riderportal/accountprogress', exact:true, name:'Dashboard', component: RiderAccountProgressMaster},
     {path: '/riderportal/myaccount', exact:true, name:'Dashboard', component: RiderAccountMaster},
     {path: '/riderportal/orders', exact:true, name:'Dashboard', component: CustomerOrdersMaster},
+    {path: '/riderportal/dashboard', exact:true, name:'Dashboard', component: RiderMasterPage},
 
-
+    {path: '/partnerportal/sales', exact:true, name:'Dashboard', component: SalesMasterPagePartner},
+    {path: '/partnerportal/orders', exact:true, name:'Dashboard', component: OrdersMasterPage},
     {path: '/partnerportal/myaccount', exact:true, name:'Dashboard', component: PartnerAccountMaster},
     {path: '/partnerportal/dashboard', exact:true, name:'Dashboard', component: PartnerMasterPage},
     {path: '/partnerportal/newlisting', exact:true, name:'Dashboard', component: CreateListingMaster},

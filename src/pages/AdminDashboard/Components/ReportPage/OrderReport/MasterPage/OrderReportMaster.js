@@ -1,6 +1,9 @@
 
 import CustomersReport from "../ContainerCards/CustomersReport/CustomersReport";
-import OrderReport from "../ContainerCards/OrderReport/OrderReport";
+import PartnerReport from "../ContainerCards/OrderReport/PartnerReport";
+
+import OrderReport from "../ContainerCards/OrderReport/PartnerReport";
+import SalesReportAdmin from "../ContainerCards/SalesReport/SalesReport";
 
 function ReportPageMasterAdmin() {
     return (
@@ -8,8 +11,9 @@ function ReportPageMasterAdmin() {
             <div className="col-12">
                 <div className='container'>
                     <div className="row">
-                        <OrderReport></OrderReport>
+                        <PartnerReport></PartnerReport>
                         <CustomersReport></CustomersReport>
+                        <SalesReportAdmin></SalesReportAdmin>
                     </div>
                     
                 </div>

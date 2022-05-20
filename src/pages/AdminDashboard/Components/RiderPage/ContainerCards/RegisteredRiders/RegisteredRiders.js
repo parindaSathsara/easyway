@@ -61,6 +61,7 @@ function RegisteredRiders() {
 
       if (res.data.status === 200) {
         setRidersData(res.data.rider);
+        
       }
 
     })
@@ -71,7 +72,7 @@ function RegisteredRiders() {
       <div className="col-md-12 containerbox">
         <div className="containerbox-title">
           <h5>
-            Registered Partners
+            Registered Riders
           </h5>
         </div>
         <MaterialTable

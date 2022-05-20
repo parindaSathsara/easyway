@@ -15,9 +15,7 @@ function CustomerOrdersMaster() {
                         <NewOrdersToGet></NewOrdersToGet>
                         <AllCustomerOrders></AllCustomerOrders>
                         <AcceptedOrders></AcceptedOrders>
-                        
                         <PendingToDeliver></PendingToDeliver>
-
                     </div>
 
                 </div>

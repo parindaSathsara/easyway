@@ -136,7 +136,7 @@ function SignUp() {
               <div className="form-input">
                 <span><i className="fa fa-map-marker"></i></span>
                 <select className="form-control selectOpt" id="district" name='district' onChange={handleInput} value={registerUser.district}>
-                  <option selected disabled>Employee District</option>
+                  <option selected readonly>Employee District</option>
                   <option value="Galle" >Galle</option>
                   <option value="Matara">Matara</option>
                   <option value="Hambanthota">Hambanthota</option>
@@ -147,12 +147,9 @@ function SignUp() {
               <div className="form-input">
                 <span><i className="fa fa-users"></i></span>
                 <select className="form-control selectOpt" id="role" name='role' placeholder='Employee Role' onChange={handleInput} value={registerUser.role}>
-                  <option selected disabled>Employee Role</option>
+                  <option selected readonly>Employee Role</option>
                   <option value="Administrator">Administrator</option>
                   <option value="Finance Officer">Finance Officer</option>
-                  <option value="HR Manager">HR Manager</option>
-                  <option value="Cleark">Cleark</option>
-                  <option value="Vehicle Officer">Vehicle Officer</option>
                 </select>
                 <span className='spanerror'>{registerUser.error_list.role}</span>
               </div>

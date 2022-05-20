@@ -9,18 +9,18 @@ function RiderPerformance() {
 
   const [ordersList, setOrders] = useState([
     {
-      ridername:"Waidya Sewwandi",
-      jobcount:"31",
-      district:"Galle",
-    },
-    {
       ridername:"Parinda Sathsara",
-      jobcount:"25",
+      jobcount:"2",
       district:"Galle",
     },
     {
       ridername:"Viraj Kavinda",
-      jobcount:"13",
+      jobcount:"1",
+      district:"Galle",
+    },
+    {
+      ridername:"Chinthaka Sampath",
+      jobcount:"2",
       district:"Hambantota",
     }
   ]);

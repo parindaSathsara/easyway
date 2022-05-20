@@ -1,9 +1,23 @@
 import './dashboard.css'
-import { Link, Redirect, Route, Switch } from 'react-router-dom';
+import { Link, NavLink, Redirect, Route, Switch } from 'react-router-dom';
 import routes from '../../../routes/routes';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Dashboard() {
+
+    // const [userAccount, setUserAccount] = useState()
+
+    // useEffect(() => {
+
+    //     axios.get(`/api/riders/getRiders/${localStorage.getItem("RiderID")}`).then(res => {
+
+    //         if (res.data.status === 200) {
+    //             setUserAccount(res.data.rider[0]['ridername']);
+    //         }
+    //     })
+
+    // }, [])
     return (
         <div id='body-pdd' className='bodyclass'>
             <header className="header" id="header">
@@ -12,14 +26,14 @@ function Dashboard() {
 
                 <div className="headerTgl row">
 
-                    <div>
+                    {/* <div>
                         <i class="bx bxs-bell bx-tada-hover notificationButton" style={{ fontSize: 18 }} aria-hidden="true"></i>
-                    </div>
+                    </div> */}
                     <div>
-                        <h6 class="notificationButton navUName">Parinda Sathsara</h6>
+                        <h6 class="notificationButton navUName">Easy Way Administration</h6>
                     </div>
                     <div className="header_img">
-                        <img src={require('../../../assets/images/profile.jpg')} alt=""></img>
+                        <img src={'https://www.facebook.com/EasyWay2k/photos/a.100102718601935/207817437830462/'} alt=""></img>
                     </div>
                 </div>
 
@@ -29,18 +43,16 @@ function Dashboard() {
             <div className="l-navbar" id="nav-bar">
                 <nav className="nav mainsidebarnav">
                     <div> <div id='sidebar_logo' className="nav_logo sidenavlogo sidebarnav sidebarnavadmin"></div>
-                        <div className="nav_list sidenavlist"> <Link to='/adminportal/dashboard' className="nav_link active sidebarnav"> <i className='bx bx-grid-alt nav_icon'></i> <span className="nav_name">Dashboard</span> </Link>
-                            <Link to='/adminportal/partners' className="nav_link sidebarnav"> <i className='bx bx-building-house nav_icon'></i> <span className="nav_name">Partners</span> </Link>
-                            <Link to="/adminportal/services" className="nav_link sidebarnav"> <i className='bx bxs-hand nav_icon'></i> <span className="nav_name">Services</span> </Link>
-                            <Link to="/adminportal/customers" className="nav_link sidebarnav"> <i className='bx bxs-user-voice bx-tada-hover nav_icon'></i> <span className="nav_name">Customers</span> </Link>
-                            <Link to="/adminportal/createlisting" className="nav_link sidebarnav"> <i className='bx bxs-bell-plus bx-tada-hover nav_icon'></i> <span className="nav_name">Create Listing</span> </Link>
-                            <Link to="/adminportal/viewListings" className="nav_link sidebarnav"> <i className='bx bxs-bell bx-tada-hover nav_icon'></i> <span className="nav_name">Services Listings</span> </Link>
-                            
-                            <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bx-cycling nav_icon'></i> <span className="nav_name">Riders</span> </Link>
-                            <Link to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bx-money nav_icon'></i> <span className="nav_name">Sales</span> </Link>
-                            <Link to="/adminportal/reports" className="nav_link sidebarnav"> <i className='bx bx-book-alt nav_icon'></i> <span className="nav_name">Reports</span> </Link>
+                        <div className="nav_list sidenavlist"> <NavLink to='/adminportal/dashboard' className="nav_link sidebarnav"> <i className='bx bx-grid-alt nav_icon'></i> <span className="nav_name">Dashboard</span> </NavLink>
+                            <NavLink to='/adminportal/partners' className="nav_link sidebarnav"> <i className='bx bx-building-house nav_icon'></i> <span className="nav_name">Partners</span> </NavLink>
+                            <NavLink to="/adminportal/services" className="nav_link sidebarnav"> <i className='bx bxs-hand nav_icon'></i> <span className="nav_name">Services</span> </NavLink>
+                            <NavLink to="/adminportal/customers" className="nav_link sidebarnav"> <i className='bx bxs-user-voice bx-tada-hover nav_icon'></i> <span className="nav_name">Customers</span> </NavLink>
+
+                            <NavLink to="/adminportal/riders" className="nav_link sidebarnav"> <i className='bx bx-cycling nav_icon'></i> <span className="nav_name">Riders</span> </NavLink>
+                            <NavLink to="/adminportal/viewListings" className="nav_link sidebarnav"> <i className='bx bxs-bell bx-tada-hover nav_icon'></i> <span className="nav_name">Services Listings</span> </NavLink>
+                            <NavLink to="/adminportal/reports" className="nav_link sidebarnav"> <i className='bx bx-book-alt nav_icon'></i> <span className="nav_name">Reports</span> </NavLink>
                         </div>
-                    </div> <a href="#" className="nav_link sidebarnav"> <i className='bx bx-log-out nav_icon'></i> <span className="nav_name">SignOut</span> </a>
+                    </div>  <NavLink to='/login' className="nav_link sidebarnav sidebarnav" activeClassName="activepartner"> <i className='bx bxs-log-out nav_icon'></i> <span className="nav_name">Sign Out</span></NavLink>
                 </nav>
             </div>
 

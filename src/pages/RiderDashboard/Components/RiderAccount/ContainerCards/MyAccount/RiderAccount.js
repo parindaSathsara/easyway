@@ -183,11 +183,10 @@ function RiderAccount() {
         Promise.all(promises)
             .then(() => {
 
-                if (userData.accountstatus == "AccountCreated" && userData.ridernic != null && userData.riderlicense != null) {
+                if (userData.accountstatus == "AccountCreated") {
                     userData.accountstatus = "DocumentsSubmitted"
                 }
                 console.log(userData)
-
                 axios.post('api/riders/riderUpdateProfile', userData).then(res => {
                     
                     if (res.data.status === 200) {
@@ -205,9 +204,6 @@ function RiderAccount() {
                 });
 
             });
-
-
-
     }
 
     const handleInputChange = (e) => {
@@ -225,7 +221,6 @@ function RiderAccount() {
                 setUserDocs({ ...userDocs, riderlicense: res.data.rider[0]['riderlicense'],ridernic: res.data.rider[0]['ridernic']})
                 // setUserDocs({ ...userDocs, ridernic: res.data.rider[0]['ridernic']})
             }
-
         })
     }, []);
 
@@ -272,20 +267,20 @@ function RiderAccount() {
                                     <div className="row gx-">
                                         <div className="col-lg-6 mb-3 accountUpdate">
                                             <label className="form-label">Rider Name</label>
-                                            <input className="form-control" type="text" name='ridername' onChange={handleInputChange} value={userData.ridername} placeholder="Your Username" />
+                                            <input className="form-control" type="text" name='ridername' onChange={handleInputChange} value={userData.ridername} placeholder="Your Name" />
                                         </div>
                                         <div className="col-lg-6 mb-3 accountUpdate">
                                             <label className="form-label">Vehicle Number</label>
-                                            <input className="form-control" type="text" name='ridervehicleno' onChange={handleInputChange} value={userData.ridervehicleno} placeholder="Your Email" />
+                                            <input className="form-control" type="text" name='ridervehicleno' onChange={handleInputChange} value={userData.ridervehicleno} placeholder="Vehicle Number" />
                                         </div>
                                         <div className="col-lg-6 mb-3 accountUpdate">
                                             <label className="form-label">Contact Number</label>
-                                            <input className="form-control" type="text" name='ridercontact' onChange={handleInputChange} value={userData.ridercontact} placeholder="Business Name" />
+                                            <input className="form-control" type="text" name='ridercontact' onChange={handleInputChange} value={userData.ridercontact} placeholder="Contact Number" />
                                         </div>
                                         <div className="col-lg-6 mb-3 accountUpdate">
                                             <label className="form-label">District</label>
                                             <select className="form-control" id="riderdistrict" onChange={handleInputChange} value={userData.riderdistrict} name='riderdistrict'>
-                                                <option disabled selected>Your District</option>
+                                                <option readonly selected>Your District</option>
                                                 <option value="Galle" >Galle</option>
                                                 <option value="Matara">Matara</option>
                                                 <option value="Hambanthota">Hambanthota</option>
@@ -293,16 +288,16 @@ function RiderAccount() {
                                         </div>
                                         <div className="col-lg-6 mb-3 accountUpdate">
                                             <label className="form-label">Email</label>
-                                            <input className="form-control" type="text" name='rideremail' onChange={handleInputChange} value={userData.rideremail} placeholder="Your Address" />
+                                            <input className="form-control" type="text" name='rideremail' onChange={handleInputChange} value={userData.rideremail} placeholder="Your Email Address" />
                                         </div>
 
                                         <div className="col-lg-6 mb-3 accountUpdate">
                                             <label className="form-label">Username</label>
-                                            <input className="form-control" type="text" name='riderusername' onChange={handleInputChange} value={userData.riderusername} placeholder="Your Address" />
+                                            <input className="form-control" type="text" name='riderusername' onChange={handleInputChange} value={userData.riderusername} placeholder="Your User Name" />
                                         </div>
                                         <div className="col-lg-12 mb-3 accountUpdate">
                                             <label className="form-label">Description</label>
-                                            <textarea className="form-control" type="text" name='description' onChange={handleInputChange} value={userData.description} placeholder="Business Description" />
+                                            <textarea className="form-control" type="text" name='description' onChange={handleInputChange} value={userData.description} placeholder="Rider Description" />
                                         </div>
                                         <div className="col-lg-6 col-md-6 mb-3 accountUpdate">
                                             <article className="box mb-3 bg-light partnerAccDiv">
@@ -340,7 +335,7 @@ function RiderAccount() {
                                                 {userDocs['riderlicense'] == null ? <></> : <img className='rounded  mb-3' src={userDocs['riderlicense']} style={{ height: 70 }}></img>}
 
                                                 <small className="text-muted d-block" style={{ width: '70%' }}>
-                                                    Attach a copy of the business registration form of the organization here
+                                                    Attach a copy of the driving license here
                                                 </small>
                                             </article>
                                         </div>
@@ -378,7 +373,7 @@ function RiderAccount() {
                             </div>
                             <br />
                             <button className="btn btn-primary" type="submit" onClick={formOnSubmit}>Save changes</button>
-                            <hr className="my-4" />
+                            {/* <hr className="my-4" />
                             <div className="row">
                                 <div className="col-md">
                                     <article className="box mb-3 bg-light partnerAccDiv">
@@ -396,7 +391,7 @@ function RiderAccount() {
                                             account, there is no going back.</small>
                                     </article>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </main>
                 </div>

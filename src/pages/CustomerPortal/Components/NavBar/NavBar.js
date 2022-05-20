@@ -7,9 +7,10 @@ import axios from 'axios'
 function CustomerNavBar(props) {
 
     const [userLogged, setUserLogged] = useState(true)
-    const [cartItemCount,setCartItemCount]=useState(0)
+    const [cartItemCount, setCartItemCount] = useState(0)
 
     useEffect(() => {
+
 
         axios.get(`/api/customers/getCartItemCount/${localStorage.getItem("customerid")}`).then(res => {
 
@@ -20,7 +21,6 @@ function CustomerNavBar(props) {
                 console.log("NoData")
             }
         })
-
 
     }, [])
 
@@ -45,15 +45,15 @@ function CustomerNavBar(props) {
                                 <div className="float-end">
 
 
-                                    {userLogged == false ? <a href="#" className="btn btn-dark customerPortalNav">
+                                    {userLogged == false ? <NavLink to='/customerlogin' className="btn btn-dark customerPortalNav">
                                         <i className="fa fa-user" />  <span className="ms-1 d-none d-sm-inline-block">Sign in</span>
-                                    </a> :
+                                    </NavLink> :
                                         <>
-                                            <NavLink to={"customercart"} className="NavLinkCP">
+                                            <NavLink to={"/customercart"} className="NavLinkCP" target={"_blank"}>
                                                 <div className="icontext me-4 customerPortalNav">
                                                     <span className="icon icon-xs rounded-circle bg-dark">
                                                         <i className="fa fa-shopping-cart text-white" />
-                                                        <span className="notify bg-warning">{props.cartItemCount==null?cartItemCount:props.cartItemCount}</span>
+                                                        <span className="notify bg-warning">{props.cartItemCount == null ? cartItemCount : props.cartItemCount}</span>
                                                     </span>
                                                     <span class="ms-1 d-none d-sm-inline-block">Cart</span>
                                                 </div>
@@ -65,9 +65,10 @@ function CustomerNavBar(props) {
                                                         {localStorage.getItem("username")}
                                                     </a>
                                                     <div class="dropdown-menu dropDownMenu" aria-labelledby="dropdownMenuLink">
-                                                        <a class="dropdown-item" href="#">My Profile</a>
-                                                        <a class="dropdown-item" href="#">My Orders</a>
-                                                        <a class="dropdown-item" href="#">Signout</a>
+
+                                                        <NavLink to='/customerportal/customerprofile/userprofile' className="dropdown-item">My Profile</NavLink>
+                                                        <NavLink to='/customerportal/customerprofile/orders' className="dropdown-item">My Orders</NavLink>
+                                                        <NavLink to='/customerlogin' className="dropdown-item">Sign Out</NavLink>
 
                                                     </div>
                                                 </div>

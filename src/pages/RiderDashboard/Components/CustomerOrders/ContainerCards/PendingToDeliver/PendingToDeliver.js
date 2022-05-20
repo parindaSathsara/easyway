@@ -25,7 +25,7 @@ function PendingToDeliver() {
 
     const [pickupDetails, setPickupDetails] = useState({
         totaldistance: '',
-        totalprice: ''
+        deliverytotalprice: ''
     })
 
     const [totalPayable, setTotalPayable] = useState(0.00)
@@ -57,7 +57,7 @@ function PendingToDeliver() {
                 console.log(res.data.acceptedOrders[0])
 
                 setTotalDistanceBetween(res.data.acceptedOrders[0]['totaldistance']);
-                setPickupDetails({ ...pickupDetails, totalprice: res.data.acceptedOrders[0]['totalprice'] });
+                setPickupDetails({ ...pickupDetails, deliverytotalprice: res.data.acceptedOrders[0]['deliverytotalprice'] });
                 setTotalPayable(res.data.acceptedOrders[0]['totalPayable'])
             }
             else {
@@ -80,6 +80,12 @@ function PendingToDeliver() {
                 if (res.data.status === 200) {
                     snackbarRef.current.show();
                     getOrdersList();
+
+                    var contact = orderData['contactnumber'];
+
+                    var message = "Hello Dear " + orderData['customername'] + ". Your Order Has Been Delivered."
+                    axios.post('https://app.notify.lk/api/v1/send?user_id=15060&api_key=wwVghBwtFySHwhyuVdLk&sender_id=NotifyDEMO&to=94' + contact + '&message=' + message);
+
                 }
                 else {
                     snackbarRefErr.current.show();
@@ -252,7 +258,7 @@ function PendingToDeliver() {
 
                                                 <div className="col-lg-12 mb-3 accountUpdate">
                                                     <label className="form-label">Delivery Charge</label>
-                                                    <input className="form-control" type="text" name='price' value={"LKR " + pickupDetails["totalprice"]} disabled />
+                                                    <input className="form-control" type="text" name='price' value={"LKR " + pickupDetails["deliverytotalprice"]} disabled />
                                                 </div>
                                                 <div className="col-lg-12 mb-3 accountUpdate">
                                                     <label className="form-label mr-2">Total Amount Payable:</label>

@@ -56,47 +56,9 @@ function AcceptedOrders() {
                 setOrderData(res.data.acceptedOrders[0])
                 console.log(res.data.acceptedOrders[0])
 
-
-                var customerlatlan = res.data.acceptedOrders[0]['customerlatlan'].split(',')
-                var partnerlatlan = res.data.acceptedOrders[0]['partnerlatlon'].split(',')
-
-                var location = getDistance(
-                    { latitude: customerlatlan[0], longitude: customerlatlan[1] },
-                    { latitude: partnerlatlan[0], longitude: partnerlatlan[1] }
-                );
-
-
-
-
-                var finalDistance = Math.round(location / 1000)
-
-                setTotalDistanceBetween(finalDistance);
-
-
-                var finalDelivery;
-
-
-                if (finalDistance <= 10) {
-                    finalDelivery = finalDistance * 50
-                    setPickupDetails({ ...pickupDetails, totalprice: finalDistance * 50 });
-                }
-                else if (finalDistance > 10 && finalDistance <= 30) {
-                    finalDelivery = finalDistance * 30
-                    setPickupDetails({ ...pickupDetails, totalprice: finalDistance * 30 });
-                }
-                else if (finalDistance > 30 && finalDistance < 60) {
-                    finalDelivery = finalDistance * 20
-                    setPickupDetails({ ...pickupDetails, totalprice: finalDistance * 20 });
-                }
-
-
-                if (res.data.acceptedOrders[0]["paymentoption"] == "CashOnDelivery") {
-
-                    setTotalPayable(parseFloat(res.data.acceptedOrders[0]["totalprice"]) + parseFloat(finalDelivery))
-                }
-                else {
-                    setTotalPayable(finalDelivery)
-                }
+                setTotalDistanceBetween(res.data.acceptedOrders[0]['totaldistance']);
+                setPickupDetails({ ...pickupDetails, deliverytotalprice: res.data.acceptedOrders[0]['deliverytotalprice'] });
+                setTotalPayable(res.data.acceptedOrders[0]['totalPayable'])
             }
             else {
                 console.log("NoData")
@@ -118,6 +80,12 @@ function AcceptedOrders() {
                 if (res.data.status === 200) {
                     snackbarRef.current.show();
                     getOrdersList();
+
+                    var contact = orderData['contactnumber'];
+
+                    var message = "Hello Dear " + orderData['customername'] + ". Your Order Has Picked By Rider From Service Provider. Please Pay LKR "+orderData['totalPayable']+" To Delivery Rider."
+                    axios.post('https://app.notify.lk/api/v1/send?user_id=15060&api_key=wwVghBwtFySHwhyuVdLk&sender_id=NotifyDEMO&to=94' + contact + '&message=' + message);
+
                 }
                 else {
                     snackbarRefErr.current.show();
@@ -172,12 +140,12 @@ function AcceptedOrders() {
 
             <Snackbar
                 ref={snackbarRef}
-                message="Delivery Job Added Successfully!"
+                message="Order Collected Successfully!"
                 type={SnackbarType.success}
             />
             <Snackbar
                 ref={snackbarRefErr}
-                message="Delivery Job Added Unsuccessfully!"
+                message="Order Collected Unsuccessfully!"
                 type={SnackbarType.fail}
             />
 
@@ -290,11 +258,11 @@ function AcceptedOrders() {
 
                                                 <div className="col-lg-12 mb-3 accountUpdate">
                                                     <label className="form-label">Delivery Charge</label>
-                                                    <input className="form-control" type="text" name='price' value={"LKR " + pickupDetails["totalprice"]} disabled />
+                                                    <input className="form-control" type="text" name='price' value={"LKR " + pickupDetails["deliverytotalprice"]} disabled />
                                                 </div>
                                                 <div className="col-lg-12 mb-3 accountUpdate">
                                                     <label className="form-label mr-2">Total Amount Payable:</label>
-                                                    <label className="text-danger h5">{"LKR " + totalPayable + ".00"}</label>
+                                                    <label className="text-danger h5">{"LKR " + totalPayable}</label>
                                                 </div>
                                             </div>
                                         </div>

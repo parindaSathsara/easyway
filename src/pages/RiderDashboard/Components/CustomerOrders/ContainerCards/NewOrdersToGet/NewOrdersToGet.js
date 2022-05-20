@@ -27,7 +27,7 @@ function NewOrdersToGet() {
         estimatetime: '',
         estimatedate: '',
         totaldistance: '',
-        totalprice: ''
+        deliverytotalprice: ''
     })
 
     const [totalPayable, setTotalPayable] = useState(0.00)
@@ -80,15 +80,15 @@ function NewOrdersToGet() {
 
                 if (finalDistance <= 10) {
                     finalDelivery = finalDistance * 50
-                    setPickupDetails({ ...pickupDetails, totalprice: finalDistance * 50 });
+                    setPickupDetails({ ...pickupDetails, deliverytotalprice: finalDistance * 50 });
                 }
                 else if (finalDistance > 10 && finalDistance <= 30) {
                     finalDelivery = finalDistance * 30
-                    setPickupDetails({ ...pickupDetails, totalprice: finalDistance * 30 });
+                    setPickupDetails({ ...pickupDetails, deliverytotalprice: finalDistance * 30 });
                 }
                 else if (finalDistance > 30 && finalDistance < 60) {
                     finalDelivery = finalDistance * 20
-                    setPickupDetails({ ...pickupDetails, totalprice: finalDistance * 20 });
+                    setPickupDetails({ ...pickupDetails, deliverytotalprice: finalDistance * 20 });
                 }
 
 
@@ -96,7 +96,7 @@ function NewOrdersToGet() {
 
                     setTotalPayable(parseFloat(res.data.orders[0]["totalprice"]) + parseFloat(finalDelivery))
                 }
-                else{
+                else {
                     setTotalPayable(finalDelivery)
                 }
             }
@@ -118,9 +118,10 @@ function NewOrdersToGet() {
             estimatetime: pickupDetails.estimatetime,
             estimatedate: pickupDetails.estimatedate,
             totaldistance: totalDistanceBetween,
-            totalprice: pickupDetails.totalprice,
-            totalPayable:totalPayable
+            deliverytotalprice: pickupDetails.deliverytotalprice,
+            totalPayable: totalPayable
         }
+
 
         axios.get('/sanctum/csrf-cookie').then(response => {
             axios.post('api/deliveryjob/newjob', orderDataToDB).then(res => {
@@ -128,6 +129,13 @@ function NewOrdersToGet() {
                 if (res.data.status === 200) {
                     snackbarRef.current.show();
                     getOrdersList();
+
+
+                    var contact = orderData['contactnumber'];
+
+                    var message = "Hello Dear " + orderData['customername'] + ". Your Order Has Accepted By Rider."
+                    axios.post('https://app.notify.lk/api/v1/send?user_id=15060&api_key=wwVghBwtFySHwhyuVdLk&sender_id=NotifyDEMO&to=94' + contact + '&message=' + message);
+
                 }
                 else {
                     snackbarRefErr.current.show();
@@ -309,7 +317,7 @@ function NewOrdersToGet() {
 
                                                 <div className="col-lg-12 mb-3 accountUpdate">
                                                     <label className="form-label">Delivery Charge</label>
-                                                    <input className="form-control" type="text" name='price' value={"LKR " + pickupDetails["totalprice"]} disabled />
+                                                    <input className="form-control" type="text" name='price' value={"LKR " + pickupDetails["deliverytotalprice"]} disabled />
                                                 </div>
                                                 <div className="col-lg-12 mb-3 accountUpdate">
                                                     <label className="form-label mr-2">Total Amount Payable:</label>
@@ -323,7 +331,7 @@ function NewOrdersToGet() {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-dark"  data-dismiss="modal" onClick={onGetOrderClick}>Get Order</button>
+                            <button type="button" class="btn btn-dark" data-dismiss="modal" onClick={onGetOrderClick}>Get Order</button>
                         </div>
                     </div>
                 </div>

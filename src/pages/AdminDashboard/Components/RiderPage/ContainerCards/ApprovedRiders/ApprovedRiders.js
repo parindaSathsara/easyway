@@ -69,6 +69,11 @@ function ApprovedRiders() {
               if (res.data.status === 200) {
                 snackbarRef.current.show();
                 getridersByStatus();
+                var contact = userData['ridercontact'];
+
+                var message = "Hello Dear " + userData['ridername'] + ". Your account has been approved by easy way administration."
+                axios.post('https://app.notify.lk/api/v1/send?user_id=15060&api_key=wwVghBwtFySHwhyuVdLk&sender_id=NotifyDEMO&to=94' + contact + '&message=' + message);
+
               }
               else {
                 snackbarRefErr.current.show();
@@ -127,6 +132,7 @@ function ApprovedRiders() {
 
       if (res.data.status == 200) {
         setridersNeedToApproval(res.data.riders)
+
       }
       else {
         console.log("NoData")
@@ -203,7 +209,7 @@ function ApprovedRiders() {
                         </div>
                         <div className="col-lg-6 mb-3 accountUpdate">
                           <label className="form-label">Rider Name</label>
-                          <input className="form-control" type="text" name='ridername'  value={userData.ridername} placeholder="Your Username" />
+                          <input className="form-control" type="text" name='ridername' value={userData.ridername} placeholder="Your Username" />
                         </div>
                         <div className="col-lg-6 mb-3 accountUpdate">
                           <label className="form-label">Vehicle Number</label>

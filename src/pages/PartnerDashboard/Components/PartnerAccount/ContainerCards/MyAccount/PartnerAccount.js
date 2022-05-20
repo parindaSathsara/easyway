@@ -357,7 +357,7 @@ function PartnerAccount() {
                                         <div className="col-lg-6 mb-3 accountUpdate">
                                             <label className="form-label">District</label>
                                             <select className="form-control" id="district" onChange={handleInputChange} value={userData.district} name='district'>
-                                                <option disabled selected>Your District</option>
+                                                <option readonly selected>Your District</option>
                                                 <option value="Galle" >Galle</option>
                                                 <option value="Matara">Matara</option>
                                                 <option value="Hambanthota">Hambanthota</option>
@@ -474,7 +474,7 @@ function PartnerAccount() {
                             </div>
                             <br />
                             <button className="btn btn-primary" type="submit" onClick={formOnSubmit}>Save changes</button>
-                            <hr className="my-4" />
+                            {/* <hr className="my-4" />
                             <div className="row">
                                 <div className="col-md">
                                     <article className="box mb-3 bg-light partnerAccDiv">
@@ -492,7 +492,7 @@ function PartnerAccount() {
                                             account, there is no going back.</small>
                                     </article>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </main>
                 </div>

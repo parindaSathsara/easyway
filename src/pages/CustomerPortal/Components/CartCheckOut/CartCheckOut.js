@@ -7,6 +7,8 @@ import CustomerNavBar from "../NavBar/NavBar";
 import Snackbar from "../../../SnackBar/Snackbar";
 import { confirmAlert } from 'react-confirm-alert';
 import { NavLink } from 'react-router-dom';
+import FooterCustomer from '../Footer/Footer';
+import NavigatorCus from '../Navigator/Navigator';
 
 const SnackbarType = {
     success: "success",
@@ -21,7 +23,7 @@ function ChartCheckOut() {
     const [cartVarListings, setCartVarListings] = useState([])
     const [totPrice, setTotPrice] = useState(0.00)
     const [discountPrice, setDiscountPrice] = useState(0.00)
-    const [cartItemCount,setCartItemCount]=useState(0)
+    const [cartItemCount, setCartItemCount] = useState(0)
 
     const snackbarRef = useRef(null);
 
@@ -106,7 +108,7 @@ function ChartCheckOut() {
 
             <TopHeadingNav></TopHeadingNav>
             <CustomerNavBar cartItemCount={cartItemCount}></CustomerNavBar>
-            <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
+            <NavigatorCus></NavigatorCus>
             <section class="padding-y">
                 <div class="container">
                     <div className="row">
@@ -193,20 +195,9 @@ function ChartCheckOut() {
                             </div>
                         </div>
                         <aside className="col-lg-4">
-                            <div className="card mb-3">
-                                <div className="card-body">
-                                    <form>
-                                        <label className="form-label">Have coupon?</label>
-                                        <div className="input-group">
-                                            <input type="text" className="form-control" name placeholder="Coupon code" />
-                                            <button className="btn btn-primary">Apply</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
                             <div className="card">
                                 <div className="card-body">
-                                    <dl className="dlist-align">
+                                    {/* <dl className="dlist-align">
                                         <dt>Price:</dt>
                                         <dd className="text-end text-dark h6"> {"LKR " + totPrice}</dd>
                                     </dl>
@@ -218,14 +209,14 @@ function ChartCheckOut() {
                                         <dt>Delivery Fee:</dt>
                                         <dd className="text-end text-danger">+ LKR 0</dd>
                                     </dl>
-                                    <hr />
+                                    <hr /> */}
                                     <dl className="dlist-align">
                                         <dt>Total:</dt>
-                                        <dd className="text-end text-dark h5">{"LKR " + totPrice} </dd>
+                                        <dd className="text-end text-danger h5">{"LKR " + totPrice} </dd>
                                     </dl>
                                     <div className="d-grid gap-2 my-3">
-                                        <NavLink to="#" className="btn btn-primary w-100"> Make Purchase </NavLink>
-                                        <a href="#" className="btn btn-light w-100"> Back to shop </a>
+                                        <NavLink to="/customerorder/" className="btn btn-primary w-100"> Make Purchase </NavLink>
+                                        <NavLink to="/customerportal/" className="btn btn-light w-100">Back To Home </NavLink>
                                     </div>
                                 </div>
                             </div>
@@ -233,6 +224,7 @@ function ChartCheckOut() {
                     </div>
                 </div>
             </section>
+            <FooterCustomer></FooterCustomer>
         </>
 
     );

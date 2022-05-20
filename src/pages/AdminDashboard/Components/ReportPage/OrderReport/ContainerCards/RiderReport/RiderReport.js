@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef, Component } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import './OrderReport.css'
+
+import './CustomersReport.css'
 import axios from 'axios';
 import MaterialTable from "material-table";
 import { alpha } from '@material-ui/core/styles';
@@ -11,14 +11,14 @@ import Snackbar from '../../../../../../SnackBar/Snackbar';
 import { PDFExport } from '@progress/kendo-react-pdf';
 import header from '../../../../../../../assets/images/header.jpg'
 import footer from '../../../../../../../assets/images/footer.jpg'
-import { Grid, GridColumn } from "@progress/kendo-react-grid";
+
 import { MDBDataTableV5 } from 'mdbreact';
 
 const SnackbarType = {
     success: "success",
     fail: "fail",
 };
-function OrderReport() {
+function CustomersReport() {
     const snackbarRef = useRef(null);
     const snackbarRefActive = useRef(null);
 
@@ -36,7 +36,7 @@ function OrderReport() {
         columns: [
 
             {
-                label: "Partner Name",
+                label: "Rider Name",
                 field: "partnername",
             },
 
@@ -99,7 +99,7 @@ function OrderReport() {
                     style={{
                         position: "absolute",
                         bottom: "40px",
-                        right: "40px"
+                        right: "40px",
                     }}
                 >
 
@@ -140,14 +140,14 @@ function OrderReport() {
                 <div className="col-md-12 containerbox">
                     <div className="containerbox-title">
                         <h5>
-                            Generate List of Partners Report
+                            Generate List of Customers Report
                         </h5>
                     </div>
 
                     <div style={{ height: "500px", overflow: "scroll", overflowX: "hidden" }}>
                         <PDFExport scale={0.8} ref={pdfExport} margin={{ top: "50mm", left: "10mm", right: "10mm", bottom: "30mm" }} paperSize={"A4"} pageTemplate={PageTemplate}>
                             <h6>
-                                List of Partners
+                                List of Customers
                             </h6>
                             <MDBDataTableV5 hover paging={false} searchTop searchBottom={false} data={data} btn={false} info={true} />
                         </PDFExport>
@@ -163,4 +163,4 @@ function OrderReport() {
 
 }
 
-export default OrderReport;
+export default CustomersReport;

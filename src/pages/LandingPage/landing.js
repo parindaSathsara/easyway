@@ -14,19 +14,13 @@ function landing() {
               </div>
               <ul className='nav'>
                 <li className='nav-item'>
-                  <a className='nav-link' href='#about'>Home</a>
-                </li>
-                <li className='nav-item'>
                   <a className='nav-link' href='#services'>Service</a>
-                </li>
-                <li className='nav-item'>
-                  <a className='nav-link' href='#partners'>Partners</a>
                 </li>
                 <li className='nav-item'>
                   <a className='nav-link' href='#contactus'>Contact</a>
                 </li>
                 <li className='nav-item'>
-                  <a className='nav-link' href=''>Customer Portal</a>
+                  <Link className='nav-link' to='/customerportal'>Main Portal</Link>
                 </li>
                 <li className='nav-item'>
                   <Link className='nav-link btn btn-warning' to='/login'>Login</Link>
@@ -164,38 +158,6 @@ function landing() {
 
         </div>
 
-        <div className='contenteliments partners' id="partners">
-          <h1>
-            Our <span className='secondLetter'>Partners</span>
-          </h1>
-          <div className="padding">
-            <div className="row container-fluid">
-              <div className="col-lg-12 grid-margin stretch-card">
-                <div className="card">
-                  <div className="card-body">
-                    <div className="owl-carousel carousel">
-                      <div className='item'>
-                        <img className='imgPartner' src={require('../../assets/partners/burgerwings.png')}></img>
-                      </div>
-
-                      <div className='item'>
-                        <img className='imgPartner' src={require('../../assets/partners/kfc.png')}></img>
-                      </div>
-
-                      <div className='item'>
-                        <img className='imgPartner' src={require('../../assets/partners/devon.png')}></img>
-                      </div>
-
-                      <div className='item'>
-                        <img className='imgPartner' src={require('../../assets/partners/ap.png')}></img>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
 
         <div className='contenteliments partners' id="contactus">

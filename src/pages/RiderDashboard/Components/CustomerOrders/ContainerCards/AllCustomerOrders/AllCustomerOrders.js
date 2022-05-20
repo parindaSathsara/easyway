@@ -83,7 +83,7 @@ function AllCustomerOrders() {
 
                 cusname: ordersdata.customername,
                 orderstatus: ordersdata.orderstatus,
-                totalprice: "LKR "+ordersdata.totalprice
+                totalprice: "LKR "+ordersdata.deliverytotalprice
             }
         }),
     };
@@ -108,7 +108,7 @@ function AllCustomerOrders() {
                 <div className="col-md-12 containerbox">
                     <div className="containerbox-title">
                         <h5>
-                            All Customer Orders
+                            All Orders
                         </h5>
                     </div>
                     {/* <MDBDataTableV5 hover scrollX maxHeight='400px' data={data} gtValueCheckBox={(val) => console.log(val)} searchTop searchBottom={false} /> */}

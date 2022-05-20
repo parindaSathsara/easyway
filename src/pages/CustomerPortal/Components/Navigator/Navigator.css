@@ -9,3 +9,7 @@
     background-color: #000731 !important;
     border: none !important;
 }
+
+.navLinkActiveServices{
+    color: rgb(255, 255, 255) !important;
+}

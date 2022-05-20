@@ -66,7 +66,7 @@ function AllListingsCusPortal() {
             </div>
             <TopHeadingNav></TopHeadingNav>
             <CustomerNavBar></CustomerNavBar>
-            <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
+            <NavigatorCus></NavigatorCus>
 
             <section className="padding-y">
                 <div className="container">
@@ -96,17 +96,7 @@ function AllListingsCusPortal() {
 
                         </aside> 
                         <main className="col-lg-9">
-                            <header className="d-sm-flex align-items-center border-bottom mb-4 pb-3">
-                                <strong className="d-block py-2">32 Items found </strong>
-                                <div className="ms-auto">
-                                    <select className="form-select d-inline-block w-auto">
-                                        <option value={0}>Best match</option>
-                                        <option value={1}>Recommended</option>
-                                        <option value={2}>High rated</option>
-                                        <option value={3}>Randomly</option>
-                                    </select>
-                                </div>
-                            </header>
+
                             {/* ========= content items ========= */}
                             <Switch>
                                 {routes.map((route, idx) => {
@@ -122,24 +112,7 @@ function AllListingsCusPortal() {
                                 <Redirect from="/empmasterpage" to="/empmasterpage/dashboard" />
                             </Switch>
                             <hr />
-                            <footer className="d-flex mt-4">
-                                <div>
-                                    <a href="javascript: history.back()" className="btn btn-light"> « Go back</a>
-                                </div>
-                                <nav className="ms-3">
-                                    <ul className="pagination">
-                                        <li className="page-item"><a className="page-link" href="#">1</a></li>
-                                        <li className="page-item active" aria-current="page">
-                                            <span className="page-link">2</span>
-                                        </li>
-                                        <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                        <li className="page-item">
-                                            <a className="page-link" href="#">Next</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </footer>
-                            {/* ========= content items .// ========= */}
+
                         </main> {/* col .// */}
                     </div> {/* row .// */}
                 </div> {/* container .//  */}

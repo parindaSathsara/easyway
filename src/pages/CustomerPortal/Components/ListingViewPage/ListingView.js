@@ -3,7 +3,7 @@ import './ListingView.css'
 
 import CustomerNavBarBreadCrumb from "../NavBarBreadCrumb/NavBarBreadCrumb";
 import CustomerNavBarSecondary from "../NavBarSecondary/NavBarSecondary";
-import { useHistory, useParams } from 'react-router-dom';
+import { NavLink, useHistory, useParams } from 'react-router-dom';
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import AliceCarousel from 'react-alice-carousel';
@@ -16,6 +16,8 @@ import TopHeadingNav from "../TopHeadingNav/TopHeadingNav";
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import Snackbar from "../../../SnackBar/Snackbar";
+import FooterCustomer from "../Footer/Footer";
+import NavigatorCus from "../Navigator/Navigator";
 
 
 const SnackbarType = {
@@ -137,7 +139,7 @@ function ListingView() {
                         () => setPreLoader(false),
                         1500
                     );
-            
+
                 }
             })
         }
@@ -172,7 +174,7 @@ function ListingView() {
                             quantity: quantity,
                             totalprice: finalListingPrice,
                             status: "NotPurchased",
-                            purpose:"Cart"
+                            purpose: "Cart"
                         }
 
                         console.log(cartData)
@@ -205,7 +207,7 @@ function ListingView() {
             quantity: quantity,
             totalprice: finalListingPrice,
             status: "NotPurchased",
-            purpose:"BuyItNow"
+            purpose: "BuyItNow"
         }
 
         console.log(cartData)
@@ -220,7 +222,7 @@ function ListingView() {
                 snackbarRefErr.current.show();
                 console.log(res.data.validator_errors);
             }
-            
+
         })
     }
 
@@ -228,6 +230,7 @@ function ListingView() {
 
     return (
         <div>
+
             <div style={preloader == true ? { display: 'block' } : { display: 'none' }}>
 
                 <FSPreLoader></FSPreLoader>
@@ -235,7 +238,7 @@ function ListingView() {
             </div>
             <TopHeadingNav></TopHeadingNav>
             <CustomerNavBar cartItemCount={cartItemCount}></CustomerNavBar>
-            <CustomerNavBarBreadCrumb></CustomerNavBarBreadCrumb>
+            <NavigatorCus></NavigatorCus>
 
             <Snackbar
                 ref={snackbarRef}
@@ -307,7 +310,7 @@ function ListingView() {
                                 <hr />
                                 <button href="#" className="btn  btn-warning" onClick={onOrderNow}> Order now </button>
                                 <button href="#" className="btn  btn-primary" onClick={onAddToCart}> <i className="me-1 fa fa-shopping-basket" /> Add to cart </button>
-                                <a href="#" className="btn  btn-light"> <i className="me-1 fa fa-heart" /> Save </a>
+
                             </article>
                         </main>
                     </div>
@@ -336,8 +339,7 @@ function ListingView() {
                                 {listing['description']}
                             </p>
                             <div className="d-flex mb-2 col-12" style={{ paddingLeft: 0 }}>
-                                <button className="btn w-20 btn-primary" type="button"> <i className="me-2 fa fa-phone" /> Contact</button>
-                                <button className="btn w-20 btn-dark" type="button"> <i className="me-2 fa fa-comment-dots" /> Visit Store</button>
+                                <NavLink  to={"/customerportal/partnerprofilepage/" + listing["partnerid"]} target={"_blank"} className="btn w-20 btn-dark">Visit Store</NavLink>
                             </div>
                         </div>
                     </article>
@@ -365,17 +367,7 @@ function ListingView() {
             </section>
 
 
-            <div className='contenteliments'>
-                <div className='container-fluid footer'>
-                    <img src={require('../../../../assets/images/logo.png')} className='footerLogo'></img>
-                    <img src={require('../../../../assets/images/fbinsta.png')} className='footersocial'></img>
-                </div>
-            </div>
-
-            <div>
-
-            </div>
-
+            <FooterCustomer></FooterCustomer>
         </div>
 
     );

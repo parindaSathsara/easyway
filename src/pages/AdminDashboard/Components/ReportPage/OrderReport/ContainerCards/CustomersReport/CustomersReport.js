@@ -13,12 +13,23 @@ import header from '../../../../../../../assets/images/header.jpg'
 import footer from '../../../../../../../assets/images/footer.jpg'
 import { Grid, GridColumn } from "@progress/kendo-react-grid";
 import { MDBDataTableV5 } from 'mdbreact';
+import CustomerJoinChart from '../../../../CustomersPage/ContainerCards/CustomerJoinChart/CustomerJoinChart';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, Scale, } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 
 const SnackbarType = {
     success: "success",
     fail: "fail",
 };
 function CustomersReport() {
+    ChartJS.register(
+        CategoryScale,
+        LinearScale,
+        BarElement,
+        Title,
+        Tooltip,
+        Legend
+    );
     const snackbarRef = useRef(null);
     const snackbarRefActive = useRef(null);
 
@@ -28,56 +39,108 @@ function CustomersReport() {
         pdfExport.current.save();
     }
 
+    const [customers, setCustomers] = useState([]); //Customer List State
 
-    const [partnersData, setPartnersData] = useState([])
+    const getCustomers = () => {
+        axios.get(`/api/administration/getAllCustomers/`).then(res => {
+
+            if (res.data.status === 200) {
+                setCustomers(res.data.customers);
+                console.log(res.data.customers);
+            }
+        })
+    }
+
+
+    const [customersList, setCustomersList] = useState([]);
+    const [dates, setDates] = useState([])
+
+    const getCustomersChart = () => {
+        axios.get(`/api/administration/getAllCustomers`).then(res => {
+
+            if (res.data.status === 200) {
+                res.data.customersByDate.forEach(element => {
+                    setDates(oldArray => [...oldArray, element.joineddate]);
+                });
+                res.data.customersByDate.forEach(element => {
+                    setCustomersList(oldArray => [...oldArray, element.CustomerCount]);
+                });
+            }
+
+        })
+    }
+
+    const options = {
+        responsive: true,
+        plugins: {
+
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: 'Customers Daily Joining'
+            },
+        },
+    };
+
+    const labels = dates
+
+    const dataCus = {
+        labels,
+        datasets: [
+            {
+                label: 'Customers',
+                maxBarThickness: 50,
+                data: customersList,
+                borderColor: '#001D6E',
+                backgroundColor: '#1E3163',
+            },
+        ],
+    };
+
+
+
 
 
     const data = {
         columns: [
 
             {
-                label: "Partner Name",
-                field: "partnername",
+                label: "Customer Name",
+                field: "customername",
             },
 
             {
-                label: "Contact Number",
-                field: "contactnumber",
+                label: "District",
+                field: "customerdistrict",
             },
             {
-                label: "District",
-                field: "district",
+                label: "Customer Contact",
+                field: "customercontact",
             },
             {
-                label: "District",
-                field: "district",
+                label: "Address",
+                field: "customerhomeaddress",
             },
         ],
-
-        rows: partnersData.map(partner => {
+        rows: customers.map(customer => {
             return {
-                partnername: partner.partnername,
-                contactnumber: partner.contactnumber,
-                district: partner.district,
 
+                customername: customer.customername,
+                customerdistrict: customer.customerdistrict,
+                customercontact: customer.customercontact,
+                customerhomeaddress: customer.customerhomeaddress,
             }
         }),
     };
 
 
     useEffect(() => {
-        getPartners();
+        getCustomers()
+        getCustomersChart()
     }, []);
 
-    const getPartners = () => {
-        axios.get('/api/partners/getAllPartners').then(res => {
-
-            if (res.data.status === 200) {
-                setPartnersData(res.data.partners);
-            }
-
-        })
-    }
 
 
     const PageTemplate = (props) => {
@@ -88,7 +151,7 @@ function CustomersReport() {
                         position: "absolute",
                         left: "1px",
                         right: "1px",
-                        top:"1px"
+                        top: "1px"
                     }}
                 >
 
@@ -146,13 +209,18 @@ function CustomersReport() {
 
                     <div style={{ height: "500px", overflow: "scroll", overflowX: "hidden" }}>
                         <PDFExport scale={0.8} ref={pdfExport} margin={{ top: "50mm", left: "10mm", right: "10mm", bottom: "30mm" }} paperSize={"A4"} pageTemplate={PageTemplate}>
-                            <h6>
+                            <h6 className='mt-5'>
+                                Customer Visiting Chart
+                            </h6>
+                            <Bar options={options} data={dataCus} />
+
+                            <h6 className='mt-5'>
                                 List of Customers
                             </h6>
                             <MDBDataTableV5 hover paging={false} searchTop searchBottom={false} data={data} btn={false} info={true} />
                         </PDFExport>
                     </div>
-                    <button onClick={handleExport} className="btn btn-primary">Generate Report</button>
+                    <button onClick={handleExport} className="btn btn-primary mt-4">Generate Report</button>
                 </div>
 
             </div>
